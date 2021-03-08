@@ -1,0 +1,42 @@
+.pessoa__imagem {
+    background-size: cover; /*cover faz com que a imagem ocupe todo o espaço*/
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    border-radius: 100%;
+
+    margin: 0 auto;
+}
+
+.pessoa__imagem--roberta {
+    background-image: url('../../img/pessoas/roberta.jpg');
+}
+
+.pessoa__imagem--marcela {
+    background-image: url('../../img/pessoas/marcela.jpg');
+}
+
+.pessoa__imagem--andreia {
+    background-image: url('../../img/pessoas/andreia.jpg');
+}
+
+@media screen and (min-width: 0) {
+    .pessoa__imagem  {
+        height: 180px;
+        width: 180px;
+    }
+} 
+
+@media screen and (min-width: 500px) {
+    .pessoa__imagem {
+        height: 300px;
+        width: 300px;
+    }
+} 
+
+/* @media screen and (min-width: 520px) {
+    .pessoa__imagem--roberta .pessoa__imagem--marcela .pessoa__imagem--andreia {
+        text-align: center;
+        padding: 1rem;
+    }
+}  */
