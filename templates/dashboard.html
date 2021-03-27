@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+
+    <div class="cabecalho__linha"></div>
+
+    <section class="container__dash">
+
+        <div class="cards">
+
+            <h1>Chaves e Advogados cadastrados</h1>
+
+            <div class="card">
+                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
+                <div class="card-dados">
+                    <h4 class="card-title"><b>Tifani Petrusa</b></h4>
+                    <p>Advogado</p>
+                    <button class="ativar">
+                        <a href="">Desativar Advogado</a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
+                <div class="card-dados">
+                    <h4 class="card-title"><b>João das Neves Doe</b></h4>
+                    <p>Advogado</p>
+                    <button class="ativar">
+                        <a href="">Desativar Advogado</a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
+                <div class="card-dados">
+                    <h4 class="card-title"><b>Tobias Sabbath</b></h4>
+                    <p>Advogado</p>
+                    <button class="ativar">
+                        <a href="">Desativar Advogado</a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
+                <div class="card-dados">
+                    <h4 class="card-title"><b>Tobias Sabbath</b></h4>
+                    <p>Advogado</p>
+                    <button class="ativar">
+                        <a href="">Desativar Advogado</a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
+                <div class="card-dados">
+                    <h4 class="card-title"><b>Insira o Nome do Advogado</b></h4>
+                    <button class="ativar">
+                        <a href="">Ativar Advogado</a>
+                    </button>
+                </div>
+            </div>
+            
+            
+        </div>
+
+        <div class="opcoes">
+            <span>Nome do Escritório</span>
+            <span>Endereço do Escritório</span>
+            <span>outros dados</span>
+            <span>outros dados</span>
+            <span>outros dados</span>
+            <span>outros dados</span>
+            <span>outros dados</span>
+            <span>outros dados</span>
+            <span>outros dados</span>
+        </div>
+
+    </section>
+
+    {% endblock %}
