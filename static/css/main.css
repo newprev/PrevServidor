@@ -1,7 +1,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   width: auto;
-  background: #dcc5bf;
+  background: #ddd;
   color: #000000;
 }
 
@@ -67,7 +67,7 @@ body {
 }
 
 .menu__link.ativo {
-  background: #dcc5bf;
+  background: #ddd;
   border: 0px solid;
   border-radius: 10px 10px 0 0;
   color: #444;
@@ -252,7 +252,8 @@ img {
 
 h1 {
   font-size: 3rem;
-  margin: 2rem 0;
+  margin: 2rem 7%;
+  text-align: center;
 }
 
 .container__dash {
@@ -271,9 +272,10 @@ h1 {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   margin: 10px;
+  max-width: 100%;
+  margin-bottom: 50px;
   padding: 10px;
   width: 75%;
-  margin-bottom: 50px;
 }
 
 .card {
@@ -281,16 +283,23 @@ h1 {
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  width: 40%;
-  padding: 20px;
+  max-width: 30%;
+  padding: 0 0px;
   background: #fafafa;
-  margin-bottom: 1.3rem;
+  margin: 1.8rem;
   border: 0px solid;
   border-radius: 10px;
 }
 
 .card img {
-  height: 200px;
+  width: 100%;
+  height: 45%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: 0 60%;
+     object-position: 0 60%;
+  border: 0px solid;
+  border-radius: 10px;
 }
 
 .card:hover {
@@ -298,12 +307,18 @@ h1 {
           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
 
-.container {
-  padding: 2px 16px;
+.card-dados {
+  padding: 1.25rem;
+}
+
+.card-title {
+  margin-bottom: .75rem;
+  font-size: 1.25rem;
+  padding-bottom: 10px;
 }
 
 .opcoes {
-  background: #dadada;
+  background: #6ac3c3;
   float: left;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -324,6 +339,23 @@ h1 {
 
 .opcoes span {
   margin: 5px 0;
+}
+
+.ativar {
+  width: 180px;
+  height: 50px;
+  background: lightgreen;
+  border: none;
+  border-radius: 10px;
+  margin-top: 35px;
+}
+
+.ativar a {
+  text-decoration: none;
+}
+
+.ativar:hover {
+  background: yellowgreen;
 }
 
 footer {
