@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+
+    <section class="content">
+        <div class="codastro">
+            <h1>Crie Sua Conta</h1>
+            <form action="" class="formulario" method="POST">
+                <label for="">Usuário</label>
+                <input class="cadastro__campo" name="usuario" placeholder="Escolha um nome para o usuário">
+
+                <label for="">Senha</label>
+                <input class="cadastro__campo"  type="password" size="10" maxlength="6" name="senha" placeholder="Digite uma senha">
+
+                <label for="">Confirmação de Senha</label>
+                <input class="cadastro__campo"  type="password" size="10" maxlength="6" name="confimacaoSenha" placeholder="Digite novamente a senha">
+
+                <label for="">Email</label>
+                <input class="cadastro__campo" name="email" placeholder="seuemail@email.com">
+
+                <label for="">Número de licenças</label>
+                <input class="cadastro__campo"  type="number"  min="1" max="5">
+
+                <input type="submit" value="enviar">
+                
+            </form>
+        </div>
+    </section>
+
+    {% endblock %}

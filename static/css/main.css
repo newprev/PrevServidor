@@ -361,4 +361,13 @@ h1 {
 footer {
   background: #fafafa;
 }
+
+.foot {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  padding: 1.2rem;
+  font-size: 1.2rem;
+}
 /*# sourceMappingURL=main.css.map */
