@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+
+    <section class="content">
+        <div class="login">
+            <h1 class="titulo">Entre com a sua conta</h1>
+            <form action="" class="formulario" method="POST">
+                <label for="">Usuário</label>
+                <input class="login__campo" name="usuario" placeholder="Escolha um nome para o usuário">
+
+                <label for="">Senha</label>
+                <input class="login__campo"  type="password" size="10" maxlength="6" name="senha" placeholder="Digite uma senha">
+
+                <a class="menu__link" href="{% url 'dashboard' %}">Entrar</a>
+            </form>
+        </div>
+    </section>
+
+    {% endblock %}
