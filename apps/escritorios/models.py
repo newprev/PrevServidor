@@ -4,8 +4,10 @@ from django.db import models
 from utils.helpers import getEstados
 
 class Escritorio(models.Model):
+    db_table = 'escritorio'
     ESTADO = getEstados()
 
+    escritorioId = models.AutoField(primary_key=True, auto_created=True)
     nomeEscritorio = models.CharField(max_length=50, blank=False)
     nomeFantasia = models.CharField(max_length=50, blank=True)
     cnpj = models.CharField(max_length=14, blank=True)
