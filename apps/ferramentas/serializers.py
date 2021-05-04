@@ -11,4 +11,4 @@ class ConvMonSerializer(serializers.ModelSerializer):
 class TetosPrevSerializer(serializers.ModelSerializer):
     class Meta:
         model = TetosPrev
-        exclude = ['dataValidade', 'dataCadastro']
+        exclude = ['dataUltAlt', 'dataCadastro']

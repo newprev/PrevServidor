@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.db import models
 from utils.helpers import getEstados
 
@@ -10,6 +9,7 @@ class Escritorio(models.Model):
     escritorioId = models.AutoField(primary_key=True, auto_created=True)
     nomeEscritorio = models.CharField(max_length=50, blank=False)
     nomeFantasia = models.CharField(max_length=50, blank=True)
+    senha = models.CharField(max_length=80, blank=False, default='')
     cnpj = models.CharField(max_length=14, blank=True)
     cpf = models.CharField(max_length=11, blank=True)
     inscEstadual = models.CharField(max_length=9, blank=True)
@@ -26,5 +26,4 @@ class Escritorio(models.Model):
     dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
 
     def __str__(self):
-        return self.nomeEscritorio
-
+        return self.nomeFantasia
