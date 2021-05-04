@@ -4,4 +4,4 @@ from .models import Escritorio
 class EscritoriosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Escritorio
-        fields = ['data']
+        exclude = ['dataCadastro']
