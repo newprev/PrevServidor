@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'apps.advogado',
     'apps.escritorios',
     'apps.ferramentas',
-    'rest_framework'
+    'rest_framework',
+    'django_filters',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

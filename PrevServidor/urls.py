@@ -5,6 +5,24 @@ from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet
 
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="NewPrev - Servidor",
+      default_version='0.0.10',
+      description="API Rest para consumo do programa Desktop NewPrev Cliente",
+      terms_of_service="#",
+      contact=openapi.Contact(email="newprev.projeto@gmail.com"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
+
 rotas = routers.DefaultRouter()
 rotas.register('advogados', AdvogadosViewSet, basename='Advogados')
 rotas.register('escritorio', EscritorioViewSet, basename='Escritorio')
@@ -14,6 +32,7 @@ rotas.register('tetosPrev', TetosPrevViewSet, basename='TetosPrevidenciarios')
 urlpatterns = [
     path('', include('apps.escritorios.urls')),
     path('admin/', admin.site.urls),
-    path('explorer-api/', include(rotas.urls)),
-    path('explorer-api/escritorio/<int:pk>/advogado', ListaAdvogadosByEscritorio.as_view()),
+    path('explorer/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('api/', include(rotas.urls)),
+    path('api/escritorio/<int:pk>/advogado', ListaAdvogadosByEscritorio.as_view()),
 ]

@@ -13,7 +13,7 @@ class ConvMon(models.Model):
     nomeMoeda = models.CharField(max_length=20, blank=False)
     fator = models.BigIntegerField()
     dataInicial = models.DateTimeField(blank=False)
-    dataFinal = models.DateTimeField(blank=False)
+    dataFinal = models.DateTimeField(blank=True, null=True)
     conversao = models.CharField(max_length=1, choices=CONVERSAO, default='V', null=False)
     moedaCorrente = models.BooleanField(default=False)
     sinal = models.CharField(max_length=10, blank=False)

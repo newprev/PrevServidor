@@ -6,6 +6,7 @@ class AdminAdvogado(admin.ModelAdmin):
     list_display_links = ['usuarioId', 'escritorioId', 'login', 'email', 'nomeUsuario']
     list_editable = ['ativo']
     readonly_fields = ['usuarioId', ]
+    ordering = ['nomeUsuario', ]
     list_per_page = 15
 
 admin.site.register(Advogado, AdminAdvogado)
