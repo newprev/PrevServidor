@@ -16,6 +16,11 @@ class AdvogadosViewSet(viewsets.ModelViewSet):
 
 class ListaAdvogadosByEscritorio(generics.ListAPIView):
     """Exibindo os(as) advogados(as) de determinado escritório"""
+
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ['login']
+    filterset_fields = ['confirmado']
+
     def get_queryset(self):
         queryset = None
         if len(self.kwargs) != 0:

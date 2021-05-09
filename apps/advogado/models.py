@@ -19,6 +19,7 @@ class Advogado(models.Model):
     estadoCivil = models.CharField(max_length=20, default='solteiro', null=False, blank=False)
     admin = models.BooleanField(default=False)
     ativo = models.BooleanField(default=True)
+    confirmado = models.BooleanField(default=False)
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
 
