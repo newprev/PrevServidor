@@ -75,6 +75,16 @@ celerybeat-schedule.*
 # SageMath parsed files 
 *.sage.py 
 
+# Environments 
+--.env 
+--.venv 
+--env/ 
+--venv/ 
+--ENV/ 
+--env.bak/ 
+--venv.bak/
+/prevServEnv
+
 # mkdocs documentation 
 /site 
 
@@ -107,6 +117,7 @@ GitHub.sublime-settings
 .history
 
 apps/advogado/migrations/
+/prevServEnv/
 
 # Environments 
 prevServEnv
