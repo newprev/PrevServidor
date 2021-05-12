@@ -25,3 +25,8 @@ class AdvogadoSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"sobrenomeUsuario": "O sobrenome do advogado não deve conter números."})
 
         return data
+
+class ConfirmaAdvogadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advogado
+        fields = ['senha', 'confirmado']

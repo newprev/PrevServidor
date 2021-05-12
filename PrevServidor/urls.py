@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio
+from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio, AdvogadosConfirmacaoViewSet
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet
 
@@ -35,4 +35,5 @@ urlpatterns = [
     path('explorer/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('api/', include(rotas.urls)),
     path('api/escritorio/<int:pk>/advogado', ListaAdvogadosByEscritorio.as_view()),
+    path('api/advogados/<int:pk>/confirmacao/', AdvogadosConfirmacaoViewSet.as_view()),
 ]
