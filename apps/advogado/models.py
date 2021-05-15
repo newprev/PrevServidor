@@ -7,7 +7,7 @@ from ..escritorios.models import Escritorio
 class Advogado(models.Model):
     db_table = 'advogado'
 
-    usuarioId = models.AutoField(primary_key=True, auto_created=True)
+    advogadoId = models.AutoField(primary_key=True, auto_created=True)
     escritorioId = models.ForeignKey(Escritorio, models.CASCADE)
     senha = models.CharField(max_length=30, null=False, blank=False)
     login = models.CharField(max_length=30, null=False, blank=False)
@@ -25,6 +25,3 @@ class Advogado(models.Model):
 
     def __str__(self):
         return self.nomeUsuario
-
-
-
