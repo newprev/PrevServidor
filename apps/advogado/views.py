@@ -2,7 +2,7 @@ from rest_framework import viewsets, generics, filters
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from .models import Advogado
-from .serializers import AdvogadoSerializer, ConfirmaAdvogadoSerializer
+from .serializers import AdvogadoSerializer, ConfirmaAdvogadoSerializer, AuthClientSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -20,7 +20,7 @@ class AdvogadosConfirmacaoViewSet(generics.RetrieveUpdateAPIView):
     def get_queryset(self):
         queryset = None
         if len(self.kwargs) != 0:
-            queryset = Advogado.objects.filter(usuarioId=self.kwargs['pk'], confirmado=False)
+            queryset = Advogado.objects.filter(advogadoId=self.kwargs['pk'])
         return queryset
 
     def get_object(self):
@@ -42,7 +42,7 @@ class ListaAdvogadosByEscritorio(generics.ListAPIView):
 
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['login']
-    filterset_fields = ['confirmado']
+    filterset_fields = ['confirmado', 'ativo']
 
     def get_queryset(self):
         queryset = None
@@ -50,3 +50,24 @@ class ListaAdvogadosByEscritorio(generics.ListAPIView):
             queryset = Advogado.objects.filter(escritorioId_id=self.kwargs['pk'])
         return queryset
     serializer_class = AdvogadoSerializer
+
+class AuthPrevClient(generics.RetrieveAPIView):
+    """Autenticando usuário do PrevCliente"""
+
+    search_fields = ['numeroOAB', 'email']
+    serializer_class = AuthClientSerializer
+
+    def get_object(self):
+        login = self.kwargs['login']
+        if login is not None:
+            if login.isdecimal():
+                return get_object_or_404(Advogado, numeroOAB=self.kwargs['login'], confirmado=True)
+            else:
+                return get_object_or_404(Advogado, email=self.kwargs['login'], confirmado=True, ativo=True)
+        else:
+            JsonResponse(status=400, data="Parâmetros errados")
+
+    def get_queryset(self):
+        queryset = self.get_object()
+        return queryset
+
