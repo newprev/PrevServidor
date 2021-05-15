@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'PrevServidor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'NewPrev_Serv',
-        'USER': 'NEWPREV',
-        'PASSWORD': '_NewPrev2021_',
-        'HOST': 'localhost',
+        'NAME': 'newprev01',
+        'USER': 'newprev01',
+        'PASSWORD': 'newprev2021',
+        'HOST': 'mysql.newprev.dev.br',
         'PORT': '3306'
     }
 }
