@@ -2,6 +2,7 @@ from datetime import datetime
 from django.db import models
 from utils.helpers import getEstados
 
+
 class Escritorio(models.Model):
     db_table = 'escritorio'
     ESTADO = getEstados()
