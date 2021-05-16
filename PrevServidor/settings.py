@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     'drf_yasg'
 ]
 
+REST_FRAMEWORK = {
+    "DATE_INPUT_FORMATS": ["%Y-%m-%d"],
+    "DATETIME_FORMAT": "%Y-%m-%d",
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

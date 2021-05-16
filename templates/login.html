@@ -6,14 +6,16 @@
     <section class="content">
         <div class="login">
             <h1 class="titulo">Entre com a sua conta</h1>
-            <form action="" class="formulario" method="POST">
+            <form action="{% url 'login' %}" class="formulario" method="POST">
+                {% csrf_token %}
                 <label for="">Usuário</label>
                 <input class="login__campo" name="usuario" placeholder="Escolha um nome para o usuário">
 
                 <label for="">Senha</label>
-                <input class="login__campo"  type="password" size="10" maxlength="6" name="senha" placeholder="Digite uma senha">
+                <input class="login__campo"  type="password" size="20" maxlength="20" name="senha" placeholder="Digite uma senha">
 
-                <a class="menu__link" href="{% url 'dashboard' %}">Entrar</a>
+                <input type="submit" value="enviar" class="menu__link" >
+<!--                <a class="menu__link" type="submit" href="{% url 'dashboard' %}">Entrar</a>-->
             </form>
         </div>
     </section>
