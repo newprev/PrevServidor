@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import auth
 
+from apps.escritorios.views.dashTools import *
+
 from django.http import HttpResponse
 
 # Create your views here.
@@ -41,12 +43,9 @@ def cadastro(request):
             print('Email Usuario já cadastrado')
             return redirect('cadastro')
 
-        # if Escritorio.objects.filter(nomeEscritorio=usuario).exists():
-        #     print('Nome de Usuario já cadastrado')
-        #     return redirect('cadastro')
-
-        # Cadastro do Escritório
-        escritorio = Escritorio(nomeEscritorio=usuario, email=email, senha=senha, qtdChaves=licencas)
+        escritorio = Escritorio.objects.create_superuser(
+            username=usuario, nomeEscritorio=usuario, email=email, password=senha, senha=senha, qtdChaves=licencas
+        )
         escritorio.save()
 
         print('2 - ', usuario, senha, confirmaSenha, email, licencas)
@@ -65,24 +64,47 @@ def login(request):
         if usuario == "" or senha == "":
             return redirect('login')
 
-        if Escritorio.objects.filter(nomeEscritorio=usuario, senha=senha).exists():
-            print(' Acesso Permitido ')
-            escritorio = get_object_or_404(Escritorio, nomeEscritorio=usuario, senha=senha)
-            print('-->  ')
-            print('login 1 --->', escritorio.nomeEscritorio)
-            print('login 1 --->', escritorio.escritorioId)
-            return redirect('dashboard')
-        else:
-            print(' Acesso Não Permitido ')
-            return redirect('login')
+        print('login 1 -->', usuario, senha)
+
+        if Escritorio.objects.filter(nomeEscritorio=usuario).exists():
+            nome = Escritorio.objects.filter(nomeEscritorio=usuario).values_list('nomeEscritorio', flat=True)
+            print('login 2 -->', nome[0])
+
+            escritorio = auth.authenticate(request, username=nome[0], password=senha)
+
+            print('login 3  -->', escritorio.email)
+
+            if escritorio is not None:
+                auth.login(request, escritorio)
+                print('login to dash ID ----', escritorio.escritorioId)
+
+                return redirect('dashboard', escritorio.escritorioId)
     return render(request, 'login.html')
 
 
-def dashboard(request):
+def logout(request):
+    auth.logout(request)
+    return render(request, 'index.html')
 
-    escritorio = Escritorio.objects.all()
-    infos = {
-        "dados": escritorio
-    }
 
-    return render(request, 'dashboard.html', infos)
+def dashboard(request, escritorioId):
+
+    if request.user.is_authenticated:
+
+        escritorioOBJ = get_object_or_404(Escritorio, pk=escritorioId)
+        print('teste -------------', escritorioOBJ.email)
+
+        chaves = {}
+        for chave in range(1, escritorioOBJ.qtdChaves + 1):
+            chaves[chave] = chave
+
+        dicioChaves = {'dados': chaves}
+
+        print(dicioChaves)
+
+        # testeGet = get_object_or_404(Escritorio, Escritorio.escritorioId)
+        # print(testeGet.email)
+
+        return render(request, 'dashboard.html', dicioChaves)
+    return redirect('index')
+
