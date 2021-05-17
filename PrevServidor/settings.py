@@ -134,3 +134,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'PrevServidor/static')
 
 # PROJECT_ROOT = os.path.dirname(__file__)
 # os.path.join(PROJECT_ROOT, '../apps')
+
+AUTH_USER_MODEL = 'escritorios.Escritorio'

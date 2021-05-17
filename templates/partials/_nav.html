@@ -4,9 +4,17 @@
     <img class="logo" src="{% static 'img/np_logo.png' %}" alt="martelinho">
     <nav class="menu">
         <ul class="menu__lista">
-            <li class="menu__item"><a class="menu__link ativo" href="{% url 'index' %}">Home</a></li>
-            <li class="menu__item"><a class="menu__link" href="{% url 'cadastro' %}">Cadastre-se</a></li>
-            <li class="menu__item"><a class="menu__link" href="{% url 'login' %}">Login</a></li>
+
+            {% if user.is_authenticated %}
+                <li class="menu__item"><a class="menu__link" href="{% url 'index' %}">Home</a></li>
+                <li class ="menu__item"><a class ="menu__link ativo" href="id={{user.escritorioId}}">Seu Escritório</a></li>
+                <li class="menu__item"><a class="menu__link" href="{% url 'logout' %}">Logout</a></li>
+
+            {% else %}
+                <li class="menu__item"><a class="menu__link " href="{% url 'index' %}">Home</a></li>
+                <li class="menu__item"><a class="menu__link ativo" href="{% url 'cadastro' %}">Cadastre-se</a></li>
+                <li class="menu__item"><a class="menu__link" href="{% url 'login' %}">Login</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>
