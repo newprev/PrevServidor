@@ -10,63 +10,22 @@
         <div class="cards">
 
 
-            <h1>Chaves e Advogados cadastrados {{ infos.nomeEscritorio }}</h1>
+            <h1>Chaves e Advogados cadastrados {{ user.email }} {{ user.qtdChaves }}</h1>
 
-            <div class="card">
-                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
-                <div class="card-dados">
-                    <h4 class="card-title"><b>Tifani Petrusa</b></h4>
-                    <p>Advogado</p>
-                    <button class="ativar">
-                        <a href="">Desativar Advogado</a>
-                    </button>
-                </div>
-            </div>
+             {% for key in dados  %}
+                <div class="card">
+                    <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
+                    <div class="card-dados">
+                        <h4 class="card-title"><b>Tifani Petrusa</b></h4>
+                        <p>Advogado</p>
+                        <button class="ativar">
+                            <a href="">Desativar Advogado</a>
+                        </button>
+                    </div>
 
-            <div class="card">
-                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
-                <div class="card-dados">
-                    <h4 class="card-title"><b>João das Neves Doe</b></h4>
-                    <p>Advogado</p>
-                    <button class="ativar">
-                        <a href="">Desativar Advogado</a>
-                    </button>
                 </div>
-            </div>
+            {% endfor %}
 
-            <div class="card">
-                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
-                <div class="card-dados">
-                    <h4 class="card-title"><b>Tobias Sabbath</b></h4>
-                    <p>Advogado</p>
-                    <button class="ativar">
-                        <a href="">Desativar Advogado</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
-                <div class="card-dados">
-                    <h4 class="card-title"><b>Tobias Sabbath</b></h4>
-                    <p>Advogado</p>
-                    <button class="ativar">
-                        <a href="">Desativar Advogado</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
-                <div class="card-dados">
-                    <h4 class="card-title"><b>Insira o Nome do Advogado</b></h4>
-                    <button class="ativar">
-                        <a href="">Ativar Advogado</a>
-                    </button>
-                </div>
-            </div>
-            
-            
         </div>
 
         <div class="opcoes">
