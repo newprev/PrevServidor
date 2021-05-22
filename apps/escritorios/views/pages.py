@@ -2,12 +2,11 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import auth
 
-from apps.escritorios.views.dashTools import *
-
-from django.http import HttpResponse
-
 # Create your views here.
 from apps.escritorios.models import Escritorio
+from apps.advogado.models import Advogado
+
+from ..forms import AdvForm
 
 
 def index(request):
@@ -64,21 +63,17 @@ def login(request):
         if usuario == "" or senha == "":
             return redirect('login')
 
-        print('login 1 -->', usuario, senha)
-
         if Escritorio.objects.filter(nomeEscritorio=usuario).exists():
             nome = Escritorio.objects.filter(nomeEscritorio=usuario).values_list('nomeEscritorio', flat=True)
-            print('login 2 -->', nome[0])
 
             escritorio = auth.authenticate(request, username=nome[0], password=senha)
-
-            print('login 3  -->', escritorio.email)
 
             if escritorio is not None:
                 auth.login(request, escritorio)
                 print('login to dash ID ----', escritorio.escritorioId)
 
                 return redirect('dashboard', escritorio.escritorioId)
+                # return redirect('dashboard')
     return render(request, 'login.html')
 
 
@@ -87,24 +82,49 @@ def logout(request):
     return render(request, 'index.html')
 
 
-def dashboard(request, escritorioId):
+def dashboard(request, nomeEscritorio):
 
     if request.user.is_authenticated:
 
-        escritorioOBJ = get_object_or_404(Escritorio, pk=escritorioId)
-        print('teste -------------', escritorioOBJ.email)
+        # escritorioOBJ = get_object_or_404(Escritorio, pk=escritorioId)
+        # userAtivo = request.user.escritorioId
+
+        idUsuarioAtual = request.user.escritorioId
+        chavesTotais = request.user.qtdChaves
+        advCadstrado = Advogado.objects.filter(escritorioId=idUsuarioAtual)
 
         chaves = {}
-        for chave in range(1, escritorioOBJ.qtdChaves + 1):
-            chaves[chave] = chave
+        teste = {}
 
-        dicioChaves = {'dados': chaves}
+        if Advogado.objects.filter(escritorioId=idUsuarioAtual).exists():
+            # advCadstrado = Advogado.objects.filter(escritorioId=escritorioId).values_list('usuarioId', flat=True)
+            print('***************************************************************')
+            print(advCadstrado)
+            print(advCadstrado[0])
+            # print(advCadstrado[1])
+            print(advCadstrado[0].nomeUsuario)
+            print(advCadstrado[0].email)
+            dicioChaves = {'advogados': advCadstrado}
 
-        print(dicioChaves)
+            x = {'teste': {1: 1, 2: 2}}
 
-        # testeGet = get_object_or_404(Escritorio, Escritorio.escritorioId)
-        # print(testeGet.email)
+            return render(request, 'dashboard.html', dicioChaves)
 
+        for chave in range(1, chavesTotais + 1):
+            if chave <= len(advCadstrado):
+                chaves[chave] = advCadstrado[chave - 1]
+            else:
+                chaves[chave] = chave
+
+        dicioChaves = {'advogados': chaves}
         return render(request, 'dashboard.html', dicioChaves)
     return redirect('index')
 
+def criaAdv(request):
+    form = AdvForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('dashboard', request.user.escritorioId)
+
+    return render(request, 'cadAdv.html', {'form': form})

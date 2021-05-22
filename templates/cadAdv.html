@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+
+        <h1>Escritório: {{ user.nomeEscritorio }}</h1>
+    <section class="content">
+            <div class="codastro">
+                <form method="POST">
+                    {% csrf_token %}
+
+                    {% for campo in form.visible_fields %}
+
+                        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                        {{ campo }}
+
+                    {% endfor %}
+
+                    <button type="submit">Salvar</button>
+                </form>
+            </div>
+    </section>
+
+
+    {% endblock %}

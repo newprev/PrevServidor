@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 
 
-
 # class Escritorio(models.Model):
 #     db_table = 'escritorio'
 #     ESTADO = getEstados()
@@ -45,7 +44,7 @@ class Escritorio(AbstractUser):
     cnpj = models.CharField(max_length=14, blank=True, null=True, unique=True)
     cpf = models.CharField(max_length=11, blank=True, null=True, unique=True)
     telefone = models.CharField(max_length=11, blank=True, null=True, unique=True)
-    email = models.EmailField(max_length=60, null=False, blank=False)
+    email = models.EmailField(max_length=60, null=False, blank=False, unique=True)
     inscEstadual = models.CharField(max_length=9, blank=True, null=True, unique=True)
     endereco = models.CharField(max_length=80, blank=True)
     numero = models.IntegerField(null=True, blank=True)
@@ -59,6 +58,14 @@ class Escritorio(AbstractUser):
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
 
-    def __str__(self):
-        return self.nomeFantasia
+    first_name = None
+    last_name = None
 
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return self.username
+
+    def retEmail(self):
+        return self.email

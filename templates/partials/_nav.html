@@ -7,7 +7,7 @@
 
             {% if user.is_authenticated %}
                 <li class="menu__item"><a class="menu__link" href="{% url 'index' %}">Home</a></li>
-                <li class ="menu__item"><a class ="menu__link ativo" href="id={{user.escritorioId}}">Seu Escritório</a></li>
+                <li class ="menu__item"><a class ="menu__link ativo" href="escritorio={{user.escritorioId}}">Seu Escritório</a></li>
                 <li class="menu__item"><a class="menu__link" href="{% url 'logout' %}">Logout</a></li>
 
             {% else %}
