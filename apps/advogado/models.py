@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from ..escritorios.models import Escritorio
+from django.contrib import admin
 
 
 class Advogado(models.Model):
@@ -27,18 +28,5 @@ class Advogado(models.Model):
     def __str__(self):
         return f"id: {self.usuarioId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
         # return {'nome': self.nomeUsuario}
-
-
-    # def toDict(self):
-    #     dictUsuario = {
-    #         'escritorioId': self.escritorioId_id,
-    #         'usuarioId': self.usuarioId,
-    #         'nomeUsuario': self.nomeUsuario,
-    #         'email': self.email,
-    #         'numeroOAB': self.numeroOAB,
-    #         'ativo': self.ativo
-    #     }
-    #     return dictUsuario
-
 
 

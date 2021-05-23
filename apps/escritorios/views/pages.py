@@ -94,7 +94,8 @@ def dashboard(request, nomeEscritorio):
         advCadstrado = Advogado.objects.filter(escritorioId=idUsuarioAtual)
 
         chaves = {}
-        teste = {}
+        dicioChaves = {}
+        print('chaves T -------------------------------', chavesTotais)
 
         if Advogado.objects.filter(escritorioId=idUsuarioAtual).exists():
             # advCadstrado = Advogado.objects.filter(escritorioId=escritorioId).values_list('usuarioId', flat=True)
@@ -104,27 +105,54 @@ def dashboard(request, nomeEscritorio):
             # print(advCadstrado[1])
             print(advCadstrado[0].nomeUsuario)
             print(advCadstrado[0].email)
-            dicioChaves = {'advogados': advCadstrado}
+            # dicioChaves = {'advogados': advCadstrado}'
+            dicioChaves["advogados"] = advCadstrado
 
-            x = {'teste': {1: 1, 2: 2}}
+            print('-------------------------------------------', len(advCadstrado))
+            for i in advCadstrado:
+                print(i)
 
-            return render(request, 'dashboard.html', dicioChaves)
+            # return render(request, 'dashboard.html', dicioChaves)
 
-        for chave in range(1, chavesTotais + 1):
+        for chave in range(1, (chavesTotais + 1) - len(advCadstrado)):
             if chave <= len(advCadstrado):
                 chaves[chave] = advCadstrado[chave - 1]
             else:
-                chaves[chave] = chave
+                chaves[chave] = 'Cadastrar'
 
-        dicioChaves = {'advogados': chaves}
+
+
+        booTotalChaves = False
+        if len(advCadstrado) < chavesTotais:
+            booTotalChaves = True
+
+        intChavesUsadas = len(advCadstrado)
+
+        dicioChaves = {'advogados': advCadstrado, 'booTotalChaves': booTotalChaves, 'intChavesUsadas': intChavesUsadas}
+
         return render(request, 'dashboard.html', dicioChaves)
     return redirect('index')
+
 
 def criaAdv(request):
     form = AdvForm(request.POST or None)
 
     if form.is_valid():
+
+        novo = form.save(commit=False)
+        novo.escritorioId = request.user
+        novo.save()
+        # form.save_m2m()
         form.save()
-        return redirect('dashboard', request.user.escritorioId)
+        return redirect('dashboard', request.user.nomeEscritorio)
 
     return render(request, 'cadAdv.html', {'form': form})
+
+
+def updateAdv(request):
+    pass
+
+
+def deleteAdv(request):
+    pass
+

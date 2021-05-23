@@ -10,23 +10,43 @@
         <div class="cards">
 
 
-            <h1>Chaves e Advogados cadastrados {{ user.email }} {{ user.qtdChaves }}</h1>
+            <h1>Chaves e Advogados cadastrados {{ user.email }} {{ intChavesUsadas }}/{{ user.qtdChaves }}</h1>
 
-            <a href="{% url 'criaAdv' %}">Novo Advogado</a>
-
-             {% for key in advogados  %}
+             {% for key in advogados %}
                 <div class="card">
                     <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
                     <div class="card-dados">
-                        <h4 class="card-title"><b>{{ key.nomeUsuario }}</b></h4>
-                        <p>OAB: {{ key.numeroOAB }}</p>
+                        <h4 class="card-title"><b>{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</b></h4>
+                        <div>
+                            <p>OAB: {{ key.numeroOAB }}</p>
+                            <button class="ativar">
+                                <a href="">Desativar Advogado</a>
+                            </button>
+                        </div>
+
                         <button class="ativar">
-                            <a href="">Desativar Advogado</a>
+                            <a href="">Atualizar Dados</a>
+                        </button>
+                       <button class="ativar">
+                            <a href="">Deletar Advogado</a>
                         </button>
                     </div>
 
                 </div>
             {% endfor %}
+
+            {% if booTotalChaves %}
+                <div class="card">
+                    <div class="card-dados">
+                        <h4 class="card-title"><b>{{ key.teste }}</b></h4>
+                        <p>Cadastrar Novo Advogado</p>
+                        <button class="ativar">
+                            <a href="{% url 'criaAdv' %}">Novo Advogado</a>
+                        </button>
+                    </div>
+
+                </div>
+            {% endif %}
 
         </div>
 
