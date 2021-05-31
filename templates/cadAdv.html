@@ -5,20 +5,22 @@
 
         <h1>Escritório: {{ user.nomeEscritorio }}</h1>
     <section class="content">
-            <div class="codastro">
-                <form method="POST">
-                    {% csrf_token %}
+        <div class="form_container">
+            <h1 class="titulo">Crie Sua Conta</h1>
+            <form action="" class="formulario" method="POST">
 
-                    {% for campo in form.visible_fields %}
+                {% csrf_token %}
 
-                        <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                {% for campo in form.visible_fields %}
+
+                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
                         {{ campo }}
+                {% endfor %}
 
-                    {% endfor %}
+                <button  class="form__btn" type="submit">Salvar</button>
 
-                    <button type="submit">Salvar</button>
-                </form>
-            </div>
+            </form>
+        </div>
     </section>
 
 

@@ -3,65 +3,91 @@
 
     {% block content %}
 
-    <div class="cabecalho__linha"></div>
+    <!-- MENU LATERAL -->
 
-    <section class="container__dash">
-
-        <div class="cards">
-
-
-            <h1>Chaves e Advogados cadastrados {{ user.email }} {{ intChavesUsadas }}/{{ user.qtdChaves }}</h1>
-
-             {% for key in advogados %}
-                <div class="card">
-                    <img src="{% static 'img/avatar.jpg' %}" alt="Avatar">
-                    <div class="card-dados">
-                        <h4 class="card-title"><b>{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</b></h4>
-                        <div>
-                            <p>OAB: {{ key.numeroOAB }}</p>
-                            <button class="ativar">
-                                <a href="">Desativar Advogado</a>
-                            </button>
-                        </div>
-
-                        <button class="ativar">
-                            <a href="">Atualizar Dados</a>
-                        </button>
-                       <button class="ativar">
-                            <a href="">Deletar Advogado</a>
-                        </button>
-                    </div>
-
-                </div>
-            {% endfor %}
-
-            {% if booTotalChaves %}
-                <div class="card">
-                    <div class="card-dados">
-                        <h4 class="card-title"><b>{{ key.teste }}</b></h4>
-                        <p>Cadastrar Novo Advogado</p>
-                        <button class="ativar">
-                            <a href="{% url 'criaAdv' %}">Novo Advogado</a>
-                        </button>
-                    </div>
-
-                </div>
-            {% endif %}
-
+    <nav id="menu-lateral">
+        <div class="txt_titulo_lateral">
+            <span >Dados dos Escritório</span>
         </div>
 
-        <div class="opcoes">
-            <span>Nome do Escritório</span>
-            <span>Endereço do Escritório</span>
-            <span>outros dados</span>
-            <span>outros dados</span>
-            <span>outros dados</span>
-            <span>outros dados</span>
-            <span>outros dados</span>
-            <span>outros dados</span>
-            <span>outros dados</span>
-        </div>
+        <ul class="menu-lateral-linhas">
+          <li>Nome do Escritorio</li>       <span>Mario de Andrade Advocacia Exemplo de ser assim</span>
+          <li>Chaves</li>       <span>6</span>
+          <li>Nome</li>       <span>João Davi</span>
+          <li>SobreNome </li>       <span>Naveroso de Souza Silva Filho</span>
+          <li>Nome Fantasia</li>       <span>Vem e Aprendendo ADVOGADOS</span>
+          <li>CNPJ</li>       <span>XX.XXX.XXX/XXXX-XX</span>
+          <li>CPF</li>       <span>XXX.XXX.XXX-XX</span>
+          <li>Telefone</li>       <span>(XX) X-XXXX-XXXX</span>
+          <li>E-mail</li>       <span>SeuEmailAqui@email.com.br</span>
+          <li>Inscrição Estadual</li>       <span>?????? ?????? ??????</span>
+          <li>Endereço</li>       <span>Desembargador Juarez Mattos Barreto Bezerra de Menezes</span>
+          <li>CEP</li>       <span>XXXXX-XXX</span>
+          <li>Cidade</li>       <span>São José do Vale do Rio Preto</span>
+          <li>Bairro</li>       <span>Desembargador Juarez Mattos Barreto Bezerra de Menezes</span>
+          <li>Estado</li>       <span>Minas Gerais</span>
 
+        </ul>
+    </nav>
+
+
+<!--    <h1>Chaves e Advogados cadastrados {{ user.email }} {{ intChavesUsadas }}/{{ user.qtdChaves }}</h1>-->
+
+      <!-- essa classe essa em base -->
+    <section class="teste">
+        <div class="">
+            <span>SEU ESCRITÓRIO</span>
+            <span>NOME DO SEU ESCRITÓRIO</span>
+        </div>
     </section>
+
+
+     <div class="l-cards">
+
+        {% if booTotalChaves %}
+
+            <article class="c-card">
+                <a class="c-card__image" href="{% url 'criaAdv' %}">
+                    <img class="img_add_adv" src="static/img/plus.png" alt="image placeholder">
+                </a>
+            </article>
+
+        {% endif %}
+
+        {% for key in advogados %}
+            <article class="c-card">
+                <div class="c-card__image">
+                    <img class="img_adv" src="static/img/avatar.jpg" alt="image placeholder">
+                </div>
+
+                <div class="c-card__content">
+                    <div class="c-fild-OAB_btn">
+                        <span class="" style="width:85%">OAB: {{ key.numeroOAB }}</span>
+
+                        <!-- Rounded switch -->
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+
+                    </div>
+
+                    <span class="" style="width:80%">{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</span>
+
+                </div>
+
+                <div class="btn_card">
+                    <button class="atualizar_btn">
+                        <a href="">Atualizar</a>
+                    </button>
+                    <button class="del_btn">
+                        <a href="">Deletar</a>
+                    </button>
+                </div>
+            </article>
+        {% endfor %}
+
+    </div>
+
 
     {% endblock %}

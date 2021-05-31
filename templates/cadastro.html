@@ -4,26 +4,26 @@
     {% block content %}
 
     <section class="content">
-        <div class="codastro">
-            <h1>Crie Sua Conta</h1>
+        <div class="form_container">
+            <h1 class="titulo">Crie Sua Conta</h1>
             <form action="{% url 'cadastro' %}" class="formulario" method="POST">
                 {% csrf_token %}
                 <label for="">Usuário/Nome do Escritório</label>
-                <input class="cadastro__campo" name="usuario" placeholder="Escolha um nome para o usuário" required>
+                <input class="form__campo" name="usuario" placeholder="Escolha um nome para o usuário" required>
 
                 <label for="">Senha</label>
-                <input class="cadastro__campo"  type="password" size="10" maxlength="10" name="senha" placeholder="Digite uma senha" required>
+                <input class="form__campo"  type="password" size="10" maxlength="10" name="senha" placeholder="Digite uma senha" required>
 
                 <label for="">Confirmação de Senha</label>
-                <input class="cadastro__campo"  type="password" size="10" maxlength="10" name="confimacaoSenha" placeholder="Digite novamente a senha" required>
+                <input class="form__campo"  type="password" size="10" maxlength="10" name="confimacaoSenha" placeholder="Digite novamente a senha" required>
 
                 <label for="">Email</label>
-                <input class="cadastro__campo" name="email" placeholder="seuemail@email.com" required>
+                <input class="form__campo" name="email" placeholder="seuemail@email.com" required>
 
                 <label for="">Número de licenças</label>
-                <input class="cadastro__campo"  type="number" name="licencas" min="1" max="10" required>
+                <input class="form__campo"  type="number" name="licencas" min="1" max="10" required>
 
-                <input type="submit" value="enviar">
+                <input class="form__btn" type="submit" value="enviar">
                 
             </form>
         </div>

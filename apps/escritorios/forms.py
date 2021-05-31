@@ -30,6 +30,18 @@ class AdvForm(forms.ModelForm):
             "numeroOAB": "Nº OAB"
         }
 
+        widgets = {
+            'nomeUsuario': forms.TextInput(attrs={'class': 'form__campo'}),
+            'sobrenomeUsuario': forms.TextInput(attrs={'class': 'form__campo'}),
+            'numeroOAB': forms.TextInput(attrs={'class': 'form__campo'}),
+            'login': forms.TextInput(attrs={'class': 'form__campo'}),
+            'senha': forms.TextInput(attrs={'class': 'form__campo'}),
+            'email': forms.TextInput(attrs={'class': 'form__campo'}),
+            'nacionalidade': forms.TextInput(attrs={'class': 'form__campo'}),
+            'estadoCivil': forms.TextInput(attrs={'class': 'form__campo'}),
+            'ativo': forms.CheckboxInput(attrs={'class': 'form__campo'}),
+        }
+
     # escritorioId = forms.DateField(label="Id", disabled=True, initial='auth.User')
     # escritorioId = forms.DateField(label="Id", disabled=True, initial=Escritorio.escritorioId)
     # escritorioId = forms.DateField(label="Id", disabled=True)
