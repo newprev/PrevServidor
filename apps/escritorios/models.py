@@ -58,8 +58,8 @@ class Escritorio(AbstractUser):
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
 
-    first_name = None
-    last_name = None
+    # first_name = None
+    # last_name = None
 
     # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = ['username']

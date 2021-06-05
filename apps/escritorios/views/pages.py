@@ -42,9 +42,14 @@ def cadastro(request):
             print('Email Usuario já cadastrado')
             return redirect('cadastro')
 
-        escritorio = Escritorio.objects.create_superuser(
-            username=usuario, nomeEscritorio=usuario, email=email, password=senha, senha=senha, qtdChaves=licencas
+        # escritorio = Escritorio.objects.create_superuser(
+        #     username=usuario, nomeEscritorio=usuario, email=email, password=senha, senha=senha, qtdChaves=licencas, is_staff=False
+        # )
+
+        escritorio = Escritorio.objects.create_user(
+            username=usuario, nomeEscritorio=usuario, email=email, password=senha, senha=senha, qtdChaves=licencas, is_staff=False
         )
+
         escritorio.save()
 
         print('2 - ', usuario, senha, confirmaSenha, email, licencas)

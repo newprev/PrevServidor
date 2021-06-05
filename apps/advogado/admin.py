@@ -9,7 +9,7 @@ class AdminAdvogado(admin.ModelAdmin, LoginRequiredMixin):
     list_display_links = ['usuarioId', 'escritorioId', 'login', 'email', 'nomeUsuario']
     list_filter = ['escritorioId',]
     list_editable = ['ativo', 'confirmado']
-    readonly_fields = ['advogadoId', ]
+    # readonly_fields = ['advogadoId', ]
     ordering = ['nomeUsuario', ]
     list_per_page = 15
 
