@@ -13,6 +13,9 @@ import os, sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from datasource.magic import getDatabase
+from prevEnums import TipoConexao
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -84,16 +87,7 @@ WSGI_APPLICATION = 'PrevServidor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'newprev',
-        'USER': 'newprev',
-        'PASSWORD': 'newprev2021',
-        'HOST': 'mysql.newprev.dev.br',
-        'PORT': '3306'
-    }
-}
+DATABASES = getDatabase(TipoConexao.magic)
 
 
 # Password validation
