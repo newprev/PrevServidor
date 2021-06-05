@@ -12,5 +12,5 @@ urlpatterns = [
     path('logout', pages.logout, name='logout'),
     path('novoAdv', pages.criaAdv, name='criaAdv'),
     path('updateAdv/<int:id>/', pages.updateAdv, name='updateAdv'),
-    path('deleteAdv/<int:id>/', pages.deleteAdv, name='deleteAdv')
+    path('deletaAdv/<int:advogadoId>/', pages.deletaAdv, name='deletaAdv')
 ]

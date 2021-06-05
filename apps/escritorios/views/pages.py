@@ -162,6 +162,8 @@ def updateAdv(request):
     pass
 
 
-def deleteAdv(request):
-    pass
+def deletaAdv(request, advogadoId):
+    cardAdv = get_object_or_404(Advogado, pk=advogadoId)
+    cardAdv.delete()
+    return redirect('dashboard', request.user.nomeEscritorio)
 
