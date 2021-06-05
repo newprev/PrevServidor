@@ -9,7 +9,7 @@ from django.contrib import admin
 class Advogado(models.Model):
     db_table = 'advogado'
 
-    usuarioId = models.AutoField(primary_key=True, auto_created=True)
+    advogadoId = models.AutoField(primary_key=True, auto_created=True)
     escritorioId = models.ForeignKey(Escritorio, on_delete=models.CASCADE)
     senha = models.CharField(max_length=30, null=False, blank=False)
     login = models.CharField(max_length=30, null=False, blank=False)
@@ -26,7 +26,7 @@ class Advogado(models.Model):
     dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
 
     def __str__(self):
-        return f"id: {self.usuarioId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
+        return f"id: {self.advogadoId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
         # return {'nome': self.nomeUsuario}
 
 

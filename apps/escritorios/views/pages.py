@@ -147,7 +147,6 @@ def criaAdv(request):
         novo = form.save(commit=False)
         novo.escritorioId = request.user
         novo.save()
-        # form.save_m2m()
         form.save()
         return redirect('dashboard', request.user.nomeEscritorio)
 

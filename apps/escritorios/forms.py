@@ -21,7 +21,7 @@ class AdvForm(forms.ModelForm):
         # fields = "__all__"
 
         fields = ["nomeUsuario", "sobrenomeUsuario", "numeroOAB",
-        "login", "senha", "email","nacionalidade", "estadoCivil", "ativo", ]
+        "login", "senha", "email", "nacionalidade", "estadoCivil", "ativo", ]
 
         labels = {
             # "escritorioId": "Escritório",
