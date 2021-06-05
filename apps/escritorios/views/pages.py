@@ -27,6 +27,10 @@ def cadastro(request):
             print('O Usuário  não pode ficar em branco')
             return redirect('cadastro')
 
+        if Escritorio.objects.filter(username=usuario).exists():
+            print('=--------------------------------------USUARIO ja Cadastrado')
+            return redirect('cadastro')
+
         # Validação de email
         if not email.strip():
             print('O Email  não pode ficar em branco')
@@ -38,16 +42,16 @@ def cadastro(request):
             return redirect('cadastro')
 
         # Validação de usuário existente no banco
-        if Escritorio.objects.filter(email=email, nomeEscritorio=usuario).exists():
+        if Escritorio.objects.filter(email=email).exists():
             print('Email Usuario já cadastrado')
             return redirect('cadastro')
 
-        # escritorio = Escritorio.objects.create_superuser(
+        # escritorio = Escritorio.objects.create_user(
         #     username=usuario, nomeEscritorio=usuario, email=email, password=senha, senha=senha, qtdChaves=licencas, is_staff=False
         # )
 
         escritorio = Escritorio.objects.create_user(
-            username=usuario, nomeEscritorio=usuario, email=email, password=senha, senha=senha, qtdChaves=licencas, is_staff=False
+            username=usuario, nomeEscritorio=usuario, email=email, password=senha, qtdChaves=licencas, is_staff=False
         )
 
         escritorio.save()
@@ -68,6 +72,7 @@ def login(request):
         if usuario == "" or senha == "":
             return redirect('login')
 
+        print(usuario, senha)
         if Escritorio.objects.filter(nomeEscritorio=usuario).exists():
             nome = Escritorio.objects.filter(nomeEscritorio=usuario).values_list('nomeEscritorio', flat=True)
 
