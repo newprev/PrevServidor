@@ -126,3 +126,5 @@ prevServEnv
 
 
 apps/escritorios/migrations/
+
+apps/ferramentas/migrations/
