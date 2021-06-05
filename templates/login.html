@@ -4,18 +4,18 @@
     {% block content %}
 
     <section class="content">
-        <div class="login">
+        <div class="form_container">
             <h1 class="titulo">Entre com a sua conta</h1>
             <form action="{% url 'login' %}" class="formulario" method="POST">
                 {% csrf_token %}
                 <label for="">Usuário</label>
-                <input class="login__campo" name="usuario" placeholder="Escolha um nome para o usuário">
+                <input class="form__campo" name="usuario" placeholder="Escolha um nome para o usuário">
 
                 <label for="">Senha</label>
-                <input class="login__campo"  type="password" size="20" maxlength="20" name="senha" placeholder="Digite uma senha">
+                <input class="form__campo"  type="password" size="20" maxlength="20" name="senha" placeholder="Digite uma senha">
 
-                <input type="submit" value="enviar" class="menu__link" >
-<!--                <a class="menu__link" type="submit" href="{% url 'dashboard' %}">Entrar</a>-->
+                <input class="form__btn" type="submit" value="enviar" class="menu__link" >
+
             </form>
         </div>
     </section>
