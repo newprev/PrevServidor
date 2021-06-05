@@ -1,14 +1,16 @@
 from datetime import datetime
 
 from django.db import models
+from django.contrib.auth.models import User
 from ..escritorios.models import Escritorio
+from django.contrib import admin
 
 
 class Advogado(models.Model):
     db_table = 'advogado'
 
     advogadoId = models.AutoField(primary_key=True, auto_created=True)
-    escritorioId = models.ForeignKey(Escritorio, models.CASCADE)
+    escritorioId = models.ForeignKey(Escritorio, on_delete=models.CASCADE)
     senha = models.CharField(max_length=30, null=False, blank=False)
     login = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(max_length=40, null=False, blank=False)
@@ -24,4 +26,7 @@ class Advogado(models.Model):
     dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
 
     def __str__(self):
-        return self.nomeUsuario
+        return f"id: {self.advogadoId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
+        # return {'nome': self.nomeUsuario}
+
+

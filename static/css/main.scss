@@ -1,7 +1,8 @@
+@import '../scss/base';
 @import '../scss/navBar';
 @import '../scss/banner';
-@import '../scss/cadastro';
-@import '../scss/login';
-@import '../scss/contato';
-@import '../scss/dash';
-@import '../scss/variaveis'
+@import '../scss/forms';
+
+@import '../scss/dash/cards';
+@import '../scss/dash/cars_btns';
+@import '../scss/dash/info_lateral';

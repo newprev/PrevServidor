@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block content %}
+
+        <h1>Escritório: {{ user.nomeEscritorio }}</h1>
+    <section class="content">
+        <div class="form_container">
+            <h1 class="titulo">Crie Sua Conta</h1>
+            <form action="" class="formulario" method="POST">
+
+                {% csrf_token %}
+
+                {% for campo in form.visible_fields %}
+
+                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                        {{ campo }}
+                {% endfor %}
+
+                <button  class="form__btn" type="submit">Salvar</button>
+
+            </form>
+        </div>
+    </section>
+
+
+    {% endblock %}
