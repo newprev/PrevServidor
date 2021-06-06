@@ -61,27 +61,33 @@
                 </div>
 
                 <div class="c-card__content">
+                    <span class="" style="width:80%">{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</span>
+
                     <div class="c-fild-OAB_btn">
                         <span class="" style="width:85%">OAB: {{ key.numeroOAB }}</span>
 
                         <!-- Rounded switch -->
+
                         <label class="switch">
-                            <input type="checkbox">
+                            {% if key.ativo %}
+                                <input type="checkbox" name="ativo" checked>
+                            {% else %}
+                                <input type="checkbox" name="ativo" >
+                            {% endif %}
                             <span class="slider round"></span>
                         </label>
 
-                    </div>
 
-                    <span class="" style="width:80%">{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</span>
+                    </div>
 
                 </div>
 
                 <div class="btn_card">
                     <button class="atualizar_btn">
-                        <a href="">Atualizar</a>
+                        <a href="{% url 'editaAdv' key.advogadoId %}">Atualizar</a>
                     </button>
                     <button class="del_btn">
-                        <a href="">Deletar</a>
+                        <a href="{% url 'deletaAdv' key.advogadoId %}">Deletar</a>
                     </button>
                 </div>
             </article>

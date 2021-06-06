@@ -158,10 +158,37 @@ def criaAdv(request):
     return render(request, 'cadAdv.html', {'form': form})
 
 
-def updateAdv(request):
-    pass
+def editaAdv(request, advogadoId):
+    cardAdv = get_object_or_404(Advogado, pk=advogadoId)
+    form = AdvForm(request.POST or None)
+    cardAdvEditar = {'adv': cardAdv}
+    return render(request, 'atualiza_adv.html', cardAdvEditar)
 
 
-def deleteAdv(request):
-    pass
+def atualizaAdv(request):
+    if request.method == 'POST':
+        advogadoId = request.POST['advogadoId']
+
+        update = Advogado.objects.get(pk=advogadoId)
+
+        update.nomeUsuario = request.POST['nome']
+        update.sobrenomeUsuario = request.POST['sobrenome']
+        update.numeroOAB = request.POST['oab']
+        update.login = request.POST['login']
+        update.senha = request.POST['senha']
+        update.email = request.POST['email']
+        update.nacionalidade = request.POST['nacionalidade']
+        update.estadoCivil = request.POST['estadoCivil']
+        update.ativo = request.POST.get('ativo')
+        update.ativo = True if update.ativo else False
+
+        update.save()
+
+    return redirect('dashboard', request.user.nomeEscritorio)
+
+
+def deletaAdv(request, advogadoId):
+    cardAdv = get_object_or_404(Advogado, pk=advogadoId)
+    cardAdv.delete()
+    return redirect('dashboard', request.user.nomeEscritorio)
 
