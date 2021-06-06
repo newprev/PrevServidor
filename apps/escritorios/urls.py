@@ -11,6 +11,7 @@ urlpatterns = [
     path('escritorio=<str:nomeEscritorio>', pages.dashboard, name='dashboard'),
     path('logout', pages.logout, name='logout'),
     path('novoAdv', pages.criaAdv, name='criaAdv'),
-    path('updateAdv/<int:id>/', pages.updateAdv, name='updateAdv'),
+    path('editaAdv/<int:advogadoId>/', pages.editaAdv, name='editaAdv'),
+    path('atualizaAdv', pages.atualizaAdv, name='atualizaAdv'),
     path('deletaAdv/<int:advogadoId>/', pages.deletaAdv, name='deletaAdv')
 ]
