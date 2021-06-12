@@ -11,21 +11,24 @@
         </div>
 
         <ul class="menu-lateral-linhas">
-          <li>Nome do Escritorio</li>       <span>Mario de Andrade Advocacia Exemplo de ser assim</span>
-          <li>Chaves</li>       <span>6</span>
-          <li>Nome</li>       <span>João Davi</span>
-          <li>SobreNome </li>       <span>Naveroso de Souza Silva Filho</span>
-          <li>Nome Fantasia</li>       <span>Vem e Aprendendo ADVOGADOS</span>
-          <li>CNPJ</li>       <span>XX.XXX.XXX/XXXX-XX</span>
-          <li>CPF</li>       <span>XXX.XXX.XXX-XX</span>
-          <li>Telefone</li>       <span>(XX) X-XXXX-XXXX</span>
-          <li>E-mail</li>       <span>SeuEmailAqui@email.com.br</span>
-          <li>Inscrição Estadual</li>       <span>?????? ?????? ??????</span>
-          <li>Endereço</li>       <span>Desembargador Juarez Mattos Barreto Bezerra de Menezes</span>
-          <li>CEP</li>       <span>XXXXX-XXX</span>
-          <li>Cidade</li>       <span>São José do Vale do Rio Preto</span>
-          <li>Bairro</li>       <span>Desembargador Juarez Mattos Barreto Bezerra de Menezes</span>
-          <li>Estado</li>       <span>Minas Gerais</span>
+          <li>Nome do Escritorio</li>       <span>-{{ user.nomeEscritorio }}</span>
+          <li>Chaves</li>       <span>-{{ user.qtdChaves }}</span>
+          <li>Nome</li>       <span>-{{ user.nomeUsuario }}</span>
+          <li>SobreNome </li>       <span>-{{ user.sobrenomeUsuario }}</span>
+          <li>Nome Fantasia</li>       <span>-{{ user.nomeFantasia }}</span>
+          <li>CNPJ</li>       <span>-{{ user.cnpj }}</span>
+          <li>CPF</li>       <span>-{{ user.cpf }}</span>
+          <li>Telefone</li>       <span>-{{ user.telefone }}</span>
+          <li>E-mail</li>       <span>-{{ user.email }}</span>
+          <li>Inscrição Estadual</li>       <span>-{{ user.inscEstadual }}</span>
+          <li>Endereço</li>       <span>-{{ user.endereco }}</span>
+          <li>Número</li>       <span>-{{ user.numero }}</span>
+          <li>Complemento</li>       <span>-{{ user.complemento }}</span>
+          <li>CEP</li>       <span>-{{ user.cep }}</span>
+          <li>Cidade</li>       <span>-{{ user.cidade }}</span>
+          <li>Bairro</li>       <span>-{{ user.bairro }}</span>
+          <li>Estado</li>       <span>-{{ user.estado }}</span>
+          <li>Data de Cadastro</li>       <span>-{{ user.dataCadastro }}</span>
 
         </ul>
     </nav>
@@ -36,8 +39,7 @@
       <!-- essa classe essa em base -->
     <section class="teste">
         <div class="">
-            <span>SEU ESCRITÓRIO</span>
-            <span>NOME DO SEU ESCRITÓRIO</span>
+            <span>Bem vindo ao Escritório {{ user.nomeEscritorio }}</span>
         </div>
     </section>
 
