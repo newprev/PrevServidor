@@ -13,5 +13,7 @@ urlpatterns = [
     path('novoAdv', pages.criaAdv, name='criaAdv'),
     path('editaAdv/<int:advogadoId>/', pages.editaAdv, name='editaAdv'),
     path('atualizaAdv', pages.atualizaAdv, name='atualizaAdv'),
-    path('deletaAdv/<int:advogadoId>/', pages.deletaAdv, name='deletaAdv')
+    path('deletaAdv/<int:advogadoId>/', pages.deletaAdv, name='deletaAdv'),
+    path('editaEscritorio/<str:nomeEscritorio>/', pages.editaEscritorio, name='editaEscritorio'),
+    path('atualizaEscritorio', pages.atualizaEscritorio, name='atualizaEscritorio')
 ]

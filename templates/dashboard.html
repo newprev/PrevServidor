@@ -48,12 +48,24 @@
 
         {% if booTotalChaves %}
 
-            <article class="c-card">
-                <a class="c-card__image" href="{% url 'criaAdv' %}">
-                    <img class="img_add_adv" src="static/img/plus.png" alt="image placeholder">
-                </a>
-            </article>
+            {% if user.cnpj %}
 
+                <article class="c-card">
+                    <a class="c-card__image" href="{% url 'criaAdv' %}">
+                        <img class="img_add_adv" src="static/img/plus.png" alt="image placeholder">
+                    </a>
+                </article>
+
+            {% else %}
+
+                <span>Falta Pouco, Antes Vamos terminar de Cadastrar suas informações</span>
+                <article class="c-card">
+                    <a class="c-card__image" href="{% url 'editaEscritorio' user.nomeEscritorio %}">
+                        <img class="img_add_adv" src="static/img/plus.png" alt="image placeholder">
+                    </a>
+                </article>
+
+            {% endif %}
         {% endif %}
 
         {% for key in advogados %}

@@ -144,6 +144,19 @@ def dashboard(request, nomeEscritorio):
     return redirect('index')
 
 
+def editaEscritorio(request, nomeEscritorio):
+    escritorioAtivo = get_object_or_404(Escritorio, pk=request.user.escritorioId, nomeEscritorio=nomeEscritorio)
+    escritorioAtivoEditar = {'escritorio': escritorioAtivo}
+    return render(request, 'atualiza_Escritorio.html', escritorioAtivoEditar)
+
+
+def atualizaEscritorio(request):
+    if request.method == 'POST':
+        pass
+    return redirect('dashboard', request.user.nomeEscritorio)
+
+
+
 def criaAdv(request):
     form = AdvForm(request.POST or None)
 
