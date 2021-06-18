@@ -29,17 +29,20 @@
           <li>Bairro</li>       <span>-{{ user.bairro }}</span>
           <li>Estado</li>       <span>-{{ user.estado }}</span>
           <li>Data de Cadastro</li>       <span>-{{ user.dataCadastro }}</span>
+          <button class="atualizar_btn">
+            <a href="{% url 'editaEscritorio' user.nomeEscritorio %}">Atualizar</a>
+          </button>
 
         </ul>
     </nav>
 
-
-<!--    <h1>Chaves e Advogados cadastrados {{ user.email }} {{ intChavesUsadas }}/{{ user.qtdChaves }}</h1>-->
-
-      <!-- essa classe essa em base -->
     <section class="teste">
         <div class="">
-            <span>Bem vindo ao Escritório {{ user.nomeEscritorio }}</span>
+            {% if user.cnpj %}
+                <span>Bem vindo ao Escritório {{ user.nomeEscritorio }}</span>
+            {% else %}
+                <span>Falta pouco {{ user.nomeEscritorio }}. Clique no Botão a baixo e termine seu cadastro.</span>
+            {% endif %}
         </div>
     </section>
 
@@ -57,55 +60,59 @@
                 </article>
 
             {% else %}
-
-                <span>Falta Pouco, Antes Vamos terminar de Cadastrar suas informações</span>
+                <script>
+                    alert(" Falta Pouco. Cadastre mais algumas informações suas e já te liberaremos");
+                </script>
                 <article class="c-card">
                     <a class="c-card__image" href="{% url 'editaEscritorio' user.nomeEscritorio %}">
-                        <img class="img_add_adv" src="static/img/plus.png" alt="image placeholder">
+                        <img class="img_add_adv" src="static/img/cadastro.png" alt="image placeholder">
                     </a>
+
                 </article>
 
             {% endif %}
         {% endif %}
 
-        {% for key in advogados %}
-            <article class="c-card">
-                <div class="c-card__image">
-                    <img class="img_adv" src="static/img/avatar.jpg" alt="image placeholder">
-                </div>
+        {% if user.cnpj %}
+            {% for key in advogados %}
+                <article class="c-card">
+                    <div class="c-card__image">
+                        <img class="img_adv" src="static/img/avatar.jpg" alt="image placeholder">
+                    </div>
 
-                <div class="c-card__content">
-                    <span class="" style="width:80%">{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</span>
+                    <div class="c-card__content">
+                        <span class="" style="width:80%">{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</span>
 
-                    <div class="c-fild-OAB_btn">
-                        <span class="" style="width:85%">OAB: {{ key.numeroOAB }}</span>
+                        <div class="c-fild-OAB_btn">
+                            <span class="" style="width:85%">OAB: {{ key.numeroOAB }}</span>
 
-                        <!-- Rounded switch -->
+                            <!-- Rounded switch -->
 
-                        <label class="switch">
-                            {% if key.ativo %}
-                                <input type="checkbox" name="ativo" checked>
-                            {% else %}
-                                <input type="checkbox" name="ativo" >
-                            {% endif %}
-                            <span class="slider round"></span>
-                        </label>
+                            <label class="switch">
+                                {% if key.ativo %}
+                                    <input type="checkbox" name="ativo" checked>
+                                {% else %}
+                                    <input type="checkbox" name="ativo" >
+                                {% endif %}
+                                <span class="slider round"></span>
+                            </label>
 
+
+                        </div>
 
                     </div>
 
-                </div>
-
-                <div class="btn_card">
-                    <button class="atualizar_btn">
-                        <a href="{% url 'editaAdv' key.advogadoId %}">Atualizar</a>
-                    </button>
-                    <button class="del_btn">
-                        <a href="{% url 'deletaAdv' key.advogadoId %}">Deletar</a>
-                    </button>
-                </div>
-            </article>
-        {% endfor %}
+                    <div class="btn_card">
+                        <button class="atualizar_btn">
+                            <a href="{% url 'editaAdv' key.advogadoId %}">Atualizar</a>
+                        </button>
+                        <button class="del_btn">
+                            <a href="{% url 'deletaAdv' key.advogadoId %}">Deletar</a>
+                        </button>
+                    </div>
+                </article>
+            {% endfor %}
+        {% endif %}
 
     </div>
 
