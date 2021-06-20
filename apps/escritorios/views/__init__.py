@@ -1,2 +1,2 @@
 from .pages import *
-from .dashTools import *
+from .escritorioTools import *

@@ -1,6 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block js %}
+    <script>
+        function delAdv(id) {
+                    Swal.fire({
+                        "title": "Deletar??",
+                        "text": "{{ m }}",
+                        "icon": "{{ m.tags }}",
+                        "showCancelButton": true,
+                        "cancelButtonText": "Não",
+                        "confirmButtonText": "Sim",
+                        "reverseButtons": true,
+                        "confirmButtonColor": "#520daa"
+                    })
+                    .then(function(result) {
+                        if(result.isConfirmed) {
+                            window.location.href = "deletaAdv/"+ id +"/"
+                        }
+                    })
+        }
+    </script>
+{% endblock %}
+
     {% block content %}
 
     <!-- MENU LATERAL -->
@@ -60,9 +82,7 @@
                 </article>
 
             {% else %}
-                <script>
-                    alert(" Falta Pouco. Cadastre mais algumas informações suas e já te liberaremos");
-                </script>
+
                 <article class="c-card">
                     <a class="c-card__image" href="{% url 'editaEscritorio' user.nomeEscritorio %}">
                         <img class="img_add_adv" src="static/img/cadastro.png" alt="image placeholder">
@@ -106,8 +126,13 @@
                         <button class="atualizar_btn">
                             <a href="{% url 'editaAdv' key.advogadoId %}">Atualizar</a>
                         </button>
+
+<!--                        <button class="del_btn">-->
+<!--                            <a href="{% url 'deletaAdv' key.advogadoId %}">Deletar</a>-->
+<!--                        </button>-->
+
                         <button class="del_btn">
-                            <a href="{% url 'deletaAdv' key.advogadoId %}">Deletar</a>
+                            <a onclick="delAdv({{ key.advogadoId }})">Deletar</a>
                         </button>
                     </div>
                 </article>

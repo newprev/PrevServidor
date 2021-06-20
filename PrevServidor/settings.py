@@ -135,3 +135,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'PrevServidor/static')
 # os.path.join(PROJECT_ROOT, '../apps')
 
 AUTH_USER_MODEL = 'escritorios.Escritorio'
+
+# Messages
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'error',
+    messages.SUCCESS: 'success',
+    messages.INFO:'info',
+}
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
