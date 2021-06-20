@@ -7,8 +7,8 @@
 
         <h1 class="titulo">Advogado: {{ adv.nomeUsuario }} {{ adv.sobrenomeUsuario }}</h1>
         <section class="content">
+            <h1 class="titulo">Atualiza o ADV</h1>
             <div class="form_container">
-                <h1 class="titulo">Atualiza o ADV</h1>
 
                 <form action="{% url 'atualizaAdv' %}" class="formulario" method="POST">
                     {% csrf_token %}

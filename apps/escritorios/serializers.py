@@ -6,7 +6,7 @@ from .validators import *
 class EscritoriosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Escritorio
-        exclude = ['dataCadastro', 'senha']
+        exclude = []
 
     def validate(self, data):
         if not validaCpf(data['cpf']):

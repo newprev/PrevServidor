@@ -28,7 +28,6 @@ def cadastro(request):
             return redirect('cadastro')
 
         if Escritorio.objects.filter(username=usuario).exists():
-            print('=--------------------------------------USUARIO ja Cadastrado')
             return redirect('cadastro')
 
         # Validação de email
@@ -80,10 +79,8 @@ def login(request):
 
             if escritorio is not None:
                 auth.login(request, escritorio)
-                print('login to dash ID ----', escritorio.escritorioId)
 
                 return redirect('dashboard', escritorio.escritorioId)
-                # return redirect('dashboard')
     return render(request, 'login.html')
 
 
@@ -96,41 +93,21 @@ def dashboard(request, nomeEscritorio):
 
     if request.user.is_authenticated:
 
-        # escritorioOBJ = get_object_or_404(Escritorio, pk=escritorioId)
-        # userAtivo = request.user.escritorioId
-
         idUsuarioAtual = request.user.escritorioId
         chavesTotais = request.user.qtdChaves
         advCadstrado = Advogado.objects.filter(escritorioId=idUsuarioAtual)
 
         chaves = {}
         dicioChaves = {}
-        print('chaves T -------------------------------', chavesTotais)
 
         if Advogado.objects.filter(escritorioId=idUsuarioAtual).exists():
-            # advCadstrado = Advogado.objects.filter(escritorioId=escritorioId).values_list('usuarioId', flat=True)
-            print('***************************************************************')
-            print(advCadstrado)
-            print(advCadstrado[0])
-            # print(advCadstrado[1])
-            print(advCadstrado[0].nomeUsuario)
-            print(advCadstrado[0].email)
-            # dicioChaves = {'advogados': advCadstrado}'
             dicioChaves["advogados"] = advCadstrado
-
-            print('-------------------------------------------', len(advCadstrado))
-            for i in advCadstrado:
-                print(i)
-
-            # return render(request, 'dashboard.html', dicioChaves)
 
         for chave in range(1, (chavesTotais + 1) - len(advCadstrado)):
             if chave <= len(advCadstrado):
                 chaves[chave] = advCadstrado[chave - 1]
             else:
                 chaves[chave] = 'Cadastrar'
-
-
 
         booTotalChaves = False
         if len(advCadstrado) < chavesTotais:
@@ -142,6 +119,39 @@ def dashboard(request, nomeEscritorio):
 
         return render(request, 'dashboard.html', dicioChaves)
     return redirect('index')
+
+
+def editaEscritorio(request, nomeEscritorio):
+    escritorioAtivo = get_object_or_404(Escritorio, pk=request.user.escritorioId, nomeEscritorio=nomeEscritorio)
+    escritorioAtivoEditar = {'escritorio': escritorioAtivo}
+    return render(request, 'atualiza_Escritorio.html', escritorioAtivoEditar)
+
+
+def atualizaEscritorio(request):
+    if request.method == 'POST':
+        escritorioId = request.POST['escritorioId']
+
+        update = Escritorio.objects.get(pk=escritorioId)
+
+        update.nomeUsuario = request.POST['nome']
+        update.sobrenomeUsuario = request.POST['sobrenome']
+        update.nomeFantasia = request.POST['nomeFantasia']
+        update.cnpj = request.POST['cnpj']
+        update.cpf = request.POST['cpf']
+        update.telefone = request.POST['telefone']
+        update.email = request.POST['email']
+        update.inscEstadual = request.POST['inscrEstadual']
+        update.cep = request.POST['cep']
+        update.endereco = request.POST['endereco']
+        update.numero = request.POST['endNumero']
+        update.complemento = request.POST['complemento']
+        update.cidade = request.POST['cidade']
+        update.bairro = request.POST['bairro']
+        update.estado = request.POST['estado']
+
+        update.save()
+    return redirect('dashboard', request.user.nomeEscritorio)
+
 
 
 def criaAdv(request):
