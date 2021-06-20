@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
-from django.contrib import auth
+from django.contrib import auth, messages
 
 # Create your views here.
 from apps.escritorios.models import Escritorio
 from apps.advogado.models import Advogado
 
 from ..forms import AdvForm
+
+from ..views.escritorioTools import *
 
 
 def index(request):
@@ -23,40 +25,36 @@ def cadastro(request):
         print('1 - ', usuario, senha, confirmaSenha, email, licencas)
 
         # Validação de usuário
-        if not usuario.strip():
-            print('O Usuário  não pode ficar em branco')
+        if campoVazio(usuario):
+            messages.error(request, 'Usuário não pode ser vazio')
             return redirect('cadastro')
 
         if Escritorio.objects.filter(username=usuario).exists():
+            messages.error(request, 'Usuário/Escritório já cadastrado por outro usuário !!!')
             return redirect('cadastro')
 
         # Validação de email
-        if not email.strip():
-            print('O Email  não pode ficar em branco')
+        if campoVazio(email):
+            messages.error(request, 'Email já cadastrado por outro usuário !!!')
             return redirect('cadastro')
 
-        # Validação de senha
-        if senha != confirmaSenha:
-            print('As senhas digitadas não são iguais')
-            return redirect('cadastro')
-
-        # Validação de usuário existente no banco
         if Escritorio.objects.filter(email=email).exists():
             print('Email Usuario já cadastrado')
             return redirect('cadastro')
 
-        # escritorio = Escritorio.objects.create_user(
-        #     username=usuario, nomeEscritorio=usuario, email=email, password=senha, senha=senha, qtdChaves=licencas, is_staff=False
-        # )
+        # Validação de senha
+        if senhasIguais(senha, confirmaSenha):
+            messages.error(request, 'As Senhas não são iguais')
+            return redirect('cadastro')
 
+        # Criando e Cadastrando novo usuario/escritorio
         escritorio = Escritorio.objects.create_user(
             username=usuario, nomeEscritorio=usuario, email=email, password=senha, qtdChaves=licencas, is_staff=False
         )
-
         escritorio.save()
 
-        print('2 - ', usuario, senha, confirmaSenha, email, licencas)
-        print('Usuario cadastrado com Sucesso')
+        messages.success(request, 'Usuário cadastrado com sucesso !!!')
+
 
         return redirect('login')
     else:
@@ -68,10 +66,17 @@ def login(request):
         usuario = request.POST['usuario']
         senha = request.POST['senha']
 
-        if usuario == "" or senha == "":
+        # if usuario == "" or senha == "":
+        #     return redirect('login')
+
+        if campoVazio(usuario):
+            messages.error(request, "O campo  'USUÁRIO' não pode estar vazio")
             return redirect('login')
 
-        print(usuario, senha)
+        if campoVazio(senha):
+            messages.error(request, "O campo  'SENHA' não pode estar vazio")
+            return redirect('login')
+
         if Escritorio.objects.filter(nomeEscritorio=usuario).exists():
             nome = Escritorio.objects.filter(nomeEscritorio=usuario).values_list('nomeEscritorio', flat=True)
 
@@ -79,8 +84,15 @@ def login(request):
 
             if escritorio is not None:
                 auth.login(request, escritorio)
-
-                return redirect('dashboard', escritorio.escritorioId)
+                if not request.user.cpf:
+                    messages.info(request, 'Ainda Faltam algumas informaçõe spara seu cadastro estar completo')
+                else:
+                    messages.success(request, 'Login Realizado Com Sucesso')
+                return redirect('dashboard', escritorio.nomeEscritorio)
+            else:
+                messages.error(request, "SENHA INVÁLIDA")
+        else:
+            messages.error(request, "Não encontramos nenhum 'USUÁRIO' com este nome ")
     return render(request, 'login.html')
 
 
@@ -92,6 +104,9 @@ def logout(request):
 def dashboard(request, nomeEscritorio):
 
     if request.user.is_authenticated:
+
+        if request.user.cpf is None:
+            messages.info(request, 'Ainda FAlta algumas informaçõe spara seu cadastro estar completo')
 
         idUsuarioAtual = request.user.escritorioId
         chavesTotais = request.user.qtdChaves
@@ -199,6 +214,7 @@ def atualizaAdv(request):
 
 def deletaAdv(request, advogadoId):
     cardAdv = get_object_or_404(Advogado, pk=advogadoId)
+    # --------------------------------------------------------------Estou comentando o metodo que deleta o advs
     cardAdv.delete()
     return redirect('dashboard', request.user.nomeEscritorio)
 
