@@ -1,6 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block js %}
+    <script>
+        function delAdv(id) {
+                    Swal.fire({
+                        "title": "Deletar??",
+                        "text": "{{ m }}",
+                        "icon": "{{ m.tags }}",
+                        "showCancelButton": true,
+                        "cancelButtonText": "Não",
+                        "confirmButtonText": "Sim",
+                        "reverseButtons": true,
+                        "confirmButtonColor": "#520daa"
+                    })
+                    .then(function(result) {
+                        if(result.isConfirmed) {
+                            window.location.href = "deletaAdv/"+ id +"/"
+                        }
+                    })
+        }
+    </script>
+{% endblock %}
+
     {% block content %}
 
     <!-- MENU LATERAL -->
@@ -11,33 +33,38 @@
         </div>
 
         <ul class="menu-lateral-linhas">
-          <li>Nome do Escritorio</li>       <span>Mario de Andrade Advocacia Exemplo de ser assim</span>
-          <li>Chaves</li>       <span>6</span>
-          <li>Nome</li>       <span>João Davi</span>
-          <li>SobreNome </li>       <span>Naveroso de Souza Silva Filho</span>
-          <li>Nome Fantasia</li>       <span>Vem e Aprendendo ADVOGADOS</span>
-          <li>CNPJ</li>       <span>XX.XXX.XXX/XXXX-XX</span>
-          <li>CPF</li>       <span>XXX.XXX.XXX-XX</span>
-          <li>Telefone</li>       <span>(XX) X-XXXX-XXXX</span>
-          <li>E-mail</li>       <span>SeuEmailAqui@email.com.br</span>
-          <li>Inscrição Estadual</li>       <span>?????? ?????? ??????</span>
-          <li>Endereço</li>       <span>Desembargador Juarez Mattos Barreto Bezerra de Menezes</span>
-          <li>CEP</li>       <span>XXXXX-XXX</span>
-          <li>Cidade</li>       <span>São José do Vale do Rio Preto</span>
-          <li>Bairro</li>       <span>Desembargador Juarez Mattos Barreto Bezerra de Menezes</span>
-          <li>Estado</li>       <span>Minas Gerais</span>
+          <li>Nome do Escritorio</li>       <span>-{{ user.nomeEscritorio }}</span>
+          <li>Chaves</li>       <span>-{{ user.qtdChaves }}</span>
+          <li>Nome</li>       <span>-{{ user.nomeUsuario }}</span>
+          <li>SobreNome </li>       <span>-{{ user.sobrenomeUsuario }}</span>
+          <li>Nome Fantasia</li>       <span>-{{ user.nomeFantasia }}</span>
+          <li>CNPJ</li>       <span>-{{ user.cnpj }}</span>
+          <li>CPF</li>       <span>-{{ user.cpf }}</span>
+          <li>Telefone</li>       <span>-{{ user.telefone }}</span>
+          <li>E-mail</li>       <span>-{{ user.email }}</span>
+          <li>Inscrição Estadual</li>       <span>-{{ user.inscEstadual }}</span>
+          <li>Endereço</li>       <span>-{{ user.endereco }}</span>
+          <li>Número</li>       <span>-{{ user.numero }}</span>
+          <li>Complemento</li>       <span>-{{ user.complemento }}</span>
+          <li>CEP</li>       <span>-{{ user.cep }}</span>
+          <li>Cidade</li>       <span>-{{ user.cidade }}</span>
+          <li>Bairro</li>       <span>-{{ user.bairro }}</span>
+          <li>Estado</li>       <span>-{{ user.estado }}</span>
+          <li>Data de Cadastro</li>       <span>-{{ user.dataCadastro }}</span>
+          <button class="atualizar_btn">
+            <a href="{% url 'editaEscritorio' user.nomeEscritorio %}">Atualizar</a>
+          </button>
 
         </ul>
     </nav>
 
-
-<!--    <h1>Chaves e Advogados cadastrados {{ user.email }} {{ intChavesUsadas }}/{{ user.qtdChaves }}</h1>-->
-
-      <!-- essa classe essa em base -->
     <section class="teste">
         <div class="">
-            <span>SEU ESCRITÓRIO</span>
-            <span>NOME DO SEU ESCRITÓRIO</span>
+            {% if user.cnpj %}
+                <span>Bem vindo ao Escritório {{ user.nomeEscritorio }}</span>
+            {% else %}
+                <span>Falta pouco {{ user.nomeEscritorio }}. Clique no Botão a baixo e termine seu cadastro.</span>
+            {% endif %}
         </div>
     </section>
 
@@ -46,46 +73,71 @@
 
         {% if booTotalChaves %}
 
-            <article class="c-card">
-                <a class="c-card__image" href="{% url 'criaAdv' %}">
-                    <img class="img_add_adv" src="static/img/plus.png" alt="image placeholder">
-                </a>
-            </article>
+            {% if user.cnpj %}
 
+                <article class="c-card">
+                    <a class="c-card__image" href="{% url 'criaAdv' %}">
+                        <img class="img_add_adv" src="static/img/plus.png" alt="image placeholder">
+                    </a>
+                </article>
+
+            {% else %}
+
+                <article class="c-card">
+                    <a class="c-card__image" href="{% url 'editaEscritorio' user.nomeEscritorio %}">
+                        <img class="img_add_adv" src="static/img/cadastro.png" alt="image placeholder">
+                    </a>
+
+                </article>
+
+            {% endif %}
         {% endif %}
 
-        {% for key in advogados %}
-            <article class="c-card">
-                <div class="c-card__image">
-                    <img class="img_adv" src="static/img/avatar.jpg" alt="image placeholder">
-                </div>
+        {% if user.cnpj %}
+            {% for key in advogados %}
+                <article class="c-card">
+                    <div class="c-card__image">
+                        <img class="img_adv" src="static/img/avatar.jpg" alt="image placeholder">
+                    </div>
 
-                <div class="c-card__content">
-                    <div class="c-fild-OAB_btn">
-                        <span class="" style="width:85%">OAB: {{ key.numeroOAB }}</span>
+                    <div class="c-card__content">
+                        <span class="" style="width:80%">{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</span>
 
-                        <!-- Rounded switch -->
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
+                        <div class="c-fild-OAB_btn">
+                            <span class="" style="width:85%">OAB: {{ key.numeroOAB }}</span>
+
+                            <!-- Rounded switch -->
+
+                            <label class="switch">
+                                {% if key.ativo %}
+                                    <input type="checkbox" name="ativo" checked>
+                                {% else %}
+                                    <input type="checkbox" name="ativo" >
+                                {% endif %}
+                                <span class="slider round"></span>
+                            </label>
+
+
+                        </div>
 
                     </div>
 
-                    <span class="" style="width:80%">{{ key.nomeUsuario }} {{ key.sobrenomeUsuario }}</span>
+                    <div class="btn_card">
+                        <button class="atualizar_btn">
+                            <a href="{% url 'editaAdv' key.advogadoId %}">Atualizar</a>
+                        </button>
 
-                </div>
+<!--                        <button class="del_btn">-->
+<!--                            <a href="{% url 'deletaAdv' key.advogadoId %}">Deletar</a>-->
+<!--                        </button>-->
 
-                <div class="btn_card">
-                    <button class="atualizar_btn">
-                        <a href="">Atualizar</a>
-                    </button>
-                    <button class="del_btn">
-                        <a href="">Deletar</a>
-                    </button>
-                </div>
-            </article>
-        {% endfor %}
+                        <button class="del_btn">
+                            <a onclick="delAdv({{ key.advogadoId }})">Deletar</a>
+                        </button>
+                    </div>
+                </article>
+            {% endfor %}
+        {% endif %}
 
     </div>
 

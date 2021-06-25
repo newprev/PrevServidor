@@ -4,8 +4,8 @@
     {% block content %}
 
     <section class="content">
+        <h1 class="titulo">Crie Sua Conta</h1>
         <div class="form_container">
-            <h1 class="titulo">Crie Sua Conta</h1>
             <form action="{% url 'cadastro' %}" class="formulario" method="POST">
                 {% csrf_token %}
                 <label for="">Usuário/Nome do Escritório</label>
