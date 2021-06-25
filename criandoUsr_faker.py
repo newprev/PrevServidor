@@ -14,7 +14,7 @@ def criando_pessoas(quantidade_de_pessoas):
     fake = Faker('pt_BR')
     Faker.seed(10)
     for _ in range(quantidade_de_pessoas):
-        escritorioId = Escritorio.objects.get(escritorioId=random.randrange(1, 3))
+        escritorioId = Escritorio.objects.get(escritorioId=random.randrange(2, 7))
         senha = str(random.randrange(2000, 10000))
         nomeUsuarioAux = fake.name()
         nomeUsuario: str = nomeUsuarioAux[:nomeUsuarioAux.find(' ')]
@@ -39,5 +39,5 @@ def criando_pessoas(quantidade_de_pessoas):
         a.save()
 
 
-criando_pessoas(10)
+criando_pessoas(49)
 

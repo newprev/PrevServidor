@@ -11,5 +11,5 @@ class AdminEscritorio(admin.ModelAdmin):
 
     list_editable = ['ativo',]
 
-# admin.site.register(Escritorio, AdminEscritorio)
-admin.site.register(Escritorio, auth_admin.UserAdmin)
+admin.site.register(Escritorio, AdminEscritorio)
+# admin.site.register(Escritorio, auth_admin.UserAdmin)
