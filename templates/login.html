@@ -4,8 +4,8 @@
     {% block content %}
 
     <section class="content">
+        <h1 class="titulo">Entre com a sua conta</h1>
         <div class="form_container">
-            <h1 class="titulo">Entre com a sua conta</h1>
             <form action="{% url 'login' %}" class="formulario" method="POST">
                 {% csrf_token %}
                 <label for="">Usuário</label>
