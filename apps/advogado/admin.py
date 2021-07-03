@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class AdminAdvogado(admin.ModelAdmin, LoginRequiredMixin):
     list_display = ['advogadoId', 'nomeUsuario', 'escritorioId', 'login', 'email', 'ativo', 'confirmado']
     list_display_links = ['advogadoId', 'escritorioId', 'login', 'email', 'nomeUsuario']
-    list_filter = ['escritorioId',]
+    list_filter = ['escritorioId', ]
     list_editable = ['ativo', 'confirmado']
     readonly_fields = ['advogadoId', ]
     ordering = ['nomeUsuario', ]
