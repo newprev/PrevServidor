@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.advogado',
     'apps.escritorios',
     'apps.ferramentas',
+    'apps.informacoes',
     'rest_framework',
     'django_filters',
     'drf_yasg'
