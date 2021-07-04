@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .serializers import IndicadoresSerializer
+from .models import Indicadores
 
-# Create your views here.
+class IndicadoresViewSet(viewsets.ModelViewSet):
+    """Exibe todas as correções monetárias cadastradas"""
+    queryset = Indicadores.objects.all()
+    serializer_class = IndicadoresSerializer
