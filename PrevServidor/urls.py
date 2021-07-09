@@ -4,7 +4,7 @@ from rest_framework import routers
 from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio, AdvogadosConfirmacaoViewSet, AuthPrevClient
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet
-from apps.informacoes.views import IndicadoresViewSet
+from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -30,6 +30,7 @@ rotas.register('escritorio', EscritorioViewSet, basename='Escritorio')
 rotas.register('convMon', ConvMonViewSet, basename='ConversaoMonetaria')
 rotas.register('tetosPrev', TetosPrevViewSet, basename='TetosPrevidenciarios')
 rotas.register('indicadores', IndicadoresViewSet, basename='Indicadores')
+rotas.register('expSobrevida', ExpectativaSobrevidaViewSet, basename='Expectativa sobrevida')
 
 urlpatterns = [
     path('', include('apps.escritorios.urls')),
