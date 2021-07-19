@@ -29,3 +29,17 @@ class ExpectativaSobrevida(models.Model):
 
     def __str__(self):
         return f"infoId: {self.infoId}, dataReferente: {self.dataReferente}, idade: {self.idade}"
+
+
+class IndicesAtualizacaoMonetaria(models.Model):
+    db_table = 'indiceAtuMonetaria'
+
+    indiceId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
+    dataReferente = models.DateField(blank=False, null=False)
+    dib = models.DateField(blank=False, null=False)
+    fator = models.FloatField(blank=False, null=False)
+    dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
+    dataCadastro = models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return f"indiceId: {self.indiceId}, dib: {self.dib} dataReferente: {self.dataReferente}, fator: {self.fator}"
