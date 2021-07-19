@@ -4,7 +4,7 @@ from rest_framework import routers
 from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio, AdvogadosConfirmacaoViewSet, AuthPrevClient
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet
-from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet
+from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -31,6 +31,7 @@ rotas.register('convMon', ConvMonViewSet, basename='ConversaoMonetaria')
 rotas.register('tetosPrev', TetosPrevViewSet, basename='TetosPrevidenciarios')
 rotas.register('indicadores', IndicadoresViewSet, basename='Indicadores')
 rotas.register('expSobrevida', ExpectativaSobrevidaViewSet, basename='Expectativa sobrevida')
+rotas.register('indiceAtuMonetaria', IndicesAtuMonetariaViewSet, basename='Índices de atualização monetária')
 
 urlpatterns = [
     path('', include('apps.escritorios.urls')),

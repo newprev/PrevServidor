@@ -17,4 +17,4 @@ class ExpSobrevidaSerializer(serializers.ModelSerializer):
 class IndicesAtuMonetariaSerializer(serializers.ModelSerializer):
     class Meta:
         model = IndicesAtualizacaoMonetaria
-        fields = ['dataReferente', 'fator']
+        fields = ['dataReferente', 'dib', 'fator']
