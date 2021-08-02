@@ -13,7 +13,7 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
    openapi.Info(
       title="NewPrev - Servidor",
-      default_version='0.0.10',
+      default_version='0.0.11',
       description="API Rest para consumo do programa Desktop NewPrev Cliente",
       terms_of_service="#",
       contact=openapi.Contact(email="newprev.projeto@gmail.com"),
