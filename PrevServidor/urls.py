@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework import routers
 from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio, AdvogadosConfirmacaoViewSet, AuthPrevClient
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
-from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet
+from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet, CarenciasLei91ViewSet
 from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet
 
 from rest_framework import permissions
@@ -32,6 +32,7 @@ rotas.register('tetosPrev', TetosPrevViewSet, basename='TetosPrevidenciarios')
 rotas.register('indicadores', IndicadoresViewSet, basename='Indicadores')
 rotas.register('expSobrevida', ExpectativaSobrevidaViewSet, basename='Expectativa sobrevida')
 rotas.register('indiceAtuMonetaria', IndicesAtuMonetariaViewSet, basename='Índices de atualização monetária')
+rotas.register('carenciasLei91', CarenciasLei91ViewSet, basename='Carências da lei 821391')
 
 urlpatterns = [
     path('', include('apps.escritorios.urls')),

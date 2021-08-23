@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 
+
 class ConvMon(models.Model):
     db_table = 'convMon'
 
@@ -35,3 +36,16 @@ class TetosPrev(models.Model):
 
     def __str__(self):
         return self.dataValidade
+
+
+class CarenciasLei91(models.Model):
+    db_table = 'carenciasLei91'
+
+    carenciaId = models.AutoField(primary_key=True)
+    dataImplemento = models.DateField(blank=False, null=False)
+    tempoContribuicao = models.IntegerField(blank=False, null=False)
+    dataUltAlt = models.DateTimeField(default=datetime.now())
+    dataCadastro = models.DateTimeField(default=datetime.now())
+
+    def __str__(self):
+        return f"{self.dataImplemento}"
