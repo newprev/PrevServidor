@@ -23,6 +23,7 @@ class ExpectativaSobrevida(models.Model):
     infoId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
     dataReferente = models.DateField(blank=False, null=False)
     idade = models.FloatField(help_text='Idade do cliente')
+    genero = models.CharField(help_text='genero', max_length=1, null=False, blank=False)
     expectativaSobrevida = models.FloatField(help_text='Expectativa de vida de homens e mulheres no Brasil')
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(auto_now=True, null=False)
