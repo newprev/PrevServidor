@@ -9,8 +9,8 @@ class AdminIndicadores(admin.ModelAdmin):
 
 
 class AdminExpSobrevida(admin.ModelAdmin):
-    list_display = ['dataReferente', 'idade', 'expectativaSobrevida']
-    list_display_links = ['dataReferente', 'idade', 'expectativaSobrevida']
+    list_display = ['dataReferente', 'idade', 'genero', 'expectativaSobrevida']
+    list_display_links = ['dataReferente', 'idade', 'genero', 'expectativaSobrevida']
     list_per_page = 10
 
 
