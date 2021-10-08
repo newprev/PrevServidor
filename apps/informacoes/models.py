@@ -44,3 +44,17 @@ class IndicesAtualizacaoMonetaria(models.Model):
 
     def __str__(self):
         return f"indiceId: {self.indiceId}, dib: {self.dib} dataReferente: {self.dataReferente}, fator: {self.fator}"
+
+
+class SalarioMinimo(models.Model):
+    db_table = 'SalarioMinimo'
+
+    SalarioId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
+    vigencia = models.DateField(blank=False, null=False)
+    baseLegal = models.CharField(max_length=50 ,blank=True)
+    valor = models.FloatField(blank=False, null=False)
+    dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
+    dataCadastro = models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return f"SalarioId: {self.SalarioId}, vigencia: {self.vigencia} baseLegal: {self.baseLegal}, valor: {self.valor}"

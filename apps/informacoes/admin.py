@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria
+from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo
 
 
 class AdminIndicadores(admin.ModelAdmin):
@@ -20,6 +20,14 @@ class AdminIndicesAtuMonetaria(admin.ModelAdmin):
     list_per_page = 30
 
 
+class AdminSalarioMinimo(admin.ModelAdmin):
+    list_display = ['vigencia', 'baseLegal', 'valor']
+    list_display_links = ['vigencia', 'baseLegal', 'valor']
+    list_per_page = 30
+
+
 admin.site.register(Indicadores, AdminIndicadores)
 admin.site.register(ExpectativaSobrevida, AdminExpSobrevida)
 admin.site.register(IndicesAtualizacaoMonetaria, AdminIndicesAtuMonetaria)
+admin.site.register(SalarioMinimo, AdminSalarioMinimo)
+

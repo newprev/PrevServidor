@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .serializers import IndicadoresSerializer, ExpSobrevidaSerializer, IndicesAtuMonetariaSerializer
-from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria
+from .serializers import IndicadoresSerializer, ExpSobrevidaSerializer, IndicesAtuMonetariaSerializer, SalarioMinimoSerializer
+from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo
 
 
 class IndicadoresViewSet(viewsets.ModelViewSet):
@@ -19,3 +19,9 @@ class IndicesAtuMonetariaViewSet(viewsets.ModelViewSet):
     """Exibe todos os índices de atualização monetária para cálculo do benefício"""
     queryset = IndicesAtualizacaoMonetaria.objects.all()
     serializer_class = IndicesAtuMonetariaSerializer
+
+
+class SalarioMinimoViewSet(viewsets.ModelViewSet):
+    """Exibe todos os salários mínimos (R$) no Brasil desde 1994"""
+    queryset = SalarioMinimo.objects.all()
+    serializer_class = SalarioMinimoSerializer
