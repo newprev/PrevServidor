@@ -129,3 +129,5 @@ prevServEnv
 datasource/magic.json
 
 key_WMS_NewPrev.pem
+
+datasource/hearthstone.json
