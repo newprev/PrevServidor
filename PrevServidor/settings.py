@@ -28,7 +28,15 @@ SECRET_KEY = 'p9@h25p2(2t37g(44li8119(@kh2eg_l(-2lrw&dbic(snk&j_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec2-100-24-19-48.compute-1.amazonaws.com', '52.91.1.60']
+ALLOWED_HOSTS = [
+    'ec2-100-24-19-48.compute-1.amazonaws.com',
+    '52.91.1.60',
+    'localhost',
+    'newprev.dev.br',
+    'newprev.dev.br:8000',
+    'www.newprev.dev.br',
+    'www.newprev.dev.br:8000',
+]
 
 
 # Application definition
@@ -88,7 +96,7 @@ WSGI_APPLICATION = 'PrevServidor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = getDatabase(TipoConexao.magic)
+DATABASES = getDatabase(TipoConexao.hearthstone)
 
 
 # Password validation
