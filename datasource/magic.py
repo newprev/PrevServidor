@@ -9,7 +9,7 @@ def getDatabase(conexao: TipoConexao):
     elif conexao == TipoConexao.hearthstone:
         strPathSource: str = os.path.join(os.getcwd(), 'datasource', 'hearthstone.json')
 
-        with open(strPathSource, encoding='utf-8', mode='r') as cacheLogin:
-            banco = json.load(cacheLogin)
+    with open(strPathSource, encoding='utf-8', mode='r') as cacheLogin:
+        banco = json.load(cacheLogin)
 
-        return banco
+    return banco
