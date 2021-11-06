@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .serializers import IndicadoresSerializer, ExpSobrevidaSerializer, IndicesAtuMonetariaSerializer, SalarioMinimoSerializer
-from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo
+from .serializers import IndicadoresSerializer, ExpSobrevidaSerializer, IndicesAtuMonetariaSerializer, SalarioMinimoSerializer, IpcaMensalSerializer
+from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo, IpcaMensal
 
 
 class IndicadoresViewSet(viewsets.ModelViewSet):
@@ -25,3 +25,9 @@ class SalarioMinimoViewSet(viewsets.ModelViewSet):
     """Exibe todos os salários mínimos (R$) no Brasil desde 1994"""
     queryset = SalarioMinimo.objects.all()
     serializer_class = SalarioMinimoSerializer
+
+
+class IpcaMensalViewSet(viewsets.ModelViewSet):
+    """Exibe todos os IPCAs mensais desde Janeiro de 2011"""
+    queryset = IpcaMensal.objects.all()
+    serializer_class = IpcaMensalSerializer

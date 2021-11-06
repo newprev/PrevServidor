@@ -84,7 +84,7 @@ def main():
 
         # print(f'- nomeArquivo: {nomeArquivo.date()} - linhas: {i}')
     # print(f'Qtd de inserções: {i}')
-    listaModels = [ExpectativaSobrevida(**exp) for exp in allData]
-    ExpectativaSobrevida.objects.bulk_create(listaModels)
+    # listaModels = [ExpectativaSobrevida(**exp) for exp in allData]
+    # ExpectativaSobrevida.objects.bulk_create(listaModels)
 
 main()

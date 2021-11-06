@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo
+from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo, IpcaMensal
 
 
 class IndicadoresSerializer(serializers.ModelSerializer):
@@ -24,3 +24,9 @@ class SalarioMinimoSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalarioMinimo
         fields = ['vigencia', 'baseLegal', 'valor']
+
+
+class IpcaMensalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IpcaMensal
+        fields = ['ipcaId', 'dataReferente', 'valor']

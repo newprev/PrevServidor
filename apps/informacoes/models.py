@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.db import models
 
 
@@ -51,10 +50,23 @@ class SalarioMinimo(models.Model):
 
     SalarioId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
     vigencia = models.DateField(blank=False, null=False)
-    baseLegal = models.CharField(max_length=50 ,blank=True)
+    baseLegal = models.CharField(max_length=50, blank=True)
     valor = models.FloatField(blank=False, null=False)
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(auto_now=True, null=False)
 
     def __str__(self):
         return f"SalarioId: {self.SalarioId}, vigencia: {self.vigencia} baseLegal: {self.baseLegal}, valor: {self.valor}"
+
+
+class IpcaMensal(models.Model):
+    db_table = 'IpcaId'
+
+    ipcaId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
+    dataReferente = models.DateField(blank=False, null=False)
+    valor = models.FloatField(blank=False, null=False)
+    dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
+    dataCadastro = models.DateTimeField(auto_now=True, null=False)
+
+    def __str__(self):
+        return f"ipcaId: {self.ipcaId}, dataReferente: {self.dataReferente} valor: {self.valor}"

@@ -38,7 +38,6 @@ ALLOWED_HOSTS = [
     'www.newprev.dev.br:8000',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -154,3 +153,6 @@ MESSAGE_TAGS = {
 }
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+# # Criação de serviços de atualização
+# servicosSync()
