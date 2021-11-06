@@ -38,7 +38,6 @@ ALLOWED_HOSTS = [
     'www.newprev.dev.br:8000',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,6 +51,7 @@ INSTALLED_APPS = [
     'apps.escritorios',
     'apps.ferramentas',
     'apps.informacoes',
+    'apps.sincron',
     'rest_framework',
     'django_filters',
     'drf_yasg'
@@ -131,6 +131,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -154,3 +156,4 @@ MESSAGE_TAGS = {
 }
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+

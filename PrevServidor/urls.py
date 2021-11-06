@@ -4,7 +4,8 @@ from rest_framework import routers
 from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio, AdvogadosConfirmacaoViewSet, AuthPrevClient
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet, CarenciasLei91ViewSet
-from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet, SalarioMinimoViewSet
+from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet, SalarioMinimoViewSet, IpcaMensalViewSet
+from apps.sincron.views import SyncIpcaViewSet
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -34,6 +35,8 @@ rotas.register('expSobrevida', ExpectativaSobrevidaViewSet, basename='Expectativ
 rotas.register('indiceAtuMonetaria', IndicesAtuMonetariaViewSet, basename='Índices de atualização monetária')
 rotas.register('carenciasLei91', CarenciasLei91ViewSet, basename='Carências da lei 821391')
 rotas.register('salarioMinimo', SalarioMinimoViewSet, basename='Salários mínimos')
+rotas.register('ipcaMensal', IpcaMensalViewSet, basename='IPCAs mensais')
+rotas.register('syncIpca', SyncIpcaViewSet, basename='Sync IPCAs')
 
 urlpatterns = [
     path('', include('apps.escritorios.urls')),

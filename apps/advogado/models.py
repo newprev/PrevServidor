@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from django.db import models
-from django.contrib.auth.models import User
+from django.utils import timezone
 from ..escritorios.models import Escritorio
-from django.contrib import admin
+from django.db import models
 
 
 class Advogado(models.Model):
@@ -22,8 +21,8 @@ class Advogado(models.Model):
     admin = models.BooleanField(default=False)
     ativo = models.BooleanField(default=True)
     confirmado = models.BooleanField(default=False)
-    dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
-    dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
+    dataUltAlt = models.DateTimeField(default=timezone.now, null=False)
+    dataCadastro = models.DateTimeField(default=timezone.now, null=False)
 
     def __str__(self):
         return f"id: {self.advogadoId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
