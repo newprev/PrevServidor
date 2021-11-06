@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
     'newprev.dev.br:8000',
     'www.newprev.dev.br',
     'www.newprev.dev.br:8000',
+    '127.0.0.1',
 ]
 
 # Application definition
