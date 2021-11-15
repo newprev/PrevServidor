@@ -33,24 +33,24 @@
         </div>
 
         <ul class="menu-lateral-linhas">
-          <li>Nome do Escritorio</li>       <span>-{{ user.nomeEscritorio }}</span>
-          <li>Chaves</li>       <span>-{{ user.qtdChaves }}</span>
-          <li>Nome</li>       <span>-{{ user.nomeUsuario }}</span>
-          <li>SobreNome </li>       <span>-{{ user.sobrenomeUsuario }}</span>
-          <li>Nome Fantasia</li>       <span>-{{ user.nomeFantasia }}</span>
-          <li>CNPJ</li>       <span>-{{ user.cnpj }}</span>
-          <li>CPF</li>       <span>-{{ user.cpf }}</span>
-          <li>Telefone</li>       <span>-{{ user.telefone }}</span>
-          <li>E-mail</li>       <span>-{{ user.email }}</span>
-          <li>Inscrição Estadual</li>       <span>-{{ user.inscEstadual }}</span>
-          <li>Endereço</li>       <span>-{{ user.endereco }}</span>
-          <li>Número</li>       <span>-{{ user.numero }}</span>
-          <li>Complemento</li>       <span>-{{ user.complemento }}</span>
-          <li>CEP</li>       <span>-{{ user.cep }}</span>
-          <li>Cidade</li>       <span>-{{ user.cidade }}</span>
-          <li>Bairro</li>       <span>-{{ user.bairro }}</span>
-          <li>Estado</li>       <span>-{{ user.estado }}</span>
-          <li>Data de Cadastro</li>       <span>-{{ user.dataCadastro }}</span>
+          <li>Nome do Escritorio</li>       <span>&nbsp {{ user.nomeEscritorio }}</span>
+          <li>Chaves</li>                   <span>&nbsp {{ user.qtdChaves }}</span>
+          <!--<li>Nome</li>                 <span>-{{ user.nomeUsuario }}</span>-->
+          <!--<li>SobreNome </li>           <span>-{{ user.sobrenomeUsuario }}</span>-->
+          <li>Nome Fantasia</li>            <span>&nbsp {{ user.nomeFantasia }}</span>
+          <li>CNPJ</li>                     <span>&nbsp {{ user.cnpj }}</span>
+          <li>CPF</li>                      <span>&nbsp {{ user.cpf }}</span>
+          <li>Telefone</li>                 <span>&nbsp {{ user.telefone }}</span>
+          <li>E-mail</li>                   <span>&nbsp {{ user.email }}</span>
+          <li>Inscrição Estadual</li>       <span>&nbsp {{ user.inscEstadual }}</span>
+          <li>Endereço</li>                 <span>&nbsp {{ user.endereco }}</span>
+          <li>Número</li>                   <span>&nbsp {{ user.numero }}</span>
+          <li>Complemento</li>              <span>&nbsp {{ user.complemento }}</span>
+          <li>CEP</li>                      <span>&nbsp {{ user.cep }}</span>
+          <li>Cidade</li>                   <span>&nbsp {{ user.cidade }}</span>
+          <li>Bairro</li>                   <span>&nbsp {{ user.bairro }}</span>
+          <li>Estado</li>                   <span>&nbsp {{ user.estado }}</span>
+          <li>Data de Cadastro</li>         <span>&nbsp {{ user.dataCadastro }}</span>
           <button class="atualizar_btn">
             <a href="{% url 'editaEscritorio' user.nomeEscritorio %}">Atualizar</a>
           </button>
