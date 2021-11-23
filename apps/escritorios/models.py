@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Escritorio(AbstractUser):
-    db_table = 'escritorio'
+    # db_table = 'escritorio'
     ESTADO = getEstados()
 
     escritorioId = models.AutoField(primary_key=True, auto_created=True)
@@ -35,6 +35,9 @@ class Escritorio(AbstractUser):
 
     # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = ['username']
+
+    class Meta:
+        db_table = "Escritorios"
 
     def __str__(self):
         return self.username

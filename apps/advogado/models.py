@@ -6,7 +6,7 @@ from django.db import models
 
 
 class Advogado(models.Model):
-    db_table = 'advogado'
+    # db_table = 'advogado'
 
     advogadoId = models.AutoField(primary_key=True, auto_created=True)
     escritorioId = models.ForeignKey(Escritorio, on_delete=models.CASCADE)
@@ -23,6 +23,9 @@ class Advogado(models.Model):
     confirmado = models.BooleanField(default=False)
     dataUltAlt = models.DateTimeField(default=timezone.now, null=False)
     dataCadastro = models.DateTimeField(default=timezone.now, null=False)
+
+    class Meta:
+        db_table = "Advogados"
 
     def __str__(self):
         return f"id: {self.advogadoId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
