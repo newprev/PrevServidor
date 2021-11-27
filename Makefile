@@ -16,3 +16,12 @@ makeAllMigrations:
 	@python manage.py makemigrations ferramentas
 	@python manage.py makemigrations informacoes
 	@python manage.py makemigrations sincron
+
+updateDatabases:
+	@echo 'Atualizando todas as tabelas'
+	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/carenciasLei91.sql
+	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/convMon.sql
+	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/expectativaSobrevida.sql
+	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/indicadores.sql
+	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/salarioMinimo.sql
+	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/tetosPrev.sql
