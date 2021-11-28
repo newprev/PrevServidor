@@ -148,8 +148,8 @@ def atualizaEscritorio(request):
 
         update = Escritorio.objects.get(pk=escritorioId)
 
-        update.nomeUsuario = request.POST['nome']
-        update.sobrenomeUsuario = request.POST['sobrenome']
+        #update.nomeUsuario = request.POST['nome']
+        #update.sobrenomeUsuario = request.POST['sobrenome']
         update.nomeFantasia = request.POST['nomeFantasia']
         update.cnpj = request.POST['cnpj']
         update.cpf = request.POST['cpf']
