@@ -1,3 +1,6 @@
+#Parâmetros importantes
+PASSWORD=senha
+
 run-dev:
 	python manage.py runserver
 
@@ -19,9 +22,9 @@ makeAllMigrations:
 
 updateDatabases:
 	@echo 'Atualizando todas as tabelas'
-	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/carenciasLei91.sql
-	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/convMon.sql
-	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/expectativaSobrevida.sql
-	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/indicadores.sql
-	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/salarioMinimo.sql
-	@mysql -h localhost -u NEWPREV -p"_NewPrev2021_" GIDEON < ../backup/tetosPrev.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/carenciasLei91.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/convMon.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/expectativaSobrevida.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicadores.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/salarioMinimo.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/tetosPrev.sql
