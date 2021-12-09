@@ -6,7 +6,6 @@ from django.db import models
 
 
 class Advogado(models.Model):
-    # db_table = 'advogado'
 
     advogadoId = models.AutoField(primary_key=True, auto_created=True)
     escritorioId = models.ForeignKey(Escritorio, on_delete=models.CASCADE)
@@ -29,6 +28,3 @@ class Advogado(models.Model):
 
     def __str__(self):
         return f"id: {self.advogadoId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
-        # return {'nome': self.nomeUsuario}
-
-

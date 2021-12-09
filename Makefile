@@ -17,7 +17,7 @@ clearAllMigrations: ## Exclui todos os arquivos de migração gerados pelo siste
 
 
 recriaAllMigrations: clearAllMigrations makeAllMigrations ## Exclui todos os arquivos de migração, recria todos e completa todas as migrações
-deletaRecriaAtualiza: recriaBanco clearAllMigrations makeAllMigrations updateDB-Backup ## Deleta banco de dados, recria, deleta todos os arquivos de migração, recria, completa a migração e popula o banco com o último backup feito.
+deletaRecriaAtualiza: recriaBanco clearAllMigrations makeAllMigrations updateDB-Backup run-dev ## Deleta banco de dados, recria, deleta todos os arquivos de migração, recria, completa a migração,  popula o banco com o último backup feito e reinicia o servidor.
 
 
 ## @ Migracoes

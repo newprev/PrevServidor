@@ -61,9 +61,9 @@ class AuthPrevClient(generics.RetrieveAPIView):
         login = self.kwargs['login']
         if login is not None:
             if login.isdecimal():
-                return get_object_or_404(Advogado, numeroOAB=self.kwargs['login'], confirmado=True)
+                return get_object_or_404(Advogado, numeroOAB=self.kwargs['login'])
             else:
-                return get_object_or_404(Advogado, email=self.kwargs['login'], confirmado=True, ativo=True)
+                return get_object_or_404(Advogado, email=self.kwargs['login'], ativo=True)
         else:
             JsonResponse(status=400, data="Parâmetros errados")
 
