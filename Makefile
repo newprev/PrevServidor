@@ -40,6 +40,10 @@ updateDB-Backup: ## Atualiza o banco baseado nos arquivos de backup criados
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicadores.sql
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/salarioMinimo.sql
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/tetosPrev.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicesAtuMonetaria.sql
+
+updateDB-Tabela: ## Atualiza apenas uma tabela baseado no arquivo de backup criado
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicesAtuMonetaria.sql
 
 recriaBanco: ## Deleta o banco GIDEON, recria o banco e apresenta os bancos criados nessa base
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" -e "DROP DATABASE GIDEON; CREATE DATABASE GIDEON; SHOW DATABASES;"

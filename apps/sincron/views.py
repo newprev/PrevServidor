@@ -4,7 +4,6 @@ from apps.informacoes.models import IpcaMensal
 from apps.sincron.serializers import SyncSerializer
 import requests as http
 from datetime import datetime
-from pytz import timezone
 
 
 class SyncIpcaViewSet(viewsets.ModelViewSet):
@@ -37,7 +36,7 @@ class SyncIpcaViewSet(viewsets.ModelViewSet):
                     print(f'erro({type(err)}): {err}')
 
         except Exception as err:
-            print(err)
+            print(f"buscaIpcas<SyncIpcaViewSet>: {err} - ({type(err)})")
         finally:
             sync = SyncIpca.objects.create(qtdSync=qtdSync)
             sync.save()
