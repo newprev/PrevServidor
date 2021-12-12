@@ -1,0 +1,3 @@
+initVenv:
+	(. prevServEnv/bin/activate;)
+

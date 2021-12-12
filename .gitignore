@@ -139,3 +139,5 @@ apps/ferramentas/migrations/
 apps/informacoes/migrations/
 
 apps/sincron/migrations/
+
+logs/historicoLogs/*.txt

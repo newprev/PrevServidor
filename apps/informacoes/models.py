@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Indicadores(models.Model):
-    db_table = 'indicadores'
+    # db_table = 'indicadores'
 
     indicadorId = models.CharField(max_length=20, primary_key=True)
     resumo = models.CharField(max_length=300, null=False, blank=False)
@@ -12,12 +12,15 @@ class Indicadores(models.Model):
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(default=datetime.now(), null=False)
 
+    class Meta:
+        db_table = "Indicadores"
+
     def __str__(self):
         return f"indicadorId: {self.indicadorId}, resumo: {self.resumo}"
 
 
 class ExpectativaSobrevida(models.Model):
-    db_table = 'expSobrevida'
+    # db_table = 'expSobrevida'
 
     infoId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
     dataReferente = models.DateField(blank=False, null=False)
@@ -27,12 +30,15 @@ class ExpectativaSobrevida(models.Model):
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(auto_now=True, null=False)
 
+    class Meta:
+        db_table = "ExpSobrevida"
+
     def __str__(self):
         return f"infoId: {self.infoId}, dataReferente: {self.dataReferente}, idade: {self.idade}"
 
 
 class IndicesAtualizacaoMonetaria(models.Model):
-    db_table = 'indiceAtuMonetaria'
+    # db_table = 'indiceAtuMonetaria'
 
     indiceId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
     dataReferente = models.DateField(blank=False, null=False)
@@ -41,12 +47,15 @@ class IndicesAtualizacaoMonetaria(models.Model):
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(auto_now=True, null=False)
 
+    class Meta:
+        db_table = "IndiceAtuMonetaria"
+
     def __str__(self):
         return f"indiceId: {self.indiceId}, dib: {self.dib} dataReferente: {self.dataReferente}, fator: {self.fator}"
 
 
 class SalarioMinimo(models.Model):
-    db_table = 'SalarioMinimo'
+    # db_table = 'SalarioMinimo'
 
     SalarioId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
     vigencia = models.DateField(blank=False, null=False)
@@ -55,18 +64,24 @@ class SalarioMinimo(models.Model):
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(auto_now=True, null=False)
 
+    class Meta:
+        db_table = "SalarioMinimo"
+
     def __str__(self):
         return f"SalarioId: {self.SalarioId}, vigencia: {self.vigencia} baseLegal: {self.baseLegal}, valor: {self.valor}"
 
 
 class IpcaMensal(models.Model):
-    db_table = 'IpcaId'
+    # db_table = 'IpcaId'
 
     ipcaId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
     dataReferente = models.DateField(blank=False, null=False)
     valor = models.FloatField(blank=False, null=False)
     dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
     dataCadastro = models.DateTimeField(auto_now=True, null=False)
+
+    class Meta:
+        db_table = "Ipca"
 
     def __str__(self):
         return f"ipcaId: {self.ipcaId}, dataReferente: {self.dataReferente} valor: {self.valor}"
