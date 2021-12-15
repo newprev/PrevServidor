@@ -31,12 +31,12 @@ class AdvogadosConfirmacaoViewSet(generics.RetrieveUpdateAPIView):
         try:
             if len(self.kwargs) != 0:
                 advogadoId = self.kwargs['pk']
-                logPrioridade(f"GET::api/advogados/{advogadoId}/confirmacao/")
+                logPrioridade(f"GET::api/advogados/{advogadoId}/confirmacao/", tipoLog=TipoLog.erro)
                 queryset = Advogado.objects.filter(advogadoId=advogadoId)
 
             return queryset
         except Exception as err:
-            logPrioridade(f"err::api/advogados/<advogadoId>/confirmacao/", priodiade=Prioridade.warnings)
+            logPrioridade(f"err::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.erro, priodiade=Prioridade.warnings)
             return HttpResponse(status=510)
 
     def get_object(self):
@@ -44,7 +44,7 @@ class AdvogadosConfirmacaoViewSet(generics.RetrieveUpdateAPIView):
 
     def patch(self, request, *args, **kwargs):
         try:
-            logPrioridade(f"PATCH::api/advogados/<advogadoId>/confirmacao/")
+            logPrioridade(f"PATCH::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.rest)
             advModel = self.get_object()
             advogado = ConfirmaAdvogadoSerializer(advModel, data=request.data, partial=True)
             if advogado.is_valid():
@@ -53,7 +53,7 @@ class AdvogadosConfirmacaoViewSet(generics.RetrieveUpdateAPIView):
                 return JsonResponse(status=201, data=advogado.data)
             return JsonResponse(status=400, data="Parâmetros errados")
         except Exception as err:
-            logPrioridade(f"err::api/advogados/<advogadoId>/confirmacao/")
+            logPrioridade(f"err::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.erro)
             return HttpResponse(status=510)
 
     serializer_class = ConfirmaAdvogadoSerializer
@@ -72,7 +72,7 @@ class ListaAdvogadosByEscritorio(generics.ListAPIView):
             try:
                 escritorioId = self.kwargs['pk']
                 queryset = Advogado.objects.filter(escritorioId_id=escritorioId)
-                logPrioridade(f"api/escritorio/{escritorioId}/advogado")
+                logPrioridade(f"api/escritorio/{escritorioId}/advogado", tipoLog=TipoLog.rest)
                 return queryset
 
             except Exception as err:
@@ -93,16 +93,16 @@ class AuthPrevClient(generics.RetrieveAPIView):
             login = self.kwargs['login']
             if login is not None:
                 if login.isdecimal():
-                    logPrioridade(f'OAB::api/advogados/auth/{login}')
+                    logPrioridade(f'OAB::api/advogados/auth/{login}', tipoLog=TipoLog.rest)
                     return get_object_or_404(Advogado, numeroOAB=self.kwargs['login'])
                 else:
-                    logPrioridade(f'Email::api/advogados/auth/{login}')
+                    logPrioridade(f'Email::api/advogados/auth/{login}', tipoLog=TipoLog.rest)
                     return get_object_or_404(Advogado, email=self.kwargs['login'], ativo=True)
             else:
-                logPrioridade(f'api/advogados/auth/{login}')
+                logPrioridade(f'api/advogados/auth/{login}', tipoLog=TipoLog.rest)
                 JsonResponse(status=400, data="Parâmetros errados")
         except Exception as err:
-            logPrioridade(f'api/advogados/auth/<login>', priodiade=Prioridade.warnings)
+            logPrioridade(f'erro::api/advogados/auth/<login>', tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
             return HttpResponse(status=510)
 
     def get_queryset(self):
