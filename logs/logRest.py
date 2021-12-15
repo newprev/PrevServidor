@@ -35,7 +35,7 @@ def logPrioridade(mensagem: str, tipoLog: TipoLog, priodiade: Prioridade = Prior
         log.write(datetimeToStr(datetime.now()) + ' -> ' + mensagem + '\n')
         log.flush()
 
-    if verbose:
+    if verbose or tipoLog == TipoLog.erro:
         print(corDaFonte + corDoFundo + datetimeToStr(datetime.now()) + '----' + mensagem)
 
     deinit()
