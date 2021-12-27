@@ -14,6 +14,8 @@ clearAllMigrations: ## Exclui todos os arquivos de migração gerados pelo siste
 	@rm -f apps/ferramentas/migrations/*.py && echo "---> apps/ferramentas/migrations"
 	@rm -f apps/informacoes/migrations/*.py && echo "---> apps/informacoes/migrations"
 	@rm -f apps/sincron/migrations/*.py && echo "---> apps/sincron/migrations"
+	@rm -f apps/sincron/migrations/*.py && echo "---> apps/newMails/migrations"
+
 
 
 recriaAllMigrations: clearAllMigrations makeAllMigrations ## Exclui todos os arquivos de migração, recria todos e completa todas as migrações
@@ -28,6 +30,7 @@ makeAllMigrations: ## Cria todos os arquivos de migração e completa a migraç�
 	@python manage.py makemigrations ferramentas
 	@python manage.py makemigrations informacoes
 	@python manage.py makemigrations sincron
+	@python manage.py makemigrations newMails
 	@python manage.py migrate
 
 
