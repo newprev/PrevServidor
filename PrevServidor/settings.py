@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'apps.ferramentas',
     'apps.informacoes',
     'apps.sincron',
+    'apps.newMails',
     'rest_framework',
     'django_filters',
     'drf_yasg'
@@ -157,4 +158,14 @@ MESSAGE_TAGS = {
 }
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+# Email
+
+EMAIL_HOST = 'smtppro.zoho.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'thomas.anderson@newprev.dev.br'
+EMAIL_HOST_PASSWORD = '__00Neo00__'
+SERVER_EMAIL = 'israel.alves@newprev.dev.br'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
