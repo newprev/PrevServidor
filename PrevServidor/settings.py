@@ -13,7 +13,7 @@ import os, sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from datasource.magic import getDatabase
+from datasource.magic import getDatabase, getEmailServer
 from prevEnums import TipoConexao
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -154,18 +154,19 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'error',
     messages.SUCCESS: 'success',
-    messages.INFO:'info',
+    messages.INFO: 'info',
 }
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 # Email
+emailConfig: dict = getEmailServer()
 
-EMAIL_HOST = 'smtppro.zoho.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'thomas.anderson@newprev.dev.br'
-EMAIL_HOST_PASSWORD = '__00Neo00__'
-SERVER_EMAIL = 'israel.alves@newprev.dev.br'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+EMAIL_HOST = emailConfig['email_host']
+EMAIL_PORT = emailConfig['port']
+EMAIL_HOST_USER = emailConfig['emailHostUser']
+EMAIL_HOST_PASSWORD = emailConfig['emailHostPassword']
+SERVER_EMAIL = emailConfig['serverEmail']
+EMAIL_USE_TLS = emailConfig['emailUseTls']
+EMAIL_USE_SSL = emailConfig['emailUseSsl']
 
