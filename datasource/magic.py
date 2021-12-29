@@ -13,3 +13,14 @@ def getDatabase(conexao: TipoConexao):
         banco = json.load(cacheLogin)
 
     return banco
+
+
+def getEmailServer() -> dict:
+    strPathSource: str = os.path.join(os.getcwd(), 'datasource', 'marioCart.json')
+
+    with open(strPathSource, encoding='utf-8', mode='r') as cacheLogin:
+        banco = json.load(cacheLogin)
+
+    return banco
+
+

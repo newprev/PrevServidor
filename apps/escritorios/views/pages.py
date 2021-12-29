@@ -2,13 +2,16 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import auth, messages
 
-# Create your views here.
 from apps.escritorios.models import Escritorio
 from apps.advogado.models import Advogado
+from apps.newMails.views import emailBoasVindas
 
 from ..forms import AdvForm
 
-from ..views.escritorioTools import *
+from apps.escritorios.views.escritorioTools import *
+
+from logs.logRest import logPrioridade
+from prevEnums import TipoLog, Prioridade
 
 
 def index(request):
@@ -17,6 +20,7 @@ def index(request):
 
 def cadastro(request):
     if request.method == 'POST':
+        logPrioridade('POST::/cadastro', tipoLog=TipoLog.rest)
         usuario = request.POST['usuario']
         senha = request.POST['senha']
         confirmaSenha = request.POST['confimacaoSenha']
@@ -51,10 +55,11 @@ def cadastro(request):
         escritorio = Escritorio.objects.create_user(
             username=usuario, nomeEscritorio=usuario, email=email, password=senha, qtdChaves=licencas, is_staff=False
         )
+        logPrioridade(f"INSERT::cadastro - {escritorio.escritorioId=}", tipoLog=TipoLog.banco)
         escritorio.save()
+        emailBoasVindas(escritorio)
 
         messages.success(request, 'Usuário cadastrado com sucesso !!!')
-
 
         return redirect('login')
     else:
@@ -63,6 +68,7 @@ def cadastro(request):
 
 def login(request):
     if request.method == 'POST':
+        logPrioridade("POST::/login", tipoLog=TipoLog.rest)
         usuario = request.POST['usuario']
         senha = request.POST['senha']
 
@@ -97,11 +103,13 @@ def login(request):
 
 
 def logout(request):
+    logPrioridade("POST::/logout", tipoLog=TipoLog.rest)
     auth.logout(request)
     return render(request, 'index.html')
 
 
 def dashboard(request, nomeEscritorio):
+    logPrioridade("GET::/dashboard", tipoLog=TipoLog.rest)
 
     if request.user.is_authenticated:
 
@@ -137,6 +145,7 @@ def dashboard(request, nomeEscritorio):
 
 
 def editaEscritorio(request, nomeEscritorio):
+    logPrioridade(f"SELECT::editaEscritorio - {nomeEscritorio=}", tipoLog=TipoLog.banco)
     escritorioAtivo = get_object_or_404(Escritorio, pk=request.user.escritorioId, nomeEscritorio=nomeEscritorio)
     escritorioAtivoEditar = {'escritorio': escritorioAtivo}
     return render(request, 'atualiza_Escritorio.html', escritorioAtivoEditar)
@@ -144,41 +153,51 @@ def editaEscritorio(request, nomeEscritorio):
 
 def atualizaEscritorio(request):
     if request.method == 'POST':
-        escritorioId = request.POST['escritorioId']
+        try:
+            logPrioridade(f"POST::/atualizaEscritorio", tipoLog=TipoLog.rest)
+            escritorioId = request.POST['escritorioId']
 
-        update = Escritorio.objects.get(pk=escritorioId)
+            logPrioridade(f"UPDATE::atualizaEscritorio - {escritorioId}", tipoLog=TipoLog.banco)
+            update = Escritorio.objects.get(pk=escritorioId)
 
-        #update.nomeUsuario = request.POST['nome']
-        #update.sobrenomeUsuario = request.POST['sobrenome']
-        update.nomeFantasia = request.POST['nomeFantasia']
-        update.cnpj = request.POST['cnpj']
-        update.cpf = request.POST['cpf']
-        update.telefone = request.POST['telefone']
-        update.email = request.POST['email']
-        update.inscEstadual = request.POST['inscrEstadual']
-        update.cep = request.POST['cep']
-        update.endereco = request.POST['endereco']
-        update.numero = request.POST['endNumero']
-        update.complemento = request.POST['complemento']
-        update.cidade = request.POST['cidade']
-        update.bairro = request.POST['bairro']
-        update.estado = request.POST['estado']
+            #update.nomeUsuario = request.POST['nome']
+            #update.sobrenomeUsuario = request.POST['sobrenome']
+            update.nomeFantasia = request.POST['nomeFantasia']
+            update.cnpj = request.POST['cnpj']
+            update.cpf = request.POST['cpf']
+            update.telefone = request.POST['telefone']
+            update.email = request.POST['email']
+            update.inscEstadual = request.POST['inscrEstadual']
+            update.cep = request.POST['cep']
+            update.endereco = request.POST['endereco']
+            update.numero = request.POST['endNumero']
+            update.complemento = request.POST['complemento']
+            update.cidade = request.POST['cidade']
+            update.bairro = request.POST['bairro']
+            update.estado = request.POST['estado']
 
-        update.save()
+            update.save()
+        except Exception as err:
+            logPrioridade(f"erro::/atualizaEscritorio - {err=}", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
     return redirect('dashboard', request.user.nomeEscritorio)
 
 
-
 def criaAdv(request):
+    logPrioridade("POST::/novoAdv", tipoLog=TipoLog.rest)
     form = AdvForm(request.POST or None)
 
     if form.is_valid():
+        try:
+            novo = form.save(commit=False)
+            logPrioridade(f"INSERT::criaAdv - {form=}", tipoLog=TipoLog.banco)
 
-        novo = form.save(commit=False)
-        novo.escritorioId = request.user
-        novo.save()
-        form.save()
-        return redirect('dashboard', request.user.nomeEscritorio)
+            novo.escritorioId = request.user
+            novo.save()
+            form.save()
+            return redirect('dashboard', request.user.nomeEscritorio)
+
+        except Exception as err:
+            logPrioridade(f"err::/novoAdv - {err=}", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
 
     return render(request, 'cadAdv.html', {'form': form})
 
@@ -191,28 +210,35 @@ def editaAdv(request, advogadoId):
 
 
 def atualizaAdv(request):
-    if request.method == 'POST':
-        advogadoId = request.POST['advogadoId']
+    try:
+        if request.method == 'POST':
+            logPrioridade("POST::/atualizaAdv", tipoLog=TipoLog.rest)
+            advogadoId = request.POST['advogadoId']
 
-        update = Advogado.objects.get(pk=advogadoId)
+            update = Advogado.objects.get(pk=advogadoId)
 
-        update.nomeUsuario = request.POST['nome']
-        update.sobrenomeUsuario = request.POST['sobrenome']
-        update.numeroOAB = request.POST['oab']
-        update.login = request.POST['login']
-        update.senha = request.POST['senha']
-        update.email = request.POST['email']
-        update.nacionalidade = request.POST['nacionalidade']
-        update.estadoCivil = request.POST['estadoCivil']
-        update.ativo = request.POST.get('ativo')
-        update.ativo = True if update.ativo else False
+            update.nomeUsuario = request.POST['nome']
+            update.sobrenomeUsuario = request.POST['sobrenome']
+            update.numeroOAB = request.POST['oab']
+            update.login = request.POST['login']
+            update.senha = request.POST['senha']
+            update.email = request.POST['email']
+            update.nacionalidade = request.POST['nacionalidade']
+            update.estadoCivil = request.POST['estadoCivil']
+            update.ativo = request.POST.get('ativo')
+            update.ativo = True if update.ativo else False
 
-        update.save()
+            logPrioridade(f"UPDATE::atualizaAdv - {update.nomeUsuario}", tipoLog=TipoLog.banco)
+            update.save()
+
+    except Exception as err:
+        logPrioridade("erro::/atualizaAdv", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
 
     return redirect('dashboard', request.user.nomeEscritorio)
 
 
 def deletaAdv(request, advogadoId):
+    logPrioridade(f"DELETE::deletaAdv - {advogadoId}", tipoLog=TipoLog.rest)
     cardAdv = get_object_or_404(Advogado, pk=advogadoId)
     # --------------------------------------------------------------Estou comentando o metodo que deleta o advs
     cardAdv.delete()

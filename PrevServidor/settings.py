@@ -13,7 +13,7 @@ import os, sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from datasource.magic import getDatabase
+from datasource.magic import getDatabase, getEmailServer
 from prevEnums import TipoConexao
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'apps.ferramentas',
     'apps.informacoes',
     'apps.sincron',
+    'apps.newMails',
     'rest_framework',
     'django_filters',
     'drf_yasg'
@@ -153,8 +154,19 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'error',
     messages.SUCCESS: 'success',
-    messages.INFO:'info',
+    messages.INFO: 'info',
 }
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+# Email
+emailConfig: dict = getEmailServer()
+
+EMAIL_HOST = emailConfig['emailHost']
+EMAIL_PORT = emailConfig['port']
+EMAIL_HOST_USER = emailConfig['emailHostUser']
+EMAIL_HOST_PASSWORD = emailConfig['emailHostPassword']
+SERVER_EMAIL = emailConfig['serverEmail']
+EMAIL_USE_TLS = emailConfig['emailUseTls']
+EMAIL_USE_SSL = emailConfig['emailUseSsl']
 

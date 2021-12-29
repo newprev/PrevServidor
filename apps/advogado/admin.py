@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Advogado
+from .models import Advogado, PrimeiroAcesso
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -19,4 +19,12 @@ class AdminAdvogado(admin.ModelAdmin, LoginRequiredMixin):
         return form
 
 # admin.site.register(Advogado, AdminAdvogado)
+
+
+@admin.register(PrimeiroAcesso)
+class AdminPrimeiroAcesso(admin.ModelAdmin):
+    list_display = ["acessoId", "advogadoId", "codAcesso", "tipoAcesso", "dataUltAlt", "dataCadastro"]
+    list_filter = ["dataCadastro", ]
+    ordering = ["dataCadastro", ]
+    list_per_page = 15
 

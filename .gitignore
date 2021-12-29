@@ -127,10 +127,11 @@ prevServEnv
 
 
 datasource/magic.json
+datasource/hearthstone.json
+/datasource/marioCart.json
 
 key_WMS_NewPrev.pem
 
-datasource/hearthstone.json
 
 apps/escritorios/migrations/
 
@@ -139,3 +140,5 @@ apps/ferramentas/migrations/
 apps/informacoes/migrations/
 
 apps/sincron/migrations/
+
+logs/historicoLogs/*.txt

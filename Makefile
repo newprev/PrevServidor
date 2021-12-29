@@ -14,10 +14,12 @@ clearAllMigrations: ## Exclui todos os arquivos de migração gerados pelo siste
 	@rm -f apps/ferramentas/migrations/*.py && echo "---> apps/ferramentas/migrations"
 	@rm -f apps/informacoes/migrations/*.py && echo "---> apps/informacoes/migrations"
 	@rm -f apps/sincron/migrations/*.py && echo "---> apps/sincron/migrations"
+	@rm -f apps/sincron/migrations/*.py && echo "---> apps/newMails/migrations"
+
 
 
 recriaAllMigrations: clearAllMigrations makeAllMigrations ## Exclui todos os arquivos de migração, recria todos e completa todas as migrações
-deletaRecriaAtualiza: recriaBanco clearAllMigrations makeAllMigrations updateDB-Backup ## Deleta banco de dados, recria, deleta todos os arquivos de migração, recria, completa a migração e popula o banco com o último backup feito.
+deletaRecriaAtualiza: recriaBanco clearAllMigrations makeAllMigrations updateDB-Backup run-dev ## Deleta banco de dados, recria, deleta todos os arquivos de migração, recria, completa a migração,  popula o banco com o último backup feito e reinicia o servidor.
 
 
 ## @ Migracoes
@@ -28,6 +30,7 @@ makeAllMigrations: ## Cria todos os arquivos de migração e completa a migraç�
 	@python manage.py makemigrations ferramentas
 	@python manage.py makemigrations informacoes
 	@python manage.py makemigrations sincron
+	@python manage.py makemigrations newMails
 	@python manage.py migrate
 
 
@@ -40,6 +43,10 @@ updateDB-Backup: ## Atualiza o banco baseado nos arquivos de backup criados
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicadores.sql
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/salarioMinimo.sql
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/tetosPrev.sql
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicesAtuMonetaria.sql
+
+updateDB-Tabela: ## Atualiza apenas uma tabela baseado no arquivo de backup criado
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicesAtuMonetaria.sql
 
 recriaBanco: ## Deleta o banco GIDEON, recria o banco e apresenta os bancos criados nessa base
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" -e "DROP DATABASE GIDEON; CREATE DATABASE GIDEON; SHOW DATABASES;"

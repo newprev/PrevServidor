@@ -1,38 +1,86 @@
+from dateutil.relativedelta import relativedelta
+
 from rest_framework import viewsets, generics, filters
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
-from .models import Advogado
-from .serializers import AdvogadoSerializer, ConfirmaAdvogadoSerializer, AuthClientSerializer
+from django.utils import timezone
+from django.core.serializers import serialize
 from django_filters.rest_framework import DjangoFilterBackend
+
+from random import randint
+
+from apps.newMails.views import primeiroAcessoAdvogado
+from logs.logRest import logPrioridade
+from .models import Advogado, PrimeiroAcesso
+from .serializers import AdvogadoSerializer, ConfirmaAdvogadoSerializer, AuthClientSerializer, PrimeiroAcessoSerializer
+
+from prevEnums import Prioridade, TipoLog
 
 
 class AdvogadosViewSet(viewsets.ModelViewSet):
     """Exibindo todos advogados cadastrados"""
-    queryset = Advogado.objects.all()
-    serializer_class = AdvogadoSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    ordering_fields = ['nomeUsuario']
-    search_fields = ['numeroOAB', 'email']
-    filterset_fields = ['ativo']
+    http_method_names = ['patch', 'get']
+
+    try:
+        logPrioridade("GET::api/advogados", tipoLog=TipoLog.rest)
+        queryset = Advogado.objects.all()
+        serializer_class = AdvogadoSerializer
+        filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+        ordering_fields = ['nomeUsuario']
+        search_fields = ['numeroOAB', 'email']
+        filterset_fields = ['ativo']
+
+    except Exception as err:
+        logPrioridade("GET::api/advogados", tipoLog=TipoLog.rest, priodiade=Prioridade.warnings)
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            senha = request.data['senhaEnviada']
+            advogadoId = request.data['advogadoId']
+
+            advogado: Advogado = get_object_or_404(Advogado, advogadoId=advogadoId)
+            advogado.senha = senha
+            advogado.dataUltAlt = timezone.now()
+            advogado.confirmado = True
+            advogado.save()
+            logPrioridade(f"UPDATE::AdvogadosConfirmacaoViewSet - {advogado=}", tipoLog=TipoLog.banco)
+            return HttpResponse("Advogado atualizado", status=201)
+
+        except Exception as err:
+            print(f"{err=}")
+            return HttpResponse('', status=500)
 
 class AdvogadosConfirmacaoViewSet(generics.RetrieveUpdateAPIView):
     """Exibindo senha provisória de advogado ainda não confirmado"""
     def get_queryset(self):
         queryset = None
-        if len(self.kwargs) != 0:
-            queryset = Advogado.objects.filter(advogadoId=self.kwargs['pk'])
-        return queryset
+        try:
+            if len(self.kwargs) != 0:
+                advogadoId = self.kwargs['pk']
+                logPrioridade(f"GET::api/advogados/{advogadoId}/confirmacao/", tipoLog=TipoLog.rest)
+                queryset = Advogado.objects.filter(advogadoId=advogadoId)
+
+            return queryset
+        except Exception as err:
+            logPrioridade(f"err::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
+            return HttpResponse(status=510)
 
     def get_object(self):
         return get_object_or_404(Advogado, pk=self.kwargs['pk'])
 
     def patch(self, request, *args, **kwargs):
-        advModel = self.get_object()
-        advogado = ConfirmaAdvogadoSerializer(advModel, data=request.data, partial=True)
-        if advogado.is_valid():
-            advogado.save()
-            return JsonResponse(status=201, data=advogado.data)
-        return JsonResponse(status=400, data="Parâmetros errados")
+        try:
+            logPrioridade(f"PATCH::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.rest)
+            advModel = self.get_object()
+            advogado = ConfirmaAdvogadoSerializer(advModel, data=request.data, partial=True)
+            if advogado.is_valid():
+                logPrioridade(f"UPDATE::AdvogadosConfirmacaoViewSet - {advModel.advogadoId=}", tipoLog=TipoLog.banco)
+                advogado.save()
+                return JsonResponse(status=201, data=advogado.data)
+            return JsonResponse(status=400, data="Parâmetros errados")
+        except Exception as err:
+            logPrioridade(f"err::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.erro)
+            return HttpResponse(status=510)
 
     serializer_class = ConfirmaAdvogadoSerializer
     http_method_names = ['get', 'patch']
@@ -47,8 +95,17 @@ class ListaAdvogadosByEscritorio(generics.ListAPIView):
     def get_queryset(self):
         queryset = None
         if len(self.kwargs) != 0:
-            queryset = Advogado.objects.filter(escritorioId_id=self.kwargs['pk'])
-        return queryset
+            try:
+                escritorioId = self.kwargs['pk']
+                queryset = Advogado.objects.filter(escritorioId_id=escritorioId)
+                logPrioridade(f"api/escritorio/{escritorioId}/advogado", tipoLog=TipoLog.rest)
+                return queryset
+
+            except Exception as err:
+                logPrioridade(f"err::api/escritorio/<int:pk>/advogado::{err}", tipoLog=TipoLog.rest, priodiade=Prioridade.warnings)
+                return HttpResponse(status=510)
+
+
     serializer_class = AdvogadoSerializer
 
 class AuthPrevClient(generics.RetrieveAPIView):
@@ -58,16 +115,101 @@ class AuthPrevClient(generics.RetrieveAPIView):
     serializer_class = AuthClientSerializer
 
     def get_object(self):
-        login = self.kwargs['login']
-        if login is not None:
-            if login.isdecimal():
-                return get_object_or_404(Advogado, numeroOAB=self.kwargs['login'], confirmado=True)
+        try:
+            login = self.kwargs['login']
+            if login is not None:
+                if login.isdecimal():
+                    logPrioridade(f'OAB::api/advogados/auth/{login}', tipoLog=TipoLog.rest)
+                    return get_object_or_404(Advogado, numeroOAB=self.kwargs['login'])
+                else:
+                    logPrioridade(f'Email::api/advogados/auth/{login}', tipoLog=TipoLog.rest)
+                    return get_object_or_404(Advogado, email=self.kwargs['login'], ativo=True)
             else:
-                return get_object_or_404(Advogado, email=self.kwargs['login'], confirmado=True, ativo=True)
-        else:
-            JsonResponse(status=400, data="Parâmetros errados")
+                logPrioridade(f'api/advogados/auth/{login}', tipoLog=TipoLog.rest)
+                JsonResponse(status=400, data="Parâmetros errados")
+        except Exception as err:
+            logPrioridade(f'erro::api/advogados/auth/<login>', tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+            return HttpResponse(status=510)
 
     def get_queryset(self):
         queryset = self.get_object()
         return queryset
+
+class PrimeiroAcessoViewSet(generics.RetrieveUpdateAPIView):
+    """Primeiro acesso do advogado pelo PrevCliente"""
+
+    serializer_class = PrimeiroAcessoSerializer
+    http_method_names = ['post', 'get']
+
+    def post(self, request, **kwargs):
+        try:
+            logPrioridade(f"POST::api/advogados/auth/primeiroAcesso/<str:cpfEmail>", tipoLog=TipoLog.rest)
+            login = kwargs['cpfEmail']
+            if login is not None:
+                advogado: Advogado = self.get_object(login)
+                if advogado is not None:
+                    primAcesso = PrimeiroAcesso()
+                    primAcesso.advogadoId = advogado
+                    primAcesso.codAcesso = randint(10000, 99999)
+                    primAcesso.save()
+                    primeiroAcessoAdvogado(advogado, primAcesso)
+                    return JsonResponse({"advogadoId": advogado.advogadoId})
+                else:
+                    return HttpResponse("Nenhum advogado encontrado", status=310)
+            else:
+                return HttpResponse("Não foi possível carregar o CPF/E-mail enviado", status=300)
+        except Exception as err:
+            print(err)
+            logPrioridade(f'erro::POST::api/advogados/auth/primeiroAcesso/<str:cpfEmail>', tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+            return HttpResponse(status=510)
+
+    def get_object(self, infoRequest: str):
+        info = infoRequest
+        if info.isnumeric():
+            queryset = get_object_or_404(Advogado, cpf=info, confirmado=False)
+        else:
+            queryset = get_object_or_404(Advogado, email=info, confirmado=False)
+
+        return queryset
+
+class AutenticaPrimeiroAcesso(generics.RetrieveUpdateAPIView):
+    """Faz a autenticação do primeiro acesso por meio do código de acesso enviado por email"""
+
+    serializer_class = PrimeiroAcessoSerializer
+    http_method_names = ['patch', 'get']
+
+    def get_queryset(self):
+        queryset = None
+        try:
+            logPrioridade(f"GET::api/advogados/auth/autenticaCodAcesso/<int:codAcesso>", tipoLog=TipoLog.rest)
+            queryset = PrimeiroAcesso.objects.filter(verificado=True)
+
+            return queryset
+        except Exception as err:
+            logPrioridade(f"err::api/advogados/auth/autenticaCodAcesso/<int:codAcesso>", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
+            return HttpResponse(status=510)
+
+    def patch(self, request, **kwargs):
+        try:
+            logPrioridade(f"PATCH::api/advogados/auth/autenticaCodAcesso/<int:codAcesso>", tipoLog=TipoLog.rest)
+            codigo: int = kwargs['codAcesso']
+            if codigo is not None:
+                primAcesso: PrimeiroAcesso = self.get_object(codigo)
+                if primAcesso is not None:
+                    tempoDecorrido: relativedelta = relativedelta(timezone.now(), primAcesso.dataCadastro)
+                    if tempoDecorrido.minutes > 10:
+                        return HttpResponse("Tempo excedido. Tente novamente.", status=406)
+                    else:
+                        primAcesso.verificado = True
+                        primAcesso.save()
+                        return HttpResponse("Código de acesso confirmado.", status=201)
+            else:
+                return HttpResponse("Chave incorreta", status=310)
+        except Exception as err:
+            print(err)
+            logPrioridade(f'erro::api/advogados/auth/autenticaCodAcesso/<int:codAcesso>', tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+            return HttpResponse(status=510)
+
+    def get_object(self, codigo: int):
+        return get_object_or_404(PrimeiroAcesso, codAcesso=codigo, verificado=False)
 
