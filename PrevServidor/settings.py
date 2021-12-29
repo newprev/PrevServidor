@@ -162,7 +162,7 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 # Email
 emailConfig: dict = getEmailServer()
 
-EMAIL_HOST = emailConfig['email_host']
+EMAIL_HOST = emailConfig['emailHost']
 EMAIL_PORT = emailConfig['port']
 EMAIL_HOST_USER = emailConfig['emailHostUser']
 EMAIL_HOST_PASSWORD = emailConfig['emailHostPassword']

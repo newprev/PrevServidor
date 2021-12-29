@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from apps.advogado.views import AdvogadosViewSet, ListaAdvogadosByEscritorio, AdvogadosConfirmacaoViewSet, AuthPrevClient
+from apps.advogado.views import *
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet, CarenciasLei91ViewSet
 from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet, SalarioMinimoViewSet, IpcaMensalViewSet
@@ -45,5 +45,8 @@ urlpatterns = [
     path('api/', include(rotas.urls)),
     path('api/escritorio/<int:pk>/advogado', ListaAdvogadosByEscritorio.as_view()),
     path('api/advogados/<int:pk>/confirmacao/', AdvogadosConfirmacaoViewSet.as_view()),
-    path('api/advogados/auth/<str:login>', AuthPrevClient.as_view())
+    path('api/advogados/auth/<str:login>', AuthPrevClient.as_view()),
+    path('api/advogados/auth/primeiroAcesso/<str:cpfEmail>', PrimeiroAcessoViewSet.as_view()),
+    path('api/advogados/auth/autenticaCodAcesso/<int:codAcesso>', AutenticaPrimeiroAcesso.as_view()),
+    # path('api/advogados/primeirosAcessos/', AdvPrimeiroAcessoViewSet),
 ]

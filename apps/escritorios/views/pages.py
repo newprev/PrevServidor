@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import auth, messages
 
-# Create your views here.
 from apps.escritorios.models import Escritorio
 from apps.advogado.models import Advogado
+from apps.newMails.views import emailBoasVindas
 
 from ..forms import AdvForm
 
@@ -57,6 +57,7 @@ def cadastro(request):
         )
         logPrioridade(f"INSERT::cadastro - {escritorio.escritorioId=}", tipoLog=TipoLog.banco)
         escritorio.save()
+        emailBoasVindas(escritorio)
 
         messages.success(request, 'Usuário cadastrado com sucesso !!!')
 

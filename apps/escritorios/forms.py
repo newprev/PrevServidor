@@ -13,11 +13,18 @@ class AdvForm(forms.ModelForm):
 
         # fields = "__all__"
 
-        fields = ["nomeUsuario", "sobrenomeUsuario", "numeroOAB",
-        "login", "senha", "email", "nacionalidade", "estadoCivil", "ativo", ]
+        fields = [
+            "nomeUsuario",
+            "sobrenomeUsuario",
+            "numeroOAB",
+            "login",
+            "email",
+            "nacionalidade",
+            "estadoCivil",
+            "ativo"
+        ]
 
         labels = {
-            # "escritorioId": "Escritório",
             "nomeUsuario": "Nome",
             "sobrenomeUsuario": "Sobre Nome",
             "numeroOAB": "Nº OAB"
@@ -28,7 +35,6 @@ class AdvForm(forms.ModelForm):
             'sobrenomeUsuario': forms.TextInput(attrs={'class': 'form__campo'}),
             'numeroOAB': forms.TextInput(attrs={'class': 'form__campo'}),
             'login': forms.TextInput(attrs={'class': 'form__campo'}),
-            'senha': forms.TextInput(attrs={'class': 'form__campo'}),
             'email': forms.TextInput(attrs={'class': 'form__campo'}),
             'nacionalidade': forms.TextInput(attrs={'class': 'form__campo'}),
             'estadoCivil': forms.TextInput(attrs={'class': 'form__campo'}),

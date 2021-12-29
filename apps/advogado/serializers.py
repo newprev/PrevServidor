@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Advogado
+from .models import Advogado, PrimeiroAcesso
 from .validators import *
 
 
@@ -26,6 +26,7 @@ class AdvogadoSerializer(serializers.ModelSerializer):
 
         return data
 
+
 class ConfirmaAdvogadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advogado
@@ -36,3 +37,9 @@ class AuthClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advogado
         fields = ['advogadoId', 'login', 'email', 'numeroOAB', 'confirmado', 'senha']
+
+
+class PrimeiroAcessoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PrimeiroAcesso
+        exclude = []
