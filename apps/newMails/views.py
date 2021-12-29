@@ -1,5 +1,5 @@
 from apps.escritorios.models import Escritorio
-from apps.advogado.models import Advogado
+from apps.advogado.models import Advogado, PrimeiroAcesso
 from logs.logRest import logPrioridade
 
 from django.core.mail import send_mail
@@ -25,5 +25,19 @@ def emailBoasVindas(escritorio: Escritorio) -> True:
         return False
 
 
-def primeiroAcessoAdvogado(advogado: Advogado) -> True:
+def primeiroAcessoAdvogado(advogado: Advogado, primAcessoModel: PrimeiroAcesso) -> True:
+    try:
+        send_mail(
+            f'Seja bem vindo(a), {advogado.nomeUsuario}',
+            f'Olá!\nÉ um prazer ter você conosco. Abaixo estão alguns dos seus dados. Pedimos que confirme-os e, se tudo estiver correto, insira o código de acesso e defina a sua senha.\n\nCódigo de acesso: {primAcessoModel.codAcesso}',
+            'thomas.anderson@newprev.dev.br',
+            [advogado.email],
+            fail_silently=False
+        )
+        logPrioridade("E-mail::emailBoasVindas", tipoLog=TipoLog.rest)
+        return True
+    except Exception as err:
+        print(err)
+        logPrioridade(f"E-mail::primeiroAcessoAdvogado::{err}", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
+
     return True
