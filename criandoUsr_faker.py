@@ -20,6 +20,7 @@ def criando_pessoas(quantidade_de_pessoas):
         nomeUsuario: str = nomeUsuarioAux[:nomeUsuarioAux.find(' ')]
         sobrenomeUsuario = nomeUsuarioAux[nomeUsuarioAux.find(' '):]
         numeroOAB = str(random.randrange(100000000, 999999999))
+        cpf = str(random.randrange(100000000, 999999999))
         login = nomeUsuario.lower()
         email = '{}@{}'.format(nomeUsuario.lower(), fake.free_email_domain())
         email = email.replace(' ', '')
@@ -28,6 +29,7 @@ def criando_pessoas(quantidade_de_pessoas):
         a = Advogado(
             escritorioId=escritorioId,
             senha=senha,
+            cpf=cpf,
             login=login,
             email=email,
             numeroOAB=numeroOAB,
@@ -39,5 +41,5 @@ def criando_pessoas(quantidade_de_pessoas):
         a.save()
 
 
-criando_pessoas(49)
+criando_pessoas(15)
 

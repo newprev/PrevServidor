@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Advogado, PrimeiroAcesso
+from .models import Advogado, TrocaSenha
 from .validators import *
 
 
@@ -39,7 +39,7 @@ class AuthClientSerializer(serializers.ModelSerializer):
         fields = ['advogadoId', 'login', 'email', 'numeroOAB', 'confirmado', 'senha']
 
 
-class PrimeiroAcessoSerializer(serializers.ModelSerializer):
+class TrocaSenhaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PrimeiroAcesso
+        model = TrocaSenha
         exclude = []
