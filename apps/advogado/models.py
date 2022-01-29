@@ -31,20 +31,21 @@ class Advogado(models.Model):
         return f"id: {self.advogadoId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
 
 
-class PrimeiroAcesso(models.Model):
+class TrocaSenha(models.Model):
 
     TIPO = (
-        ('C', 'CPF'),
-        ('E', 'Email')
+        (1, 'PrimeiroAcesso'),
+        (2, 'EsqueceuSenha')
     )
 
     acessoId = models.AutoField(primary_key=True, auto_created=True)
     advogadoId = models.ForeignKey(Advogado, on_delete=models.CASCADE)
     codAcesso = models.IntegerField(null=False, blank=False)
+    primAcesso = models.BooleanField(null=False, default=True)
     verificado = models.BooleanField(null=False, blank=False, default=False)
-    tipoAcesso = models.CharField(max_length=1, choices=TIPO, default='C', null=False)
+    tipoTroca = models.IntegerField(choices=TIPO, default=1, null=False)
     dataUltAlt = models.DateTimeField(default=timezone.now, null=False)
     dataCadastro = models.DateTimeField(default=timezone.now, null=False)
 
     class Meta:
-        db_table = "PrimeiroAcesso"
+        db_table = "TrocaSenha"

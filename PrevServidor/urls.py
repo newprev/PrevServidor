@@ -4,7 +4,7 @@ from rest_framework import routers
 from apps.advogado.views import *
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet, CarenciasLei91ViewSet
-from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet, SalarioMinimoViewSet, IpcaMensalViewSet
+from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet, SalarioMinimoViewSet, IpcaMensalViewSet, TipoBeneficioViewSet
 from apps.sincron.views import SyncIpcaViewSet
 
 from rest_framework import permissions
@@ -36,6 +36,7 @@ rotas.register('indiceAtuMonetaria', IndicesAtuMonetariaViewSet, basename='Índi
 rotas.register('carenciasLei91', CarenciasLei91ViewSet, basename='Carências da lei 821391')
 rotas.register('salarioMinimo', SalarioMinimoViewSet, basename='Salários mínimos')
 rotas.register('ipcaMensal', IpcaMensalViewSet, basename='IPCAs mensais')
+rotas.register('tipoBeneficio', TipoBeneficioViewSet, basename='Tipos de benefício')
 rotas.register('syncIpca', SyncIpcaViewSet, basename='Sync IPCAs')
 
 urlpatterns = [
@@ -46,7 +47,7 @@ urlpatterns = [
     path('api/escritorio/<int:pk>/advogado', ListaAdvogadosByEscritorio.as_view()),
     path('api/advogados/<int:pk>/confirmacao/', AdvogadosConfirmacaoViewSet.as_view()),
     path('api/advogados/auth/<str:login>', AuthPrevClient.as_view()),
-    path('api/advogados/auth/primeiroAcesso/<str:cpfEmail>', PrimeiroAcessoViewSet.as_view()),
-    path('api/advogados/auth/autenticaCodAcesso/<int:codAcesso>', AutenticaPrimeiroAcesso.as_view()),
+    path('api/advogados/auth/trocaSenha/', TrocaSenhaViewSet.as_view()),
+    path('api/advogados/auth/autenticaCodAcesso/', AutenticaPrimeiroAcesso.as_view()),
     # path('api/advogados/primeirosAcessos/', AdvPrimeiroAcessoViewSet),
 ]

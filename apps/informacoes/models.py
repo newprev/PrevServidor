@@ -72,8 +72,6 @@ class SalarioMinimo(models.Model):
 
 
 class IpcaMensal(models.Model):
-    # db_table = 'IpcaId'
-
     ipcaId = models.AutoField(primary_key=True, unique=True, blank=False, auto_created=True)
     dataReferente = models.DateField(blank=False, null=False)
     valor = models.FloatField(blank=False, null=False)
@@ -85,3 +83,16 @@ class IpcaMensal(models.Model):
 
     def __str__(self):
         return f"ipcaId: {self.ipcaId}, dataReferente: {self.dataReferente} valor: {self.valor}"
+
+
+class TipoBeneficio(models.Model):
+    tipoId = models.IntegerField(unique=True, blank=False, auto_created=True)
+    nome = models.CharField(max_length=20, null=False, blank=False)
+    descricao = models.TextField(max_length=600, null=False, blank=False)
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        db_table = "TipoBeneficio"
+
+    def __str__(self):
+        return f"tipoId: {self.tipoId}, nome: {self.nome}, ativo: {self.ativo}"
