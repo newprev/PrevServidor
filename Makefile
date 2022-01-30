@@ -4,6 +4,10 @@ PASSWORD=senha
 ##Iniciar o servidor
 run-dev:
 	@python manage.py runserver
+run-aws:
+	@python manage.py runserver 0:8080
+access-aws:
+	@cd ../Documentos && ssh -i "NewPrevDev.pem" ubuntu@ec2-3-139-65-128.us-east-2.compute.amazonaws.com
 
 
 ## @ Limpeza de migrações
