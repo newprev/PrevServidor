@@ -1,3 +1,0 @@
-initVenv:
-	(. prevServEnv/bin/activate;)
-

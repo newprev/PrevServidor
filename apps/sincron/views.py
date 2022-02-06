@@ -45,5 +45,5 @@ class SyncIpcaViewSet(viewsets.ModelViewSet):
             print(f"buscaIpcas<SyncIpcaViewSet>: {err} - ({type(err)})")
         finally:
             sync = SyncIpca.objects.create(qtdSync=qtdSync)
-            logPrioridade(f"UPDATE::buscaIpcas - {sync.dataReferente=}", tipoLog=TipoLog.banco)
+            logPrioridade(f"UPDATE::buscaIpcas - {sync.dataSync=}", tipoLog=TipoLog.banco)
             sync.save()

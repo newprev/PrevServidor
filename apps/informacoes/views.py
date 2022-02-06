@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from .serializers import IndicadoresSerializer, ExpSobrevidaSerializer, IndicesAtuMonetariaSerializer, SalarioMinimoSerializer, IpcaMensalSerializer
-from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo, IpcaMensal
+from .serializers import IndicadoresSerializer, ExpSobrevidaSerializer, IndicesAtuMonetariaSerializer, SalarioMinimoSerializer, IpcaMensalSerializer, TipoBeneficioSerializer
+from .models import Indicadores, ExpectativaSobrevida, IndicesAtualizacaoMonetaria, SalarioMinimo, IpcaMensal, TipoBeneficio
 
 from logs.logRest import logPrioridade
 from prevEnums import Prioridade, TipoLog
@@ -55,3 +55,13 @@ class IpcaMensalViewSet(viewsets.ModelViewSet):
         serializer_class = IpcaMensalSerializer
     except Exception as err:
         logPrioridade("erro::/ipcaMensal", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+
+
+class TipoBeneficioViewSet(viewsets.ModelViewSet):
+    """Exibe todos os tipo de benefícios possíveis de trabalhar no NewPrev"""
+    try:
+        logPrioridade("GET::/tipoBeneficio", tipoLog=TipoLog.rest)
+        queryset = TipoBeneficio.objects.all()
+        serializer_class = TipoBeneficioSerializer
+    except Exception as err:
+        logPrioridade("erro::/tipoBeneficio", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)

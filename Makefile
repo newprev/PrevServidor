@@ -38,12 +38,21 @@ makeAllMigrations: ## Cria todos os arquivos de migração e completa a migraç�
 updateDB-Backup: ## Atualiza o banco baseado nos arquivos de backup criados 
 	@echo 'Atualizando todas as tabelas'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/carenciasLei91.sql
+	@echo '--> Carências da Lei de 91 está atualizado'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/convMon.sql
+	@echo '--> Conversões Monetárias está atualizada'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/expectativaSobrevida.sql
+	@echo '--> Expectativas de sobrevida estão atualizadas'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicadores.sql
+	@echo '--> Indicadores do CNIS estão atualizados'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/salarioMinimo.sql
+	@echo '--> Salários Minimos estão atualizados'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/tetosPrev.sql
+	@echo '--> Tetos previdenciarios estão atualizados'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicesAtuMonetaria.sql
+	@echo '--> Índices de atualização monetária estão atualizados'
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/TipoBeneficio.sql
+	@echo '--> Tipo de benefícios estão atualizados'
 
 updateDB-Tabela: ## Atualiza apenas uma tabela baseado no arquivo de backup criado
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicesAtuMonetaria.sql

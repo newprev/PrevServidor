@@ -1,5 +1,5 @@
 from apps.escritorios.models import Escritorio
-from apps.advogado.models import Advogado, PrimeiroAcesso
+from apps.advogado.models import Advogado, TrocaSenha
 from logs.logRest import logPrioridade
 
 from django.core.mail import send_mail
@@ -25,7 +25,7 @@ def emailBoasVindas(escritorio: Escritorio) -> True:
         return False
 
 
-def primeiroAcessoAdvogado(advogado: Advogado, primAcessoModel: PrimeiroAcesso) -> True:
+def primeiroAcessoAdvogado(advogado: Advogado, primAcessoModel: TrocaSenha) -> True:
     try:
         send_mail(
             f'Seja bem vindo(a), {advogado.nomeUsuario}',
@@ -34,10 +34,27 @@ def primeiroAcessoAdvogado(advogado: Advogado, primAcessoModel: PrimeiroAcesso) 
             [advogado.email],
             fail_silently=False
         )
-        logPrioridade("E-mail::emailBoasVindas", tipoLog=TipoLog.rest)
+        logPrioridade("E-mail::primeiroAcessoAdvogado", tipoLog=TipoLog.rest)
         return True
     except Exception as err:
         print(err)
         logPrioridade(f"E-mail::primeiroAcessoAdvogado::{err}", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
+
+    return True
+
+def trocouSenhaAdvogado(advogado: Advogado, primAcessoModel: TrocaSenha) -> True:
+    try:
+        send_mail(
+            f'Troca de senha',
+            f'Olá, {advogado.nomeUsuario}! \n\nPara trocar sua senha, use o código gerado abaixo. Caso não tenha sido você que pediu para trocar a senha, entre em contato com a equipe de suporte o mais rápido possível.\n\nCódigo de acesso: {primAcessoModel.codAcesso}',
+            'thomas.anderson@newprev.dev.br',
+            [advogado.email],
+            fail_silently=False
+        )
+        logPrioridade("E-mail::trocaDeSenhaAdvogado", tipoLog=TipoLog.rest)
+        return True
+    except Exception as err:
+        print(err)
+        logPrioridade(f"E-mail::trocaDeSenhaAdvogado::{err}", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
 
     return True
