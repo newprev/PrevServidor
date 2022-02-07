@@ -46,8 +46,7 @@ urlpatterns = [
     path('api/', include(rotas.urls)),
     path('api/escritorio/<int:pk>/advogado', ListaAdvogadosByEscritorio.as_view()),
     path('api/advogados/<int:pk>/confirmacao/', AdvogadosConfirmacaoViewSet.as_view()),
-    path('api/advogados/auth/<str:login>', AuthPrevClient.as_view()),
+    path('api/advogados/auth/login/', AuthAdvogado.as_view()),
     path('api/advogados/auth/trocaSenha/', TrocaSenhaViewSet.as_view()),
     path('api/advogados/auth/autenticaCodAcesso/', AutenticaPrimeiroAcesso.as_view()),
-    # path('api/advogados/primeirosAcessos/', AdvPrimeiroAcessoViewSet),
 ]

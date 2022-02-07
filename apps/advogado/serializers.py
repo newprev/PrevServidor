@@ -33,10 +33,10 @@ class ConfirmaAdvogadoSerializer(serializers.ModelSerializer):
         fields = ['senha', 'confirmado']
 
 
-class AuthClientSerializer(serializers.ModelSerializer):
+class AuthAdvogadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advogado
-        fields = ['advogadoId', 'login', 'email', 'numeroOAB', 'confirmado', 'senha']
+        fields = ['advogadoId', 'escritorioId', 'login', 'email', 'numeroOAB', 'confirmado']
 
 
 class TrocaSenhaSerializer(serializers.ModelSerializer):

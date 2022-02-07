@@ -1,6 +1,6 @@
 from dateutil.relativedelta import relativedelta
 
-from rest_framework import viewsets, generics, filters
+from rest_framework import viewsets, generics, filters, status
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -11,7 +11,7 @@ from random import randint
 from apps.newMails.views import primeiroAcessoAdvogado, trocouSenhaAdvogado
 from logs.logRest import logPrioridade
 from .models import Advogado, TrocaSenha
-from .serializers import AdvogadoSerializer, ConfirmaAdvogadoSerializer, AuthClientSerializer, TrocaSenhaSerializer
+from .serializers import AdvogadoSerializer, ConfirmaAdvogadoSerializer, AuthAdvogadoSerializer, TrocaSenhaSerializer
 
 from prevEnums import Prioridade, TipoLog, TipoTrocaSenha
 
@@ -107,11 +107,57 @@ class ListaAdvogadosByEscritorio(generics.ListAPIView):
 
     serializer_class = AdvogadoSerializer
 
-class AuthPrevClient(generics.RetrieveAPIView):
+class AuthAdvogado(generics.RetrieveUpdateAPIView):
     """Autenticando usuário do PrevCliente"""
 
     search_fields = ['numeroOAB', 'email']
-    serializer_class = AuthClientSerializer
+    serializer_class = AuthAdvogadoSerializer
+    http_method_names = ['patch', 'get']
+
+    # def patch(self, request, **kwargs):
+    #     try:
+    #         logPrioridade(f"PATCH::api/advogados/auth/", tipoLog=TipoLog.rest)
+    #         print(f"{request.data.keys()=}")
+    #
+    #     except Exception as err:
+    #         print(f"patch(AuthAdvogado): {err=}")
+
+    def patch(self, request, *args, **kwargs):
+        try:
+            logPrioridade(f"PATCH::api/advogados/auth/", tipoLog=TipoLog.rest)
+            body: dict = request.data
+            if 'senha' not in body.keys() or len(body['senha']) == 0:
+                return HttpResponse(410, "Autenticação sem senha")
+
+            senhaAdv = body['senha']
+
+            if 'numeroOAB' in body.keys() and len(body['numeroOAB']) != 0:
+                numeroOab = int(body['numeroOAB'])
+                advogado = get_object_or_404(
+                    Advogado,
+                    numeroOAB=numeroOab,
+                    senha=senhaAdv,
+                    ativo=True,
+                    confirmado=True,
+                )
+                modeloRetorno = AuthAdvogadoSerializer(advogado).data
+                return JsonResponse(modeloRetorno, status=status.HTTP_202_ACCEPTED)
+            elif 'email' in body.keys() and len(body['email']) != 0:
+                emailAdv = body['email']
+                advogado = get_object_or_404(
+                    Advogado,
+                    email=emailAdv,
+                    senha=senhaAdv,
+                    ativo=True,
+                    confirmado=True,
+                )
+                modeloRetorno = AuthAdvogadoSerializer(advogado).data
+                return JsonResponse(modeloRetorno, status=status.HTTP_202_ACCEPTED)
+            else:
+                return JsonResponse(status=410, data="Parâmetros errados")
+
+        except Exception as err:
+            print(f"patch(AuthAdvogado): {err=}")
 
     def get_object(self):
         try:
