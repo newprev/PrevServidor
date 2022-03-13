@@ -53,6 +53,8 @@ updateDB-Backup: ## Atualiza o banco baseado nos arquivos de backup criados
 	@echo '--> Índices de atualização monetária estão atualizados'
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/TipoBeneficio.sql
 	@echo '--> Tipo de benefícios estão atualizados'
+	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/especieTipo.sql
+	@echo '--> Tipos de espécies de benefícios estão atualizados'
 
 updateDB-Tabela: ## Atualiza apenas uma tabela baseado no arquivo de backup criado
 	@mysql -h localhost -u NEWPREV -p"${PASSWORD}" GIDEON < ../backup/indicesAtuMonetaria.sql

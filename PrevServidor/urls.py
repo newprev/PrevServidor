@@ -4,7 +4,8 @@ from rest_framework import routers
 from apps.advogado.views import *
 from apps.escritorios.views.viewSerializer import EscritorioViewSet
 from apps.ferramentas.views import ConvMonViewSet, TetosPrevViewSet, CarenciasLei91ViewSet
-from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet, SalarioMinimoViewSet, IpcaMensalViewSet, TipoBeneficioViewSet
+from apps.informacoes.views import IndicadoresViewSet, ExpectativaSobrevidaViewSet, IndicesAtuMonetariaViewSet, SalarioMinimoViewSet, IpcaMensalViewSet, TipoBeneficioViewSet, \
+    EspecieBeneficioViewSet
 from apps.sincron.views import SyncIpcaViewSet
 
 from rest_framework import permissions
@@ -37,6 +38,7 @@ rotas.register('carenciasLei91', CarenciasLei91ViewSet, basename='Carências da 
 rotas.register('salarioMinimo', SalarioMinimoViewSet, basename='Salários mínimos')
 rotas.register('ipcaMensal', IpcaMensalViewSet, basename='IPCAs mensais')
 rotas.register('tipoBeneficio', TipoBeneficioViewSet, basename='Tipos de benefício')
+rotas.register('especieBeneficio', EspecieBeneficioViewSet, basename='EspecieBeneficios')
 rotas.register('syncIpca', SyncIpcaViewSet, basename='Sync IPCAs')
 
 urlpatterns = [

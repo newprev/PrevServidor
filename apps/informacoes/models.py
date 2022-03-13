@@ -96,3 +96,17 @@ class TipoBeneficio(models.Model):
 
     def __str__(self):
         return f"tipoId: {self.tipoId}, nome: {self.nome}, ativo: {self.ativo}"
+
+
+class EspecieBeneficio(models.Model):
+    especieId = models.IntegerField(unique=True, blank=False, auto_created=False)
+    descricao = models.TextField(max_length=600, null=False, blank=False)
+    ativo = models.BooleanField(default=True)
+    dataUltAlt = models.DateTimeField(default=datetime.now(), null=False)
+    dataCadastro = models.DateTimeField(auto_now=True, null=False)
+
+    class Meta:
+        db_table = "EspecieBeneficio"
+
+    def __str__(self):
+        return f"especieId: {self.especieId}, descricao: {self.descricao}"

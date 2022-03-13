@@ -25,7 +25,7 @@ class AdvogadosViewSet(viewsets.ModelViewSet):
         queryset = Advogado.objects.all()
         serializer_class = AdvogadoSerializer
         filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-        ordering_fields = ['nomeUsuario']
+        ordering_fields = ['nomeAdvogado']
         search_fields = ['numeroOAB', 'email']
         filterset_fields = ['ativo']
 
@@ -61,7 +61,7 @@ class AdvogadosConfirmacaoViewSet(generics.RetrieveUpdateAPIView):
 
             return queryset
         except Exception as err:
-            logPrioridade(f"err::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
+            logPrioridade(f"{err=}::api/advogados/<advogadoId>/confirmacao/", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
             return HttpResponse(status=510)
 
     def get_object(self):
@@ -114,14 +114,6 @@ class AuthAdvogado(generics.RetrieveUpdateAPIView):
     serializer_class = AuthAdvogadoSerializer
     http_method_names = ['patch', 'get']
 
-    # def patch(self, request, **kwargs):
-    #     try:
-    #         logPrioridade(f"PATCH::api/advogados/auth/", tipoLog=TipoLog.rest)
-    #         print(f"{request.data.keys()=}")
-    #
-    #     except Exception as err:
-    #         print(f"patch(AuthAdvogado): {err=}")
-
     def patch(self, request, *args, **kwargs):
         try:
             logPrioridade(f"PATCH::api/advogados/auth/", tipoLog=TipoLog.rest)
@@ -130,12 +122,24 @@ class AuthAdvogado(generics.RetrieveUpdateAPIView):
                 return HttpResponse(410, "Autenticação sem senha")
 
             senhaAdv = body['senha']
+            print(f"{body=}")
 
             if 'numeroOAB' in body.keys() and len(body['numeroOAB']) != 0:
                 numeroOab = int(body['numeroOAB'])
                 advogado = get_object_or_404(
                     Advogado,
                     numeroOAB=numeroOab,
+                    senha=senhaAdv,
+                    ativo=True,
+                    confirmado=True,
+                )
+                modeloRetorno = AuthAdvogadoSerializer(advogado).data
+                return JsonResponse(modeloRetorno, status=status.HTTP_202_ACCEPTED)
+            elif 'cpf' in body.keys() and len(body['cpf']) != 0:
+                cpfAdv = body['cpf']
+                advogado = get_object_or_404(
+                    Advogado,
+                    cpf=cpfAdv,
                     senha=senhaAdv,
                     ativo=True,
                     confirmado=True,
@@ -154,10 +158,11 @@ class AuthAdvogado(generics.RetrieveUpdateAPIView):
                 modeloRetorno = AuthAdvogadoSerializer(advogado).data
                 return JsonResponse(modeloRetorno, status=status.HTTP_202_ACCEPTED)
             else:
-                return JsonResponse(status=410, data="Parâmetros errados")
+                return HttpResponse(status=410)
 
         except Exception as err:
             print(f"patch(AuthAdvogado): {err=}")
+            return HttpResponse(status=410)
 
     def get_object(self):
         try:

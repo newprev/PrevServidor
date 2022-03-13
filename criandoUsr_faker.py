@@ -16,13 +16,13 @@ def criando_pessoas(quantidade_de_pessoas):
     for _ in range(quantidade_de_pessoas):
         escritorioId = Escritorio.objects.get(escritorioId=random.randrange(1, 3))
         senha = str(random.randrange(2000, 10000))
-        nomeUsuarioAux = fake.name()
-        nomeUsuario: str = nomeUsuarioAux[:nomeUsuarioAux.find(' ')]
-        sobrenomeUsuario = nomeUsuarioAux[nomeUsuarioAux.find(' '):]
+        nomeAdvogadoAux = fake.name()
+        nomeAdvogado: str = nomeAdvogadoAux[:nomeAdvogadoAux.find(' ')]
+        sobrenomeAdvogado = nomeAdvogadoAux[nomeAdvogadoAux.find(' '):]
         numeroOAB = str(random.randrange(100000000, 999999999))
         cpf = str(random.randrange(100000000, 999999999))
-        login = nomeUsuario.lower()
-        email = '{}@{}'.format(nomeUsuario.lower(), fake.free_email_domain())
+        login = nomeAdvogado.lower()
+        email = '{}@{}'.format(nomeAdvogado.lower(), fake.free_email_domain())
         email = email.replace(' ', '')
         ativo = random.choice([True, False])
 
@@ -33,8 +33,8 @@ def criando_pessoas(quantidade_de_pessoas):
             login=login,
             email=email,
             numeroOAB=numeroOAB,
-            nomeUsuario=nomeUsuario,
-            sobrenomeUsuario=sobrenomeUsuario,
+            nomeAdvogado=nomeAdvogado,
+            sobrenomeAdvogado=sobrenomeAdvogado,
             ativo=ativo
         )
 

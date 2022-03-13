@@ -38,6 +38,12 @@ class AdminTipoBeneficio(admin.ModelAdmin):
     list_per_page = 30
 
 
+class AdminEspecieBeneficio(admin.ModelAdmin):
+    list_display = ['especieId', 'descricao', 'ativo']
+    list_display_links = ['especieId', 'descricao', 'ativo']
+    list_per_page = 25
+
+
 admin.site.register(Indicadores, AdminIndicadores)
 admin.site.register(ExpectativaSobrevida, AdminExpSobrevida)
 admin.site.register(IndicesAtualizacaoMonetaria, AdminIndicesAtuMonetaria)

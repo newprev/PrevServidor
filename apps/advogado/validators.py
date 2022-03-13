@@ -14,9 +14,9 @@ def validaApenasNumerosOAB(numeroOAB: str):
     return numeroOAB.isdecimal()
 
 
-def validaNomeUsuario(nomeUsuario: str):
-    return nomeUsuario.isalpha()
+def validaNomeAdvogado(nomeAdvogado: str):
+    return nomeAdvogado.isalpha()
 
 
-def validaSobrenomeUsuario(sobrenomeUsuario: str):
-    return sobrenomeUsuario.isalpha()
+def validaSobrenomeAdvogado(sobrenomeAdvogado: str):
+    return sobrenomeAdvogado.isalpha()

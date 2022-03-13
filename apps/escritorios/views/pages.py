@@ -160,8 +160,8 @@ def atualizaEscritorio(request):
             logPrioridade(f"UPDATE::atualizaEscritorio - {escritorioId}", tipoLog=TipoLog.banco)
             update = Escritorio.objects.get(pk=escritorioId)
 
-            #update.nomeUsuario = request.POST['nome']
-            #update.sobrenomeUsuario = request.POST['sobrenome']
+            #update.nomeAdvogado = request.POST['nome']
+            #update.sobrenomeAdvogado = request.POST['sobrenome']
             update.nomeFantasia = request.POST['nomeFantasia']
             update.cnpj = request.POST['cnpj']
             update.cpf = request.POST['cpf']
@@ -217,8 +217,8 @@ def atualizaAdv(request):
 
             update = Advogado.objects.get(pk=advogadoId)
 
-            update.nomeUsuario = request.POST['nome']
-            update.sobrenomeUsuario = request.POST['sobrenome']
+            update.nomeAdvogado = request.POST['nome']
+            update.sobrenomeAdvogado = request.POST['sobrenome']
             update.numeroOAB = request.POST['oab']
             update.login = request.POST['login']
             update.senha = request.POST['senha']
@@ -228,7 +228,7 @@ def atualizaAdv(request):
             update.ativo = request.POST.get('ativo')
             update.ativo = True if update.ativo else False
 
-            logPrioridade(f"UPDATE::atualizaAdv - {update.nomeUsuario}", tipoLog=TipoLog.banco)
+            logPrioridade(f"UPDATE::atualizaAdv - {update.nomeAdvogado}", tipoLog=TipoLog.banco)
             update.save()
 
     except Exception as err:
