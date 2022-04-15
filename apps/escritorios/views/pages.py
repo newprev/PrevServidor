@@ -10,9 +10,7 @@ from ..forms import AdvForm
 
 from apps.escritorios.views.escritorioTools import *
 
-from logs.logRest import logPrioridade
-from prevEnums import TipoLog, Prioridade
-
+from logging import error, info, warning
 
 def index(request):
     return render(request, 'index.html')
@@ -20,7 +18,7 @@ def index(request):
 
 def cadastro(request):
     if request.method == 'POST':
-        logPrioridade('POST::/cadastro', tipoLog=TipoLog.rest)
+        info('POST::/cadastro')
         usuario = request.POST['usuario']
         senha = request.POST['senha']
         confirmaSenha = request.POST['confimacaoSenha']
@@ -55,7 +53,7 @@ def cadastro(request):
         escritorio = Escritorio.objects.create_user(
             username=usuario, nomeEscritorio=usuario, email=email, password=senha, qtdChaves=licencas, is_staff=False
         )
-        logPrioridade(f"INSERT::cadastro - {escritorio.escritorioId=}", tipoLog=TipoLog.banco)
+        info(f"INSERT::cadastro - {escritorio.escritorioId=}")
         escritorio.save()
         emailBoasVindas(escritorio)
 
@@ -68,7 +66,7 @@ def cadastro(request):
 
 def login(request):
     if request.method == 'POST':
-        logPrioridade("POST::/login", tipoLog=TipoLog.rest)
+        info("POST::/login")
         usuario = request.POST['usuario']
         senha = request.POST['senha']
 
@@ -103,13 +101,13 @@ def login(request):
 
 
 def logout(request):
-    logPrioridade("POST::/logout", tipoLog=TipoLog.rest)
+    info("POST::/logout")
     auth.logout(request)
     return render(request, 'index.html')
 
 
 def dashboard(request, nomeEscritorio):
-    logPrioridade("GET::/dashboard", tipoLog=TipoLog.rest)
+    info("GET::/dashboard")
 
     if request.user.is_authenticated:
 
@@ -145,7 +143,7 @@ def dashboard(request, nomeEscritorio):
 
 
 def editaEscritorio(request, nomeEscritorio):
-    logPrioridade(f"SELECT::editaEscritorio - {nomeEscritorio=}", tipoLog=TipoLog.banco)
+    info(f"SELECT::editaEscritorio - {nomeEscritorio=}")
     escritorioAtivo = get_object_or_404(Escritorio, pk=request.user.escritorioId, nomeEscritorio=nomeEscritorio)
     escritorioAtivoEditar = {'escritorio': escritorioAtivo}
     return render(request, 'atualiza_Escritorio.html', escritorioAtivoEditar)
@@ -154,10 +152,10 @@ def editaEscritorio(request, nomeEscritorio):
 def atualizaEscritorio(request):
     if request.method == 'POST':
         try:
-            logPrioridade(f"POST::/atualizaEscritorio", tipoLog=TipoLog.rest)
+            info(f"POST::/atualizaEscritorio")
             escritorioId = request.POST['escritorioId']
 
-            logPrioridade(f"UPDATE::atualizaEscritorio - {escritorioId}", tipoLog=TipoLog.banco)
+            info(f"UPDATE::atualizaEscritorio - {escritorioId}")
             update = Escritorio.objects.get(pk=escritorioId)
 
             #update.nomeAdvogado = request.POST['nome']
@@ -178,18 +176,18 @@ def atualizaEscritorio(request):
 
             update.save()
         except Exception as err:
-            logPrioridade(f"erro::/atualizaEscritorio - {err=}", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+            info(f"erro::/atualizaEscritorio - {err=}")
     return redirect('dashboard', request.user.nomeEscritorio)
 
 
 def criaAdv(request):
-    logPrioridade("POST::/novoAdv", tipoLog=TipoLog.rest)
+    info("POST::/novoAdv")
     form = AdvForm(request.POST or None)
 
     if form.is_valid():
         try:
             novo = form.save(commit=False)
-            logPrioridade(f"INSERT::criaAdv - {form=}", tipoLog=TipoLog.banco)
+            info(f"INSERT::criaAdv - {form=}")
 
             novo.escritorioId = request.user
             novo.save()
@@ -197,7 +195,7 @@ def criaAdv(request):
             return redirect('dashboard', request.user.nomeEscritorio)
 
         except Exception as err:
-            logPrioridade(f"err::/novoAdv - {err=}", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+            error(f"/novoAdv - {err=}")
 
     return render(request, 'cadAdv.html', {'form': form})
 
@@ -212,7 +210,7 @@ def editaAdv(request, advogadoId):
 def atualizaAdv(request):
     try:
         if request.method == 'POST':
-            logPrioridade("POST::/atualizaAdv", tipoLog=TipoLog.rest)
+            info("POST::/atualizaAdv")
             advogadoId = request.POST['advogadoId']
 
             update = Advogado.objects.get(pk=advogadoId)
@@ -228,17 +226,17 @@ def atualizaAdv(request):
             update.ativo = request.POST.get('ativo')
             update.ativo = True if update.ativo else False
 
-            logPrioridade(f"UPDATE::atualizaAdv - {update.nomeAdvogado}", tipoLog=TipoLog.banco)
+            info(f"UPDATE::atualizaAdv - {update.nomeAdvogado}")
             update.save()
 
     except Exception as err:
-        logPrioridade("erro::/atualizaAdv", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+        error("erro::/atualizaAdv")
 
     return redirect('dashboard', request.user.nomeEscritorio)
 
 
 def deletaAdv(request, advogadoId):
-    logPrioridade(f"DELETE::deletaAdv - {advogadoId}", tipoLog=TipoLog.rest)
+    info(f"DELETE::deletaAdv - {advogadoId}")
     cardAdv = get_object_or_404(Advogado, pk=advogadoId)
     # --------------------------------------------------------------Estou comentando o metodo que deleta o advs
     cardAdv.delete()

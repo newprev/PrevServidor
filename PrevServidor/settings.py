@@ -9,15 +9,14 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import os, sys
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from datasource.magic import getDatabase, getEmailServer
+from datasource.getResources import getDatabase, getEmailServer, getLoggingPsd
 from prevEnums import TipoConexao
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -94,12 +93,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PrevServidor.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = getDatabase(TipoConexao.hearthstone)
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -119,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -135,14 +131,13 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'PrevServidor/static')
-]
+                    ]
 
 # PROJECT_ROOT = os.path.dirname(__file__)
 # os.path.join(PROJECT_ROOT, '../apps')
@@ -170,3 +165,30 @@ SERVER_EMAIL = emailConfig['serverEmail']
 EMAIL_USE_TLS = emailConfig['emailUseTls']
 EMAIL_USE_SSL = emailConfig['emailUseSsl']
 
+# LOGS
+from logging import INFO
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.logging import LoggingIntegration
+
+sentryLogging = LoggingIntegration(
+    level=INFO,
+    event_level=INFO
+)
+
+sentry_sdk.init(
+    dsn=getLoggingPsd(),
+    integrations=[sentryLogging, DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
+
+from logs.newLoggin import NewLogging
+logs = NewLogging()

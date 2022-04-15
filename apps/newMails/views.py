@@ -1,6 +1,5 @@
 from apps.escritorios.models import Escritorio
 from apps.advogado.models import Advogado, TrocaSenha
-from logs.logRest import logPrioridade
 
 from django.core.mail import send_mail
 
