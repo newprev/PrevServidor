@@ -16,11 +16,11 @@ def emailBoasVindas(escritorio: Escritorio) -> True:
             [escritorio.email],
             fail_silently=False
         )
-        logPrioridade("E-mail::emailBoasVindas", tipoLog=TipoLog.rest)
+        # logPrioridade("E-mail::emailBoasVindas", tipoLog=TipoLog.rest)
         return True
     except Exception as err:
         print(f"apps/newMail/views/cadastro: {err}")
-        logPrioridade(f"E-mail::emailBoasVindas::{err}", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
+        # logPrioridade(f"E-mail::emailBoasVindas::{err}", tipoLog=TipoLog.rest, priodiade=Prioridade.erro)
         return False
 
 
@@ -33,11 +33,11 @@ def primeiroAcessoAdvogado(advogado: Advogado, primAcessoModel: TrocaSenha) -> T
             [advogado.email],
             fail_silently=False
         )
-        logPrioridade("E-mail::primeiroAcessoAdvogado", tipoLog=TipoLog.rest)
+        # logPrioridade("E-mail::primeiroAcessoAdvogado", tipoLog=TipoLog.rest)
         return True
     except Exception as err:
         print(err)
-        logPrioridade(f"E-mail::primeiroAcessoAdvogado::{err}", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
+        # logPrioridade(f"E-mail::primeiroAcessoAdvogado::{err}", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
 
     return True
 
@@ -50,10 +50,10 @@ def trocouSenhaAdvogado(advogado: Advogado, primAcessoModel: TrocaSenha) -> True
             [advogado.email],
             fail_silently=False
         )
-        logPrioridade("E-mail::trocaDeSenhaAdvogado", tipoLog=TipoLog.rest)
+        # logPrioridade("E-mail::trocaDeSenhaAdvogado", tipoLog=TipoLog.rest)
         return True
     except Exception as err:
         print(err)
-        logPrioridade(f"E-mail::trocaDeSenhaAdvogado::{err}", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
+        # logPrioridade(f"E-mail::trocaDeSenhaAdvogado::{err}", tipoLog=TipoLog.erro, priodiade=Prioridade.erro)
 
     return True
