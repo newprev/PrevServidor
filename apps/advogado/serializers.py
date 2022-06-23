@@ -18,11 +18,11 @@ class AdvogadoSerializer(serializers.ModelSerializer):
         if not validaApenasNumerosOAB(data['numeroOAB']):
             raise serializers.ValidationError({"numeroOAB": "O número da OAB deve conter apenas números."})
 
-        if not validaNomeUsuario(data['nomeUsuario']):
-            raise serializers.ValidationError({"nomeUsuario": "O nome do advogado não deve conter números."})
+        if not validanomeAdvogado(data['nomeAdvogado']):
+            raise serializers.ValidationError({"nomeAdvogado": "O nome do advogado não deve conter números."})
 
-        if not validaSobrenomeUsuario(data['sobrenomeUsuario']):
-            raise serializers.ValidationError({"sobrenomeUsuario": "O sobrenome do advogado não deve conter números."})
+        if not validaSobrenomeAdvogado(data['sobrenomeAdvogado']):
+            raise serializers.ValidationError({"sobrenomeAdvogado": "O sobrenome do advogado não deve conter números."})
 
         return data
 
@@ -33,10 +33,10 @@ class ConfirmaAdvogadoSerializer(serializers.ModelSerializer):
         fields = ['senha', 'confirmado']
 
 
-class AuthClientSerializer(serializers.ModelSerializer):
+class AuthAdvogadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advogado
-        fields = ['advogadoId', 'login', 'email', 'numeroOAB', 'confirmado', 'senha']
+        fields = ['advogadoId', 'escritorioId', 'login', 'email', 'numeroOAB', 'confirmado']
 
 
 class TrocaSenhaSerializer(serializers.ModelSerializer):

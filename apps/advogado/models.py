@@ -14,8 +14,8 @@ class Advogado(models.Model):
     email = models.EmailField(max_length=40, null=False, blank=False)
     numeroOAB = models.CharField(max_length=9, null=False, blank=False, unique=True)
     cpf = models.CharField(max_length=11, null=False, blank=False, unique=True)
-    nomeUsuario = models.CharField(max_length=20, null=False, blank=False)
-    sobrenomeUsuario = models.CharField(max_length=40, null=False, blank=False)
+    nomeAdvogado = models.CharField(max_length=20, null=False, blank=False)
+    sobrenomeAdvogado = models.CharField(max_length=40, null=False, blank=False)
     nacionalidade = models.CharField(max_length=40, default='brasileiro', null=False, blank=False)
     estadoCivil = models.CharField(max_length=20, default='solteiro', null=False, blank=False)
     admin = models.BooleanField(default=False)
@@ -28,7 +28,7 @@ class Advogado(models.Model):
         db_table = "Advogados"
 
     def __str__(self):
-        return f"id: {self.advogadoId}, nome: {self.nomeUsuario}, email: {self.email}, OAB: {self.numeroOAB}"
+        return f"id: {self.advogadoId}, nome: {self.nomeAdvogado}, email: {self.email}, OAB: {self.numeroOAB}"
 
 
 class TrocaSenha(models.Model):

@@ -142,3 +142,6 @@ apps/informacoes/migrations/
 apps/sincron/migrations/
 
 logs/historicoLogs/*.txt
+/datasource/sentryPsd.txt
+
+datasource/datasource.zip

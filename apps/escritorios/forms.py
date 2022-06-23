@@ -8,14 +8,14 @@ class AdvForm(forms.ModelForm):
         model = Advogado
         # exclude = ('escritorioId',)
 
-        # fields = ["escritorioId", "nomeUsuario", "sobrenomeUsuario", "numeroOAB",
+        # fields = ["escritorioId", "nomeAdvogado", "sobrenomeAdvogado", "numeroOAB",
         #           "login", "senha", "email","nacionalidade", "estadoCivil", "ativo", ]
 
         # fields = "__all__"
 
         fields = [
-            "nomeUsuario",
-            "sobrenomeUsuario",
+            "nomeAdvogado",
+            "sobrenomeAdvogado",
             "numeroOAB",
             "login",
             "email",
@@ -25,14 +25,14 @@ class AdvForm(forms.ModelForm):
         ]
 
         labels = {
-            "nomeUsuario": "Nome",
-            "sobrenomeUsuario": "Sobre Nome",
+            "nomeAdvogado": "Nome",
+            "sobrenomeAdvogado": "Sobre Nome",
             "numeroOAB": "Nº OAB"
         }
 
         widgets = {
-            'nomeUsuario': forms.TextInput(attrs={'class': 'form__campo'}),
-            'sobrenomeUsuario': forms.TextInput(attrs={'class': 'form__campo'}),
+            'nomeAdvogado': forms.TextInput(attrs={'class': 'form__campo'}),
+            'sobrenomeAdvogado': forms.TextInput(attrs={'class': 'form__campo'}),
             'numeroOAB': forms.TextInput(attrs={'class': 'form__campo'}),
             'login': forms.TextInput(attrs={'class': 'form__campo'}),
             'email': forms.TextInput(attrs={'class': 'form__campo'}),

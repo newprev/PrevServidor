@@ -23,4 +23,12 @@ def getEmailServer() -> dict:
 
     return banco
 
+def getLoggingPsd():
+    strPathSource: str = os.path.join(os.getcwd(), 'datasource', 'sentryPsd.txt')
+
+    with open(strPathSource, encoding='utf-8', mode='r') as urlSentry:
+        dsn: str = urlSentry.read()
+
+    return dsn
+
 
