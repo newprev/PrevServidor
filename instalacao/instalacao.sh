@@ -11,6 +11,7 @@ Ajuda para ações comuns na instalação do NewPrev.
 --lib-port <senha su>        Parâmetro para liberar a porta do banco de dados para acesso fora do localhost
 --fix-mysql 				 Ajusta erro Mysql(Mariadb) no Ubuntu 
 --cria-usuario-sql           Roda o script que cria o usuário NEWPREV no banco e dá as permissões necessárias
+--install-mysql              Instala o Mysql e abre na configuração do usuário SUPER (su)
 """
 
 
@@ -34,4 +35,10 @@ case $FIRST_PARAM in
 
 	"--cria-usuario-sql")
 		sudo -S mysql usuarioSQL.sql
+	;;
+
+	"--install-mysql")
+		sudo -S apt-get install mysql-server -y
+		sudo -S mysql_secure_installation
+	;;
 esac
