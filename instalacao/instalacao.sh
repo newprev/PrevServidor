@@ -34,7 +34,7 @@ case $FIRST_PARAM in
 	;;
 
 	"--cria-usuario-sql")
-		sudo -S mysql usuarioSQL.sql
+		sudo -S mysql -h 'localhost' < usuarioSQL.sql
 	;;
 
 	"--install-mysql")
