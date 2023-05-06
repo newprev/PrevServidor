@@ -3,9 +3,9 @@ PASSWORD=senha
 
 ##Iniciar o servidor
 run-dev:
-	@python manage.py runserver
+	@python3.8 manage.py runserver
 run-aws:
-	@python manage.py runserver 0:8080
+	@python3.8 manage.py runserver 0:8080
 access-aws:
 	@cd ../Documentos && ssh -i "NewPrevDev.pem" ubuntu@ec2-3-139-65-128.us-east-2.compute.amazonaws.com
 
@@ -29,13 +29,13 @@ deletaRecriaAtualiza: recriaBanco clearAllMigrations makeAllMigrations updateDB-
 ## @ Migracoes
 makeAllMigrations: ## Cria todos os arquivos de migração e completa a migração
 	@echo 'Makemigrations'
-	@python manage.py makemigrations advogado
-	@python manage.py makemigrations escritorios
-	@python manage.py makemigrations ferramentas
-	@python manage.py makemigrations informacoes
-	@python manage.py makemigrations sincron
-	@python manage.py makemigrations newMails
-	@python manage.py migrate
+	@python3.8 manage.py makemigrations advogado
+	@python3.8 manage.py makemigrations escritorios
+	@python3.8 manage.py makemigrations ferramentas
+	@python3.8 manage.py makemigrations informacoes
+	@python3.8 manage.py makemigrations sincron
+	@python3.8 manage.py makemigrations newMails
+	@python3.8 manage.py migrate
 
 
 ## @ Banco de dados
