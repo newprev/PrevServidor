@@ -56,6 +56,9 @@ case $FIRST_PARAM in
 		sudo -S apt-get install python3.8 -y
 		sudo -S apt-get install python3.8-venv -y
 		sudo -S apt-get install python3.8-dev -y
+		sudo -S apt-get install default-libmysqlclient-dev -y
+		sudo -S apt-get install build-essential -y
+		sudo -S apt-get install python3-pip -y
 	;;
 
 	"--installAll")
