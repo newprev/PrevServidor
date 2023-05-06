@@ -13,6 +13,7 @@ Ajuda para ações comuns na instalação do NewPrev.
 --fix-mysql 				 Ajusta erro Mysql(Mariadb) no Ubuntu 
 --cria-usuario-sql           Roda o script que cria o usuário NEWPREV no banco e dá as permissões necessárias
 --install-mysql              Instala o Mysql e abre na configuração do usuário SUPER (su)
+--install-python3.8          Instala o Python 3.8
 """
 
 
@@ -46,6 +47,13 @@ case $FIRST_PARAM in
 		sudo -S apt-get install mysql-server -y
 		sudo -S mysql_secure_installation
 	;;
+
+	"--install-python3.8")
+		sudo -S add-apt-repository ppa:deadsnakes/ppa
+		sudo -S apt-get update
+		sudo -S apt-get install python3.8 -y
+		sudo -S apt-get install python3.8-venv -y
+		sudo -S apt-get install python3.8-dev -y
 
 	"--installAll")
 		sudo -S apt-get install python3-dev default-libmysqlclient-dev build-essential -y
