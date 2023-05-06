@@ -31,6 +31,8 @@ case $FIRST_PARAM in
 	;;
 
 	"--lib-port")
+		sudo -S chmod ug+rw /etc/mysql/mysql.conf.d/mysqld.cnf
+		python liberaBancoMysql.py
 		echo -e "$SENHA" | sudo -S ufw allow 3306
 	;;
 
