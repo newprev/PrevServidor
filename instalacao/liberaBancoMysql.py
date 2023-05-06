@@ -22,13 +22,14 @@ def main():
                 ipAntigo = re.findall(reBindAdress, conteudoArquivo)[0]
                 arquivoTotal = deepcopy(conteudoArquivo)
                 arquivoTotal = arquivoTotal.replace(ipAntigo, 'bind-address\t\t= 0.0.0.0')
+                f.flush()
 
         if ipAntigo != '':
             with pathMysql.open('w', encoding='utf-8') as f:
                 f.write(arquivoTotal)
+                f.flush()
 
         print(f"Arquivo {pathMysql} alterado com sucesso!")
-        f.flush()
         exit(1)
 
     else:

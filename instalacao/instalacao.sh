@@ -10,7 +10,7 @@ Ajuda para ações comuns na instalação do NewPrev.
 
 --installAll                 Parâmetro que instala MySQL server, cria o usuário NEWPREV e libera a porta do serviço
 --lib-port <senha su>        Parâmetro para liberar a porta do banco de dados para acesso fora do localhost
---fix-mysql 				 Ajusta erro Mysql(Mariadb) no Ubuntu 
+--fix-mysql                  Ajusta erro Mysql(Mariadb) no Ubuntu 
 --cria-usuario-sql           Roda o script que cria o usuário NEWPREV no banco e dá as permissões necessárias
 --install-mysql              Instala o Mysql e abre na configuração do usuário SUPER (su)
 --install-python3.8          Instala o Python 3.8
