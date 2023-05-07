@@ -11,7 +11,7 @@ BEGIN
 				FROM
 					mysql.user
 				WHERE
-					usuario = 'NEWPREV'
+					user = 'NEWPREV'
 			  ) 
 	THEN
 	
