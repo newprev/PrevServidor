@@ -38,7 +38,7 @@ END IF;*/
 DELIMITER //
 USE GIDEON
 
-CREATE FUNCTION avaliaUsuario ()
+CREATE PROCEDURE avaliaUsuario ()
 	
 	BEGIN
 		DECLARE usuarioExiste  BOOL;
@@ -73,7 +73,6 @@ CREATE FUNCTION avaliaUsuario ()
 		
 		END IF;
 		
-		RETURN;
 	END; //
 
 DELIMITER ;
