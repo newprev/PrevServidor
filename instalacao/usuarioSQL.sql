@@ -2,7 +2,6 @@
 
 USE GIDEON;
 CREATE FUNCTION avaliaUsuario ()
-RETURNS varcahr(20)
 
 BEGIN
 
