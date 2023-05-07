@@ -36,9 +36,9 @@ ELSE
 END IF;*/
 
 DELIMITER //
+USE GIDEON;
 
 CREATE FUNCTION avaliaUsuario ()
-	USE GIDEON;
 	
 	BEGIN
 
