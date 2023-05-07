@@ -49,6 +49,7 @@ CREATE FUNCTION avaliaUsuario ()
 			DROP USER 'NEWPREV'@'%';
 			DROP USER 'NEWPREV'@'0';
 			DROP USER 'NEWPREV'@'0.0.0.0';
+		END IF;
 		
 		ELSE
 			/* Criação do usuário */
