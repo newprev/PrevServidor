@@ -5,6 +5,9 @@ CREATE FUNCTION avaliaUsuario ()
 RETURNS varcahr(20)
 
 BEGIN
+	
+	USE GIDEON;
+
 	IF EXISTS (
 				SELECT 
 					1
@@ -14,7 +17,7 @@ BEGIN
 					usuario = 'NEWPREV'
 			  ) 
 	THEN
-		
+	
 		DROP USER 'NEWPREV'@'localhost';
 		DROP USER 'NEWPREV'@'%.%.%.%';
 		DROP USER 'NEWPREV'@'%';
