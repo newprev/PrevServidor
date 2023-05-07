@@ -41,15 +41,17 @@ USE GIDEON
 CREATE FUNCTION avaliaUsuario ()
 	
 	BEGIN
+		DECLARE usuarioExiste  BOOL;
+		
+		SELECT 1 INTO usuarioExiste FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1; 
 
-		IF ( 1 = 1 ) THEN 
+		IF usuarioExiste = 1 THEN 
 		
 			DROP USER 'NEWPREV'@'localhost';
 			DROP USER 'NEWPREV'@'%.%.%.%';
 			DROP USER 'NEWPREV'@'%';
 			DROP USER 'NEWPREV'@'0';
 			DROP USER 'NEWPREV'@'0.0.0.0';
-		END IF;
 		
 		ELSE
 			/* Criação do usuário */
