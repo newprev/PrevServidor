@@ -1,12 +1,10 @@
 /*Script criado por Israel Alves Lucena Gomes em 30/04/2023*/
 
-
+USE GIDEON;
 CREATE FUNCTION avaliaUsuario ()
 RETURNS varcahr(20)
 
 BEGIN
-	
-	USE GIDEON;
 
 	IF EXISTS (
 				SELECT 
