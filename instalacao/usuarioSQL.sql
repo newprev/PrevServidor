@@ -42,7 +42,7 @@ CREATE FUNCTION avaliaUsuario ()
 	
 	BEGIN
 
-		IF (SELECT 1 FROM mysql.user WHERE user = 'NEWPREV'LIMIT 1) THEN 
+		IF (SELECT 1 FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1) THEN 
 				
 			DROP USER 'NEWPREV'@'localhost';
 			DROP USER 'NEWPREV'@'%.%.%.%';
