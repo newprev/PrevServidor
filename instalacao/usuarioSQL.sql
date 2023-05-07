@@ -12,6 +12,7 @@ BEGIN
 					mysql.user
 				WHERE
 					user = 'NEWPREV'
+				LIMIT 1;
 			  ) 
 	THEN
 	
