@@ -43,7 +43,7 @@ CREATE FUNCTION avaliaUsuario ()
 	BEGIN
 		DECLARE usuarioExiste  BOOL;
 		
-		SELECT 1 INTO usuarioExiste FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1; 
+		SELECT TRUE INTO usuarioExiste FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1; 
 
 		IF usuarioExiste = 1 THEN 
 		
