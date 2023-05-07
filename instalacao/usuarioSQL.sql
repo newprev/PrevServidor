@@ -4,16 +4,7 @@ USE GIDEON;
 CREATE FUNCTION avaliaUsuario ()
 
 
-IF (
-		SELECT 
-			1
-		FROM
-			mysql.user
-		WHERE
-			user = 'NEWPREV'
-		LIMIT 1;
-		
-   ) THEN 
+IF (SELECT 1 FROM mysql.user WHERE user = 'NEWPREV'LIMIT 1) THEN 
 	BEGIN 
 		
 		DROP USER 'NEWPREV'@'localhost';
