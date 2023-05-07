@@ -3,29 +3,28 @@
 USE GIDEON;
 CREATE FUNCTION avaliaUsuario ()
 
-BEGIN
 
-	SELECT IF (
-			EXISTS (
-					SELECT 
-						1
-					FROM
-						mysql.user
-					WHERE
-						user = 'NEWPREV'
-					LIMIT 1;
-				  ) 
-			  )
-	THEN
-	
+IF (
+		SELECT 
+			1
+		FROM
+			mysql.user
+		WHERE
+			user = 'NEWPREV'
+		LIMIT 1;
+		
+   ) THEN 
+	BEGIN 
+		
 		DROP USER 'NEWPREV'@'localhost';
 		DROP USER 'NEWPREV'@'%.%.%.%';
 		DROP USER 'NEWPREV'@'%';
 		DROP USER 'NEWPREV'@'0';
 		DROP USER 'NEWPREV'@'0.0.0.0';
-	
-	ELSE
-	
+	END;
+
+ELSE
+	BEGIN
 		/* Criação do usuário */
 		CREATE USER 'NEWPREV'@'localhost' IDENTIFIED WITH mysql_native_password BY '__NewPrev2021__';
 		CREATE USER 'NEWPREV'@'%.%.%.%' IDENTIFIED WITH mysql_native_password BY '__NewPrev2021__';
@@ -43,8 +42,6 @@ BEGIN
 		/* Reiniciando */
 		FLUSH PRIVILEGES;
 	
-	END IF;
-	
-	RETURN;
+	END;
 
-END;
+END IF;
