@@ -14,11 +14,11 @@ CREATE PROCEDURE concedePermissoes ()
 
 		/*Caso os usuários já existam*/
 		IF usuarioExiste = 1 THEN 
-			DROP USER 'NEWPREV'@'localhost';
-			DROP USER 'NEWPREV'@'%.%.%.%';
-			DROP USER 'NEWPREV'@'%';
-			DROP USER 'NEWPREV'@'0';
-			DROP USER 'NEWPREV'@'0.0.0.0';
+			DROP USER IF EXISTS 'NEWPREV'@'localhost';
+			DROP USER IF EXISTS 'NEWPREV'@'%.%.%.%';
+			DROP USER IF EXISTS 'NEWPREV'@'%';
+			DROP USER IF EXISTS 'NEWPREV'@'0';
+			DROP USER IF EXISTS 'NEWPREV'@'0.0.0.0';
 		END IF;
 		
 		/* Criação do usuário */
