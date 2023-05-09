@@ -1,24 +1,19 @@
 /*Script criado por Israel Alves Lucena Gomes em 30/04/2023*/
 
-/*DELIMITER //*/
-/*USE GIDEON;
-DROP PROCEDURE IF EXISTS concedePermissoes;*/
+DELIMITER //
+USE GIDEON;
+
+DROP PROCEDURE IF EXISTS concedePermissoes;
 
 CREATE PROCEDURE concedePermissoes ()
 	
 	BEGIN
-		DECLARE usuarioExiste BIT;
-		
-		SELECT 1 INTO usuarioExiste FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1; 
-
 		/*Caso os usuários já existam*/
-		IF usuarioExiste = 1 THEN 
-			DROP USER IF EXISTS 'NEWPREV'@'localhost';
-			DROP USER IF EXISTS 'NEWPREV'@'%.%.%.%';
-			DROP USER IF EXISTS 'NEWPREV'@'%';
-			DROP USER IF EXISTS 'NEWPREV'@'0';
-			DROP USER IF EXISTS 'NEWPREV'@'0.0.0.0';
-		END IF;
+		DROP USER IF EXISTS 'NEWPREV'@'localhost';
+		DROP USER IF EXISTS 'NEWPREV'@'%.%.%.%';
+		DROP USER IF EXISTS 'NEWPREV'@'%';
+		DROP USER IF EXISTS 'NEWPREV'@'0';
+		DROP USER IF EXISTS 'NEWPREV'@'0.0.0.0';
 		
 		/* Criação do usuário */
 		CREATE USER 'NEWPREV'@'localhost' IDENTIFIED WITH mysql_native_password BY '__NewPrev2021__';
@@ -42,4 +37,4 @@ END;
 CALL concedePermissoes();
 	
 
-/*DELIMITER ;*/
+DELIMITER ;
