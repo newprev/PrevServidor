@@ -3,12 +3,13 @@
 DELIMITER //
 USE GIDEON
 
+DROP PROCEDURE IF EXISTS concedePermissoes;
+
 CREATE PROCEDURE concedePermissoes ()
 	
 	BEGIN
 		DECLARE usuarioExiste  BOOL;
 		
-		SELECT TRUE FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1;
 		SELECT TRUE INTO usuarioExiste FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1; 
 
 		/*Caso os usuários já existam*/
