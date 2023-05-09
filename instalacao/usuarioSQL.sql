@@ -4,7 +4,7 @@ USE GIDEON;
 
 DROP PROCEDURE IF EXISTS concedePermissoes;
 
-DELIMITER //
+/*DELIMITER //*/
 CREATE PROCEDURE concedePermissoes ()
 	
 	BEGIN
@@ -43,6 +43,4 @@ END; //
 CALL concedePermissoes();
 	
 
-DELIMITER ;
-
-
+/*DELIMITER ;*/
