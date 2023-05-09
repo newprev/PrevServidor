@@ -1,13 +1,13 @@
 /*Script criado por Israel Alves Lucena Gomes em 30/04/2023*/
 
-DELIMITER //
-USE GIDEON
-DROP PROCEDURE IF EXISTS concedePermissoes
+/*DELIMITER //*/
+USE GIDEON;
+DROP PROCEDURE IF EXISTS concedePermissoes;
 
 CREATE PROCEDURE concedePermissoes ()
 	
 	BEGIN
-		DECLARE usuarioExiste  BOOL;
+		DECLARE usuarioExiste BOOL;
 		
 		SELECT TRUE INTO usuarioExiste FROM mysql.user WHERE user = 'NEWPREV' LIMIT 1; 
 
@@ -42,4 +42,4 @@ END; //
 CALL concedePermissoes();
 	
 
-DELIMITER ;
+/*DELIMITER ;*/
