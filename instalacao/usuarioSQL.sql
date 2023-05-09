@@ -1,10 +1,10 @@
 /*Script criado por Israel Alves Lucena Gomes em 30/04/2023*/
 
-DELIMITER //
 USE GIDEON;
 
 DROP PROCEDURE IF EXISTS concedePermissoes;
 
+DELIMITER //
 CREATE PROCEDURE concedePermissoes ()
 	
 	BEGIN
